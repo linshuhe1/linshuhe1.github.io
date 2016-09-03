@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-09-03T07:09:29.172Z</updated>
+  <updated>2016-09-03T07:33:58.093Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,56 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Python Web 1 —— python和MongoDB安装</title>
+    <link href="http://yoursite.com/2016/09/03/Python-Web-1-%E2%80%94%E2%80%94-python%E5%92%8CMongoDB%E5%AE%89%E8%A3%85/"/>
+    <id>http://yoursite.com/2016/09/03/Python-Web-1-——-python和MongoDB安装/</id>
+    <published>2016-09-03T07:28:22.000Z</published>
+    <updated>2016-09-03T07:33:58.093Z</updated>
+    
+    <content type="html"><![CDATA[<p>–</p>
+<blockquote>
+<p>做了很长时间的客户端，主要从事过Android软件开发和Unity 3D的游戏开发，之前还看过一段时间的Java Web，但是由于没有实际的应用，所以就搁置了很久。最近突然有对服务器后台编程产生了浓厚的兴趣，想试着用Python + Mongo DB进行游戏后台的开发。</p>
+</blockquote>
+<h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><p>Python是一门具有强类型(即变量类型是强制要求的)、动态性、隐式类型(不需要做变量声明)、大小写敏感(var和VAR代表了不同的变量)以及面向对象等特点的编程语言。<strong>Python是一种解释型的语言，相比于C语言，Python的运行速度慢，且不能进行加密。</strong></p>
+<h4 id="一、Python的安装："><a href="#一、Python的安装：" class="headerlink" title="一、Python的安装："></a>一、Python的安装：</h4><p>由于我使用的开发环境是Mac OS，所以自带了Python，但由于10.10自带的版本是2.7的，所以我们需要重新安装3.x的版本，安装方法：</p>
+<p> 1.没有安装Homebrew的先安装此Mac插件，安装方法就是打开终端，输入以下指令：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ruby -e <span class="string">"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"</span></div></pre></td></tr></table></figure></p>
+<p>2.使用以下指令安装Python3：</p>
+<ul>
+<li>先查看当前计算机的python版本：<strong>python</strong></li>
+</ul>
+<p><img src="http://img.blog.csdn.net/20160611163033678" alt="这里写图片描述"></p>
+<ul>
+<li>安装新版本：<strong>brew install python3</strong></li>
+</ul>
+<p><img src="http://img.blog.csdn.net/20160611163202196" alt="这里写图片描述"><br>这里我的安装出错了，出错不可怕，解决就好了，不难看出这个错误出现的原因是对/usr/local/share/man/man3目录的权限不够，那么解决方法：<strong>sudo chown -R linshuhe /usr/local/share/man/man3</strong><br><img src="http://img.blog.csdn.net/20160611172025531" alt="这里写图片描述"><br>但是，这里又出现了多版本的python共存和版本切换的问题了：<br><img src="http://img.blog.csdn.net/20160611172635305" alt="这里写图片描述"><br>假如不想修改或者删除系统自带的python，我们可以直接通过以下方式指定使用哪个版本执行代码：<br><img src="http://img.blog.csdn.net/20160611173455348" alt="这里写图片描述"></p>
+<p>除了上述方法之外，还可以直接到官网下载最新版本，直接安装即可。</p>
+<hr>
+<h3 id="Mongo-DB"><a href="#Mongo-DB" class="headerlink" title="Mongo DB"></a>Mongo DB</h3><h4 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h4><p>使用Homebrew进行安装是比较简单的安装方式：<br>1.更新Homebrew:<strong>brew update</strong><br><img src="http://img.blog.csdn.net/20160610091546638" alt="这里写图片描述"><br>2.开始安装mongodb:<strong>brew install mongodb</strong><br><img src="http://img.blog.csdn.net/20160610091527985" alt="这里写图片描述"><br>3.根据安装完成最后的提示，启动mongodb:<br><strong>mongod —config /usr/local/etc/mongod.conf</strong></p>
+<p>4.下载一个可视化管理工具Robomongo：下载的地址为：<br><a href="https://robomongo.org/download" target="_blank" rel="external">https://robomongo.org/download</a><br><img src="http://img.blog.csdn.net/20160610091457232" alt="这里写图片描述"></p>
+<hr>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;–&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;做了很长时间的客户端，主要从事过Android软件开发和Unity 3D的游戏开发，之前还看过一段时间的Java Web，但是由于没有实际的应用，所以就搁置了很久。最近突然有对服务器后台编程产生了浓厚的兴趣，想试着用Python 
+    
+    </summary>
+    
+      <category term="python" scheme="http://yoursite.com/categories/python/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Github Pages + Hexo创建个人博客</title>
     <link href="http://yoursite.com/2016/09/02/github-pages-Hexo/"/>
     <id>http://yoursite.com/2016/09/02/github-pages-Hexo/</id>
     <published>2016-09-02T09:17:52.000Z</published>
-    <updated>2016-09-03T07:09:29.172Z</updated>
+    <updated>2016-09-03T07:51:20.883Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>之前使用过jekyll+github做过一版自己的博客网站，有兴趣的可以看一下我之前的文章：<a href="http://blog.csdn.net/linshuhe1/article/details/51143026" title="Github+Jekyll —— 创建个人免费博客（一）从零开始" target="_blank" rel="external">http://blog.csdn.net/linshuhe1/article/details/51143026</a>，其实也很简单，但是存在一些问题：目录、Rss、sitemap无法自动生成。</p>
@@ -184,7 +229,31 @@ menu:
 <h3 id="3-语言设置："><a href="#3-语言设置：" class="headerlink" title="3.语言设置："></a>3.语言设置：</h3><p>在站点配置文件中假如如下内容，明确指定使用的语言，例如中文：</p>
 <pre><code>language: zh-Hans
 </code></pre><p>设置完毕后，发现菜单栏也发生了变化：<br><img src="http://i.imgur.com/Ekxi8Tv.png" alt=""></p>
-]]></content>
+<h3 id="4-侧栏设置："><a href="#4-侧栏设置：" class="headerlink" title="4.侧栏设置："></a>4.侧栏设置：</h3><p>在主题配置文件的<code>sidebar</code>字段，此处我直接设置为侧栏一直显示，而且显示在右边：</p>
+<pre><code>sidebar:
+  # Sidebar Position, available value: left | right
+  position: left
+  #position: right
+
+  # Sidebar Display, available value:
+  #  - post    expand on posts automatically. Default.
+  #  - always  expand for all pages automatically
+  #  - hide    expand only when click on the sidebar toggle icon.
+  #  - remove  Totally remove sidebar including sidebar toggler.
+  #display: post
+  display: always
+  #display: hide
+  #display: remove
+</code></pre><h3 id="5-设置头像和作者名称："><a href="#5-设置头像和作者名称：" class="headerlink" title="5.设置头像和作者名称："></a>5.设置头像和作者名称：</h3><p>在站点配置文件中，新加一个字段<code>avatar</code>，值就是头像的连接地址，这里我使用站内地址，将avatar.png放到本地目录hexo\source\images中；作者名称直接设置站点配置文件中<code>author</code>字段的值：</p>
+<pre><code># Site
+title: Linsh-何乐不为~
+subtitle:
+description:
+author: Linshuhe
+avatar: /images/avatar.png
+language: zh-Hans
+timezone:
+</code></pre>]]></content>
     
     <summary type="html">
     
@@ -192,6 +261,8 @@ menu:
 &lt;p&gt;之前使用过jekyll+github做过一版自己的博客网站，有兴趣的可以看一下我之前的文章：&lt;a href=&quot;http://blog.csdn.net/linshuhe1/article/details/51143026&quot; title=&quot;Githu
     
     </summary>
+    
+      <category term="Hexo" scheme="http://yoursite.com/categories/Hexo/"/>
     
     
       <category term="Hexo" scheme="http://yoursite.com/tags/Hexo/"/>

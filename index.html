@@ -99,7 +99,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     scheme: 'Mist',
-    sidebar: {"position":"left","display":"post"},
+    sidebar: {"position":"left","display":"always"},
     fancybox: true,
     motion: true,
     duoshuo: {
@@ -179,6 +179,16 @@
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-about">
           <a href="/about" rel="section">
             
@@ -247,6 +257,139 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/03/Python-Web-1-——-python和MongoDB安装/" itemprop="url">
+                  Python Web 1 —— python和MongoDB安装
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-03T15:28:22+08:00" content="2016-09-03">
+              2016-09-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>–</p>
+<blockquote>
+<p>做了很长时间的客户端，主要从事过Android软件开发和Unity 3D的游戏开发，之前还看过一段时间的Java Web，但是由于没有实际的应用，所以就搁置了很久。最近突然有对服务器后台编程产生了浓厚的兴趣，想试着用Python + Mongo DB进行游戏后台的开发。</p>
+</blockquote>
+<h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><p>Python是一门具有强类型(即变量类型是强制要求的)、动态性、隐式类型(不需要做变量声明)、大小写敏感(var和VAR代表了不同的变量)以及面向对象等特点的编程语言。<strong>Python是一种解释型的语言，相比于C语言，Python的运行速度慢，且不能进行加密。</strong></p>
+<h4 id="一、Python的安装："><a href="#一、Python的安装：" class="headerlink" title="一、Python的安装："></a>一、Python的安装：</h4><p>由于我使用的开发环境是Mac OS，所以自带了Python，但由于10.10自带的版本是2.7的，所以我们需要重新安装3.x的版本，安装方法：</p>
+<p> 1.没有安装Homebrew的先安装此Mac插件，安装方法就是打开终端，输入以下指令：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ruby -e <span class="string">"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"</span></div></pre></td></tr></table></figure></p>
+<p>2.使用以下指令安装Python3：</p>
+<ul>
+<li>先查看当前计算机的python版本：<strong>python</strong></li>
+</ul>
+<p><img src="http://img.blog.csdn.net/20160611163033678" alt="这里写图片描述"></p>
+<ul>
+<li>安装新版本：<strong>brew install python3</strong></li>
+</ul>
+<p><img src="http://img.blog.csdn.net/20160611163202196" alt="这里写图片描述"><br>这里我的安装出错了，出错不可怕，解决就好了，不难看出这个错误出现的原因是对/usr/local/share/man/man3目录的权限不够，那么解决方法：<strong>sudo chown -R linshuhe /usr/local/share/man/man3</strong><br><img src="http://img.blog.csdn.net/20160611172025531" alt="这里写图片描述"><br>但是，这里又出现了多版本的python共存和版本切换的问题了：<br><img src="http://img.blog.csdn.net/20160611172635305" alt="这里写图片描述"><br>假如不想修改或者删除系统自带的python，我们可以直接通过以下方式指定使用哪个版本执行代码：<br><img src="http://img.blog.csdn.net/20160611173455348" alt="这里写图片描述"></p>
+<p>除了上述方法之外，还可以直接到官网下载最新版本，直接安装即可。</p>
+<hr>
+<h3 id="Mongo-DB"><a href="#Mongo-DB" class="headerlink" title="Mongo DB"></a>Mongo DB</h3><h4 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h4><p>使用Homebrew进行安装是比较简单的安装方式：<br>1.更新Homebrew:<strong>brew update</strong><br><img src="http://img.blog.csdn.net/20160610091546638" alt="这里写图片描述"><br>2.开始安装mongodb:<strong>brew install mongodb</strong><br><img src="http://img.blog.csdn.net/20160610091527985" alt="这里写图片描述"><br>3.根据安装完成最后的提示，启动mongodb:<br><strong>mongod —config /usr/local/etc/mongod.conf</strong></p>
+<p>4.下载一个可视化管理工具Robomongo：下载的地址为：<br><a href="https://robomongo.org/download" target="_blank" rel="external">https://robomongo.org/download</a><br><img src="http://img.blog.csdn.net/20160610091457232" alt="这里写图片描述"></p>
+<hr>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/02/github-pages-Hexo/" itemprop="url">
                   Github Pages + Hexo创建个人博客
                 </a>
@@ -266,6 +409,25 @@
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">Hexo</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
@@ -453,7 +615,31 @@ menu:
 <h3 id="3-语言设置："><a href="#3-语言设置：" class="headerlink" title="3.语言设置："></a>3.语言设置：</h3><p>在站点配置文件中假如如下内容，明确指定使用的语言，例如中文：</p>
 <pre><code>language: zh-Hans
 </code></pre><p>设置完毕后，发现菜单栏也发生了变化：<br><img src="http://i.imgur.com/Ekxi8Tv.png" alt=""></p>
+<h3 id="4-侧栏设置："><a href="#4-侧栏设置：" class="headerlink" title="4.侧栏设置："></a>4.侧栏设置：</h3><p>在主题配置文件的<code>sidebar</code>字段，此处我直接设置为侧栏一直显示，而且显示在右边：</p>
+<pre><code>sidebar:
+  # Sidebar Position, available value: left | right
+  position: left
+  #position: right
 
+  # Sidebar Display, available value:
+  #  - post    expand on posts automatically. Default.
+  #  - always  expand for all pages automatically
+  #  - hide    expand only when click on the sidebar toggle icon.
+  #  - remove  Totally remove sidebar including sidebar toggler.
+  #display: post
+  display: always
+  #display: hide
+  #display: remove
+</code></pre><h3 id="5-设置头像和作者名称："><a href="#5-设置头像和作者名称：" class="headerlink" title="5.设置头像和作者名称："></a>5.设置头像和作者名称：</h3><p>在站点配置文件中，新加一个字段<code>avatar</code>，值就是头像的连接地址，这里我使用站内地址，将avatar.png放到本地目录hexo\source\images中；作者名称直接设置站点配置文件中<code>author</code>字段的值：</p>
+<pre><code># Site
+title: Linsh-何乐不为~
+subtitle:
+description:
+author: Linshuhe
+avatar: /images/avatar.png
+language: zh-Hans
+timezone:
+</code></pre>
           
         
       
@@ -514,7 +700,7 @@ menu:
       <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="/images/avatar.gif"
+               src="/images/avatar.png"
                alt="Linshuhe" />
           <p class="site-author-name" itemprop="name">Linshuhe</p>
           <p class="site-description motion-element" itemprop="description"></p>
@@ -522,17 +708,24 @@ menu:
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-count">2</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
