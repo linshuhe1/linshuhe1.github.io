@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Hexo</title>
+  <title>Linsh-何乐不为~</title>
   
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-09-03T05:39:38.917Z</updated>
+  <updated>2016-09-03T07:09:29.172Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
-    <name>John Doe</name>
+    <name>Linshuhe</name>
     
   </author>
   
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2016/09/02/github-pages-Hexo/"/>
     <id>http://yoursite.com/2016/09/02/github-pages-Hexo/</id>
     <published>2016-09-02T09:17:52.000Z</published>
-    <updated>2016-09-03T05:39:38.917Z</updated>
+    <updated>2016-09-03T07:09:29.172Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>之前使用过jekyll+github做过一版自己的博客网站，有兴趣的可以看一下我之前的文章：<a href="http://blog.csdn.net/linshuhe1/article/details/51143026" title="Github+Jekyll —— 创建个人免费博客（一）从零开始" target="_blank" rel="external">http://blog.csdn.net/linshuhe1/article/details/51143026</a>，其实也很简单，但是存在一些问题：目录、Rss、sitemap无法自动生成。</p>
@@ -163,6 +163,27 @@ scheme: Mist
 <pre><code># Put your favicon.ico into `hexo-site/source/` directory.
 favicon: /favicon.ico
 </code></pre><p>根据说明，我们将图标取名为<code>favicon.ico</code>然后放到当前工程的hexo\source目录下，重启博客即可生效。</p>
+<h3 id="2-菜单栏控制："><a href="#2-菜单栏控制：" class="headerlink" title="2.菜单栏控制："></a>2.菜单栏控制：</h3><p>我们看到页面顶部的菜单栏，其实是由主题配置文件中的<code>menu</code>字段控制的，例如原本的样子是这样：<br><img src="http://i.imgur.com/iyg45Yj.png" alt=""></p>
+<p>我们修改一下主题配置文件，如下把about页面前面的注释去掉，即让此页签处于显示状态：</p>
+<pre><code># ------------------------------------------------------
+# Menu Settings
+# ------------------------------------------------------
+
+# When running the site in a subdirectory (e.g. domain.tld/blog), remove the leading slash (/archives -&gt; archives)
+menu:
+  home: /
+  #categories: /categories
+  about: /about
+  archives: /archives
+  tags: /tags
+  #commonweal: /404.html
+</code></pre><p>重启博客可以看到效果如下：<br><img src="http://i.imgur.com/O6Z9NvT.png" alt=""></p>
+<p>然而，点击打开About却出现了“Cannot GET /about/”的页面错误，这是因为我们还没有about这个页面，需要使用<code>hexo new page &quot;页面名称&quot;</code>进行创建：</p>
+<pre><code>hexo new page about
+</code></pre><p>执行结果就是在hexo\source目录下面多出了一个about文件夹，里面有index.md，这就是点击About会展示的内容页面。同理，也可以创建tags页面。</p>
+<h3 id="3-语言设置："><a href="#3-语言设置：" class="headerlink" title="3.语言设置："></a>3.语言设置：</h3><p>在站点配置文件中假如如下内容，明确指定使用的语言，例如中文：</p>
+<pre><code>language: zh-Hans
+</code></pre><p>设置完毕后，发现菜单栏也发生了变化：<br><img src="http://i.imgur.com/Ekxi8Tv.png" alt=""></p>
 ]]></content>
     
     <summary type="html">

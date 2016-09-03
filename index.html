@@ -74,7 +74,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="Linsh-何乐不为~" type="application/atom+xml" />
 
 
 
@@ -87,11 +87,11 @@
 
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="Linsh-何乐不为~">
 <meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="Linsh-何乐不为~">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="Linsh-何乐不为~">
 
 
 
@@ -104,7 +104,7 @@
     motion: true,
     duoshuo: {
       userId: 0,
-      author: 'Author'
+      author: '博主'
     }
   };
 </script>
@@ -114,10 +114,10 @@
 
   <link rel="canonical" href="http://yoursite.com/"/>
 
-  <title> Hexo </title>
+  <title> Linsh-何乐不为~ </title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -147,7 +147,7 @@
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Hexo</span>
+      <span class="site-title">Linsh-何乐不为~</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -174,7 +174,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            首页
           </a>
         </li>
       
@@ -184,7 +184,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            Über
+            关于
           </a>
         </li>
       
@@ -194,7 +194,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            归档
           </a>
         </li>
       
@@ -204,7 +204,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
-            Tags
+            标签
           </a>
         </li>
       
@@ -260,7 +260,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <span class="post-meta-item-text">发表于</span>
             <time itemprop="dateCreated" datetime="2016-09-02T17:17:52+08:00" content="2016-09-02">
               2016-09-02
             </time>
@@ -432,6 +432,27 @@ scheme: Mist
 <pre><code># Put your favicon.ico into `hexo-site/source/` directory.
 favicon: /favicon.ico
 </code></pre><p>根据说明，我们将图标取名为<code>favicon.ico</code>然后放到当前工程的hexo\source目录下，重启博客即可生效。</p>
+<h3 id="2-菜单栏控制："><a href="#2-菜单栏控制：" class="headerlink" title="2.菜单栏控制："></a>2.菜单栏控制：</h3><p>我们看到页面顶部的菜单栏，其实是由主题配置文件中的<code>menu</code>字段控制的，例如原本的样子是这样：<br><img src="http://i.imgur.com/iyg45Yj.png" alt=""></p>
+<p>我们修改一下主题配置文件，如下把about页面前面的注释去掉，即让此页签处于显示状态：</p>
+<pre><code># ------------------------------------------------------
+# Menu Settings
+# ------------------------------------------------------
+
+# When running the site in a subdirectory (e.g. domain.tld/blog), remove the leading slash (/archives -&gt; archives)
+menu:
+  home: /
+  #categories: /categories
+  about: /about
+  archives: /archives
+  tags: /tags
+  #commonweal: /404.html
+</code></pre><p>重启博客可以看到效果如下：<br><img src="http://i.imgur.com/O6Z9NvT.png" alt=""></p>
+<p>然而，点击打开About却出现了“Cannot GET /about/”的页面错误，这是因为我们还没有about这个页面，需要使用<code>hexo new page &quot;页面名称&quot;</code>进行创建：</p>
+<pre><code>hexo new page about
+</code></pre><p>执行结果就是在hexo\source目录下面多出了一个about文件夹，里面有index.md，这就是点击About会展示的内容页面。同理，也可以创建tags页面。</p>
+<h3 id="3-语言设置："><a href="#3-语言设置：" class="headerlink" title="3.语言设置："></a>3.语言设置：</h3><p>在站点配置文件中假如如下内容，明确指定使用的语言，例如中文：</p>
+<pre><code>language: zh-Hans
+</code></pre><p>设置完毕后，发现菜单栏也发生了变化：<br><img src="http://i.imgur.com/Ekxi8Tv.png" alt=""></p>
 
           
         
@@ -494,15 +515,15 @@ favicon: /favicon.ico
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
-               alt="John Doe" />
-          <p class="site-author-name" itemprop="name">John Doe</p>
+               alt="Linshuhe" />
+          <p class="site-author-name" itemprop="name">Linshuhe</p>
           <p class="site-description motion-element" itemprop="description"></p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
               <span class="site-state-item-count">1</span>
-              <span class="site-state-item-name">Artikel</span>
+              <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
@@ -512,7 +533,7 @@ favicon: /favicon.ico
             <div class="site-state-item site-state-tags">
               <a href="/tags">
                 <span class="site-state-item-count">1</span>
-                <span class="site-state-item-name">Tags</span>
+                <span class="site-state-item-name">标签</span>
               </a>
             </div>
           
@@ -559,15 +580,15 @@ favicon: /favicon.ico
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">Linshuhe</span>
 </div>
 
 <div class="powered-by">
-  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
 </div>
 
 <div class="theme-info">
-  Theme -
+  主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Mist
   </a>

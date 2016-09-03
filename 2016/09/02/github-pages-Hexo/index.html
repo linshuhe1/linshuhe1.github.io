@@ -73,10 +73,8 @@
 
 
 
-  
 
-
-  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="Linsh-何乐不为~" type="application/atom+xml" />
 
 
 
@@ -96,7 +94,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Github Pages + Hexo创建个人博客">
 <meta property="og:url" content="http://yoursite.com/2016/09/02/github-pages-Hexo/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="Linsh-何乐不为~">
 <meta property="og:description" content="之前使用过jekyll+github做过一版自己的博客网站，有兴趣的可以看一下我之前的文章：http://blog.csdn.net/linshuhe1/article/details/51143026，其实也很简单，但是存在一些问题：目录、Rss、sitemap无法自动生成。
 
 
@@ -118,7 +116,10 @@
 <meta property="og:image" content="http://i.imgur.com/ZKzamkL.png">
 <meta property="og:image" content="http://i.imgur.com/6YFzhyz.png">
 <meta property="og:image" content="http://i.imgur.com/ZNLKFAE.png">
-<meta property="og:updated_time" content="2016-09-03T05:39:38.917Z">
+<meta property="og:image" content="http://i.imgur.com/iyg45Yj.png">
+<meta property="og:image" content="http://i.imgur.com/O6Z9NvT.png">
+<meta property="og:image" content="http://i.imgur.com/Ekxi8Tv.png">
+<meta property="og:updated_time" content="2016-09-03T07:09:29.172Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Github Pages + Hexo创建个人博客">
 <meta name="twitter:description" content="之前使用过jekyll+github做过一版自己的博客网站，有兴趣的可以看一下我之前的文章：http://blog.csdn.net/linshuhe1/article/details/51143026，其实也很简单，但是存在一些问题：目录、Rss、sitemap无法自动生成。
@@ -139,7 +140,7 @@
     motion: true,
     duoshuo: {
       userId: 0,
-      author: 'Author'
+      author: '博主'
     }
   };
 </script>
@@ -149,10 +150,10 @@
 
   <link rel="canonical" href="http://yoursite.com/2016/09/02/github-pages-Hexo/"/>
 
-  <title> Github Pages + Hexo创建个人博客 | Hexo </title>
+  <title> Github Pages + Hexo创建个人博客 | Linsh-何乐不为~ </title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -180,7 +181,7 @@
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Hexo</span>
+      <span class="site-title">Linsh-何乐不为~</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -207,7 +208,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            首页
           </a>
         </li>
       
@@ -217,7 +218,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            Über
+            关于
           </a>
         </li>
       
@@ -227,7 +228,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            归档
           </a>
         </li>
       
@@ -237,7 +238,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
-            Tags
+            标签
           </a>
         </li>
       
@@ -290,7 +291,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <span class="post-meta-item-text">发表于</span>
             <time itemprop="dateCreated" datetime="2016-09-02T17:17:52+08:00" content="2016-09-02">
               2016-09-02
             </time>
@@ -460,6 +461,27 @@ scheme: Mist
 <pre><code># Put your favicon.ico into `hexo-site/source/` directory.
 favicon: /favicon.ico
 </code></pre><p>根据说明，我们将图标取名为<code>favicon.ico</code>然后放到当前工程的hexo\source目录下，重启博客即可生效。</p>
+<h3 id="2-菜单栏控制："><a href="#2-菜单栏控制：" class="headerlink" title="2.菜单栏控制："></a>2.菜单栏控制：</h3><p>我们看到页面顶部的菜单栏，其实是由主题配置文件中的<code>menu</code>字段控制的，例如原本的样子是这样：<br><img src="http://i.imgur.com/iyg45Yj.png" alt=""></p>
+<p>我们修改一下主题配置文件，如下把about页面前面的注释去掉，即让此页签处于显示状态：</p>
+<pre><code># ------------------------------------------------------
+# Menu Settings
+# ------------------------------------------------------
+
+# When running the site in a subdirectory (e.g. domain.tld/blog), remove the leading slash (/archives -&gt; archives)
+menu:
+  home: /
+  #categories: /categories
+  about: /about
+  archives: /archives
+  tags: /tags
+  #commonweal: /404.html
+</code></pre><p>重启博客可以看到效果如下：<br><img src="http://i.imgur.com/O6Z9NvT.png" alt=""></p>
+<p>然而，点击打开About却出现了“Cannot GET /about/”的页面错误，这是因为我们还没有about这个页面，需要使用<code>hexo new page &quot;页面名称&quot;</code>进行创建：</p>
+<pre><code>hexo new page about
+</code></pre><p>执行结果就是在hexo\source目录下面多出了一个about文件夹，里面有index.md，这就是点击About会展示的内容页面。同理，也可以创建tags页面。</p>
+<h3 id="3-语言设置："><a href="#3-语言设置：" class="headerlink" title="3.语言设置："></a>3.语言设置：</h3><p>在站点配置文件中假如如下内容，明确指定使用的语言，例如中文：</p>
+<pre><code>language: zh-Hans
+</code></pre><p>设置完毕后，发现菜单栏也发生了变化：<br><img src="http://i.imgur.com/Ekxi8Tv.png" alt=""></p>
 
       
     </div>
@@ -532,10 +554,10 @@ favicon: /favicon.ico
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Inhaltsverzeichnis
+            文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
-            Übersicht
+            站点概览
           </li>
         </ul>
       
@@ -544,15 +566,15 @@ favicon: /favicon.ico
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
-               alt="John Doe" />
-          <p class="site-author-name" itemprop="name">John Doe</p>
+               alt="Linshuhe" />
+          <p class="site-author-name" itemprop="name">Linshuhe</p>
           <p class="site-description motion-element" itemprop="description"></p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
               <span class="site-state-item-count">1</span>
-              <span class="site-state-item-name">Artikel</span>
+              <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
@@ -562,7 +584,7 @@ favicon: /favicon.ico
             <div class="site-state-item site-state-tags">
               <a href="/tags">
                 <span class="site-state-item-count">1</span>
-                <span class="site-state-item-name">Tags</span>
+                <span class="site-state-item-name">标签</span>
               </a>
             </div>
           
@@ -597,7 +619,7 @@ favicon: /favicon.ico
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是hexo："><span class="nav-number">1.</span> <span class="nav-text">什么是hexo：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关知识："><span class="nav-number">2.</span> <span class="nav-text">相关知识：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装准备："><span class="nav-number">3.</span> <span class="nav-text">安装准备：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Github桌面版和配置"><span class="nav-number">4.</span> <span class="nav-text">安装Github桌面版和配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Node-js"><span class="nav-number">5.</span> <span class="nav-text">安装Node.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Hexo"><span class="nav-number">6.</span> <span class="nav-text">安装Hexo:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-安装"><span class="nav-number">6.1.</span> <span class="nav-text">1.安装:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-部署Hexo："><span class="nav-number">6.2.</span> <span class="nav-text">2.部署Hexo：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-安装Hexo插件："><span class="nav-number">6.3.</span> <span class="nav-text">3.安装Hexo插件：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将当前工程上传到github"><span class="nav-number">7.</span> <span class="nav-text">将当前工程上传到github</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-修改配置文件："><span class="nav-number">7.1.</span> <span class="nav-text">1.修改配置文件：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-将项目deploy到github仓库："><span class="nav-number">7.2.</span> <span class="nav-text">2.将项目deploy到github仓库：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo常用指令使用："><span class="nav-number">8.</span> <span class="nav-text">Hexo常用指令使用：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建新博文："><span class="nav-number">8.1.</span> <span class="nav-text">创建新博文：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建页面："><span class="nav-number">8.2.</span> <span class="nav-text">新建页面：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行博客："><span class="nav-number">8.3.</span> <span class="nav-text">运行博客：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成静态站点文件："><span class="nav-number">8.4.</span> <span class="nav-text">生成静态站点文件：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发表一篇新博文"><span class="nav-number">9.</span> <span class="nav-text">发表一篇新博文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-新建博文："><span class="nav-number">9.1.</span> <span class="nav-text">1.新建博文：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-编辑博文内容："><span class="nav-number">9.2.</span> <span class="nav-text">2.编辑博文内容：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-发表博文："><span class="nav-number">9.3.</span> <span class="nav-text">3.发表博文：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Next主题美化界面："><span class="nav-number">10.</span> <span class="nav-text">使用Next主题美化界面：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Next主题下载："><span class="nav-number">10.1.</span> <span class="nav-text">1.Next主题下载：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-配置主题："><span class="nav-number">10.2.</span> <span class="nav-text">2.配置主题：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-next的样式选择："><span class="nav-number">10.3.</span> <span class="nav-text">3.next的样式选择：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#额外的优化："><span class="nav-number">11.</span> <span class="nav-text">额外的优化：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-设置favicon："><span class="nav-number">11.1.</span> <span class="nav-text">1.设置favicon：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是hexo："><span class="nav-number">1.</span> <span class="nav-text">什么是hexo：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关知识："><span class="nav-number">2.</span> <span class="nav-text">相关知识：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装准备："><span class="nav-number">3.</span> <span class="nav-text">安装准备：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Github桌面版和配置"><span class="nav-number">4.</span> <span class="nav-text">安装Github桌面版和配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Node-js"><span class="nav-number">5.</span> <span class="nav-text">安装Node.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Hexo"><span class="nav-number">6.</span> <span class="nav-text">安装Hexo:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-安装"><span class="nav-number">6.1.</span> <span class="nav-text">1.安装:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-部署Hexo："><span class="nav-number">6.2.</span> <span class="nav-text">2.部署Hexo：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-安装Hexo插件："><span class="nav-number">6.3.</span> <span class="nav-text">3.安装Hexo插件：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将当前工程上传到github"><span class="nav-number">7.</span> <span class="nav-text">将当前工程上传到github</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-修改配置文件："><span class="nav-number">7.1.</span> <span class="nav-text">1.修改配置文件：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-将项目deploy到github仓库："><span class="nav-number">7.2.</span> <span class="nav-text">2.将项目deploy到github仓库：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo常用指令使用："><span class="nav-number">8.</span> <span class="nav-text">Hexo常用指令使用：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建新博文："><span class="nav-number">8.1.</span> <span class="nav-text">创建新博文：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建页面："><span class="nav-number">8.2.</span> <span class="nav-text">新建页面：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行博客："><span class="nav-number">8.3.</span> <span class="nav-text">运行博客：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成静态站点文件："><span class="nav-number">8.4.</span> <span class="nav-text">生成静态站点文件：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发表一篇新博文"><span class="nav-number">9.</span> <span class="nav-text">发表一篇新博文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-新建博文："><span class="nav-number">9.1.</span> <span class="nav-text">1.新建博文：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-编辑博文内容："><span class="nav-number">9.2.</span> <span class="nav-text">2.编辑博文内容：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-发表博文："><span class="nav-number">9.3.</span> <span class="nav-text">3.发表博文：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Next主题美化界面："><span class="nav-number">10.</span> <span class="nav-text">使用Next主题美化界面：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Next主题下载："><span class="nav-number">10.1.</span> <span class="nav-text">1.Next主题下载：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-配置主题："><span class="nav-number">10.2.</span> <span class="nav-text">2.配置主题：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-next的样式选择："><span class="nav-number">10.3.</span> <span class="nav-text">3.next的样式选择：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#额外的优化："><span class="nav-number">11.</span> <span class="nav-text">额外的优化：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-设置favicon："><span class="nav-number">11.1.</span> <span class="nav-text">1.设置favicon：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-菜单栏控制："><span class="nav-number">11.2.</span> <span class="nav-text">2.菜单栏控制：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-语言设置："><span class="nav-number">11.3.</span> <span class="nav-text">3.语言设置：</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
@@ -620,15 +642,15 @@ favicon: /favicon.ico
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">Linshuhe</span>
 </div>
 
 <div class="powered-by">
-  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
 </div>
 
 <div class="theme-info">
-  Theme -
+  主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Mist
   </a>
