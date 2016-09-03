@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/page/index.html</loc>
+    
+    <lastmod>2016-09-03T09:43:32.229Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2016/09/03/Next%E4%B8%BB%E9%A2%98%E7%9A%84fancybox%E5%B1%95%E7%A4%BA%E5%9B%BE%E7%89%87/</loc>
+    
+    <lastmod>2016-09-03T09:35:05.176Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2016/09/03/BATCH%E6%89%B9%E5%A4%84%E7%90%86%E7%AE%80%E8%AE%B0/</loc>
+    
+    <lastmod>2016-09-03T09:13:19.744Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/about/index.html</loc>
     
     <lastmod>2016-09-03T09:04:07.708Z</lastmod>

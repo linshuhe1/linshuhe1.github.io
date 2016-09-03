@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-09-03T07:33:58.093Z</updated>
+  <updated>2016-09-03T09:35:05.176Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,98 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Next主题的fancybox展示图片</title>
+    <link href="http://yoursite.com/2016/09/03/Next%E4%B8%BB%E9%A2%98%E7%9A%84fancybox%E5%B1%95%E7%A4%BA%E5%9B%BE%E7%89%87/"/>
+    <id>http://yoursite.com/2016/09/03/Next主题的fancybox展示图片/</id>
+    <published>2016-09-03T09:15:22.000Z</published>
+    <updated>2016-09-03T09:35:05.176Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>在创建的文章开头假如图片，并且支持点击放大功能，这是Next主题包含的一个功能。</p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>使用方法就是在开头匹配内容中假如<code>photos</code>字段，可以加图片链接列表：</p>
+<pre><code>---
+title: Next主题的fancybox展示图片
+date: 2016-09-03 17:15:22
+tags:
+photos:
+- http://bruce.u.qiniudn.com/2013/11/27/reading/photos-0.jpg
+- http://bruce.u.qiniudn.com/2013/11/27/reading/photos-1.jpg
+---
+</code></pre><h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><p>此案例的运行结果，如本文的开头所示。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;描述&quot;&gt;&lt;a href=&quot;#描述&quot; class=&quot;headerlink&quot; title=&quot;描述&quot;&gt;&lt;/a&gt;描述&lt;/h3&gt;&lt;p&gt;在创建的文章开头假如图片，并且支持点击放大功能，这是Next主题包含的一个功能。&lt;/p&gt;
+&lt;h3 id=&quot;实现&quot;&gt;&lt;a href=&quot;#实现&quot;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>BATCH批处理简记</title>
+    <link href="http://yoursite.com/2016/09/03/BATCH%E6%89%B9%E5%A4%84%E7%90%86%E7%AE%80%E8%AE%B0/"/>
+    <id>http://yoursite.com/2016/09/03/BATCH批处理简记/</id>
+    <published>2016-09-03T09:10:59.000Z</published>
+    <updated>2016-09-03T09:13:19.744Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>本文转载自原文<a href="http://www.jb51.net/article/7131_3.htm" target="_blank" rel="external">批处理经典入门教程！(从不懂到高手)</a>，只是原文作者太罗嗦了，我做了稍微的简化。</p>
+</blockquote>
+<ol>
+<li>批处理定义</li>
+<li>基本语法和常用命令</li>
+<li>例子</li>
+</ol>
+<hr>
+<h3 id="一-批处理定义"><a href="#一-批处理定义" class="headerlink" title="一.批处理定义"></a>一.批处理定义</h3><p>批处理的本质，其实是一堆DOS命令，他们按一定顺序排列而形成的集合就是批处理。批处理，也称为批处理脚本，英文译为BATCH，批处理文件后缀BAT就取的前三个字母。<br><strong>注意：</strong>批处理的每一行可视为一个命令，每个命令里可以含多条子命令，从第一行开始执行，直到最后一行结束，它运行的平台是DOS。</p>
+<hr>
+<h3 id="二-基本语法和常用命令"><a href="#二-基本语法和常用命令" class="headerlink" title="二.基本语法和常用命令"></a>二.基本语法和常用命令</h3><p>1.注释方式：<br>使用“::”双冒号的方式进行注释，注释符号之后的同一行中的内容在脚本执行时不显示，也不起任何作用，只是增加了脚本的可读性，在批处理脚本中和rem命令等效。例如：</p>
+<pre><code>@echo off 
+::close echo 
+cls 
+::clean screen 
+</code></pre><p>2.@符号：<br>让脚本执行窗口不显示此符号之后指令内容的命令本身，而只显示执行结果，就像上例中的“@echo off”，@可以使得doc中不显示echo off，而直接显示其执行的结果。</p>
+<p>3.echo:<br>可以看做是回写或者是反馈，但实际上它是一个开关，而控制它的指令就是echo on和echo off了，而直接执行echo指令则会显示当前echo所处的状态（on或off）。执行echo off将关闭回显，它后面的所有命令都不显示命令本身，只显示执行后的结果，除非执行echo on命令。<br>echo命令的另一种用法一：可以用它来显示信息，如：```echo hello world<code>,会在doc中打印“hello world”;
+echo命令的另一种用法二：可以直接编辑文本文件,如：在doc窗口直接输入</code>echo nbtstat -A 192.168.0.1 &gt; a.bat ````，执行结果会在当前目录下创建一个a.bat文件。</p>
+<p>4.pause:<br>直接可以看出它是“暂停”的意思，即让当前程序进程暂停一下，并显示一行信息：请按任意键继续. . .。</p>
+<p>5.”goto”和”:”:<br>这两个指令是以一个组合形式出现的，goto是一个跳转指令，一般脚本执行到goto指令时，会跳转到：:标签定义的部分区执行。例如：</p>
+<pre><code>goto usage
+...
+:usage
+...
+</code></pre><p>不难看出，goto命令就是根据这个冒号和标签名称来寻找它该跳转的地方，它们是一一对应的关系，goto命令也经常和if命令结合使用。<br>goto命令的另一种用法一：提前结束程序。在程序中间使用goto命令跳转到某一标签，而这一标签的内容却定义为退出。<br>如： </p>
+<pre><code>…… 
+goto end 
+…… 
+:end 
+</code></pre><p>这里:end在脚本最后一行！</p>
+<p>6.%:<br>单个%不算是命令，而相当于参数，例如：</p>
+<pre><code>net use \\%1\ipc$ %3 /u:&quot;%2&quot; 
+copy 11.BAT \\%1\admin$\system32 /y 
+copy 13.BAT \\%1\admin$\system32 /y 
+copy ipc2.BAT \\%1\admin$\system32 /y 
+copy NWZI.EXE \\%1\admin$\system32 /y 
+attrib \\%1\admin$\system32⏺.bat -r -h -s 
+</code></pre><p>以上代码是Bat.Worm.Muma病毒中的一部分，%1代表的IP，2%代表的username，3%代表password。执行形式为：脚本文件名 参数一 参数二 ……。假设这个脚本被保存为a.bat，则执行形式如下：a IP username password。这里IP、username、password是三个参数，缺一不可（因为程序不能正确运行，并不是因为少了参数语法就不对）这样在脚本执行过程中，脚本就自动用用你的三个参数依次（记住，是依次！也是一一对应的关系。）代换1%、2%和3%，这样就达到了灵活运用的目的。 </p>
+<hr>
+<h3 id="三、例子"><a href="#三、例子" class="headerlink" title="三、例子"></a>三、例子</h3><p>将所需的命令都写在一个文件中，并且修改文件的后缀名为.bat，双击执行即会弹出doc窗口执行文件中的脚本命令。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;本文转载自原文&lt;a href=&quot;http://www.jb51.net/article/7131_3.htm&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;批处理经典入门教程！(从不懂到高手)&lt;/a&gt;，只是原文作者太罗嗦了，我做了
+    
+    </summary>
+    
+    
+      <category term="批处理" scheme="http://yoursite.com/tags/%E6%89%B9%E5%A4%84%E7%90%86/"/>
+    
+  </entry>
   
   <entry>
     <title>Python Web 1 —— python和MongoDB安装</title>
