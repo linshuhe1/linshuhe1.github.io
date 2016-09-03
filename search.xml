@@ -1,28 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Linsh-何乐不为~</title>
+<search>
   
-  <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
-  <updated>2016-09-03T07:33:58.093Z</updated>
-  <id>http://yoursite.com/</id>
-  
-  <author>
-    <name>Linshuhe</name>
     
-  </author>
-  
-  <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>Python Web 1 —— python和MongoDB安装</title>
-    <link href="http://yoursite.com/2016/09/03/Python-Web-1-%E2%80%94%E2%80%94-python%E5%92%8CMongoDB%E5%AE%89%E8%A3%85/"/>
-    <id>http://yoursite.com/2016/09/03/Python-Web-1-——-python和MongoDB安装/</id>
-    <published>2016-09-03T07:28:22.000Z</published>
-    <updated>2016-09-03T07:33:58.093Z</updated>
-    
-    <content type="html"><![CDATA[<p>–</p>
+    <entry>
+      <title><![CDATA[Python Web 1 —— python和MongoDB安装]]></title>
+      <url>http://yoursite.com/2016/09/03/Python-Web-1-%E2%80%94%E2%80%94-python%E5%92%8CMongoDB%E5%AE%89%E8%A3%85/</url>
+      <content type="html"><![CDATA[<p>–</p>
 <blockquote>
 <p>做了很长时间的客户端，主要从事过Android软件开发和Unity 3D的游戏开发，之前还看过一段时间的Java Web，但是由于没有实际的应用，所以就搁置了很久。最近突然有对服务器后台编程产生了浓厚的兴趣，想试着用Python + Mongo DB进行游戏后台的开发。</p>
 </blockquote>
@@ -44,30 +28,12 @@
 <p>4.下载一个可视化管理工具Robomongo：下载的地址为：<br><a href="https://robomongo.org/download" target="_blank" rel="external">https://robomongo.org/download</a><br><img src="http://img.blog.csdn.net/20160610091457232" alt="这里写图片描述"></p>
 <hr>
 ]]></content>
+    </entry>
     
-    <summary type="html">
-    
-      &lt;p&gt;–&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;做了很长时间的客户端，主要从事过Android软件开发和Unity 3D的游戏开发，之前还看过一段时间的Java Web，但是由于没有实际的应用，所以就搁置了很久。最近突然有对服务器后台编程产生了浓厚的兴趣，想试着用Python 
-    
-    </summary>
-    
-      <category term="python" scheme="http://yoursite.com/categories/python/"/>
-    
-    
-      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Github Pages + Hexo创建个人博客</title>
-    <link href="http://yoursite.com/2016/09/02/github-pages-Hexo/"/>
-    <id>http://yoursite.com/2016/09/02/github-pages-Hexo/</id>
-    <published>2016-09-02T09:17:52.000Z</published>
-    <updated>2016-09-03T08:55:43.651Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
+    <entry>
+      <title><![CDATA[Github Pages + Hexo创建个人博客]]></title>
+      <url>http://yoursite.com/2016/09/02/github-pages-Hexo/</url>
+      <content type="html"><![CDATA[<blockquote>
 <p>之前使用过jekyll+github做过一版自己的博客网站，有兴趣的可以看一下我之前的文章：<a href="http://blog.csdn.net/linshuhe1/article/details/51143026" title="Github+Jekyll —— 创建个人免费博客（一）从零开始" target="_blank" rel="external">http://blog.csdn.net/linshuhe1/article/details/51143026</a>，其实也很简单，但是存在一些问题：目录、Rss、sitemap无法自动生成。</p>
 </blockquote>
 <hr>
@@ -275,19 +241,8 @@ field: post
 </code></pre></li>
 </ul>
 ]]></content>
+    </entry>
     
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;之前使用过jekyll+github做过一版自己的博客网站，有兴趣的可以看一下我之前的文章：&lt;a href=&quot;http://blog.csdn.net/linshuhe1/article/details/51143026&quot; title=&quot;Githu
-    
-    </summary>
-    
-      <category term="Hexo" scheme="http://yoursite.com/categories/Hexo/"/>
-    
-    
-      <category term="Hexo" scheme="http://yoursite.com/tags/Hexo/"/>
-    
-  </entry>
   
-</feed>
+  
+</search>
