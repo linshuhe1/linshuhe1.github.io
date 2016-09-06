@@ -290,6 +290,164 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/05/Unity-ShaderLab基础（一）/" itemprop="url">
+                  Unity ShaderLab基础（一）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-05T14:20:07+08:00" content="2016-09-05">
+              2016-09-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/05/Unity-ShaderLab基础（一）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/05/Unity-ShaderLab基础（一）/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/09/05/Unity-ShaderLab基础（一）/" class="leancloud_visitors" data-flag-title="Unity ShaderLab基础（一）">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="什么是Shader"><a href="#什么是Shader" class="headerlink" title="什么是Shader?"></a>什么是Shader?</h2><h3 id="1-Shader的概念："><a href="#1-Shader的概念：" class="headerlink" title="1.Shader的概念："></a>1.Shader的概念：</h3><p><strong>Shader</strong>，即着色器，是一种运行在GPU上的程序，用来对三维物体进行着色处理、光和影的计算、纹理颜色的呈现等，从而将一个个作为抽象的几何数据存在的模型、场景和特效，以近似于真实世界的光与影的形式呈现出来。（简单点的理解就是：利用GPU编程使得构件出来的对象近似于真实世界中的对象呈现出来的处理）<strong>通过Shader可以改变物体的形状、大小、位置以及旋转等</strong>。</p>
+<h3 id="2-Shader和Material的关系："><a href="#2-Shader和Material的关系：" class="headerlink" title="2.Shader和Material的关系："></a>2.Shader和Material的关系：</h3><p>Shader负责将输入的Mesh(网格)以指定的方式和输入的贴图或者颜色等组合起来输出，绘图单元可以依据这个输出来将图像绘制在屏幕之上。输入的贴图或颜色，加上对应的Shader和Shader的特定参数设置，这些打包存储在一起就得到了一个Material。</p>
+<h3 id="3-以面向对象的思想理解Shader："><a href="#3-以面向对象的思想理解Shader：" class="headerlink" title="3.以面向对象的思想理解Shader："></a>3.以面向对象的思想理解Shader：</h3><p>假设把Shader当做一个类，那么在对某个物体使用此Shader时，就需要实例化此Shader，得到一个对象，而<strong>Material就相当于是一个Shader的对象</strong>。</p>
+<h3 id="4-Shader的分类："><a href="#4-Shader的分类：" class="headerlink" title="4.Shader的分类："></a>4.Shader的分类：</h3><p>Shader的基础类型有两种：<strong>顶点Shader</strong>和<strong>片段Shader</strong>，它们的特点：</p>
+<ul>
+<li><strong>顶点Shader</strong>：具有可以处理、变换，最终会渲染到屏幕上的网格物体的顶点位置的功能，但它不能生成新的顶点；</li>
+<li><strong>片段Shader</strong>：会对一个片段（预备像素）进行各种测试，如Z深度测试、Alpha比较测试，能通过各种测试的片段，最终会被写入渲染的输出帧中，从而成为屏幕上的一个可见像素。</li>
+</ul>
+<h2 id="GPU编程和Shader的编程语言"><a href="#GPU编程和Shader的编程语言" class="headerlink" title="GPU编程和Shader的编程语言"></a>GPU编程和Shader的编程语言</h2><h3 id="1-GPU编程简介："><a href="#1-GPU编程简介：" class="headerlink" title="1.GPU编程简介："></a>1.GPU编程简介：</h3><p><strong>GPU</strong>——Programmable Graphics Processing Unit，即可编程图形处理单元，也成为可编程图形硬件，至于GPU上的编程，实质上就是GPU允许应用程序指定一个序列的指令进行顶点操作控制</p>
+<h3 id="2-Shader的编程语言："><a href="#2-Shader的编程语言：" class="headerlink" title="2.Shader的编程语言："></a>2.Shader的编程语言：</h3><p>GPU与CPU是截然不同的，这不仅仅再其硬件结构的差异上，这也就决定了在两者运行环境下的编程过程也是不同的。目前面向GPU的编程，有<strong>3种高级图像语言</strong>，分别是：</p>
+<ul>
+<li>微软的 <strong>HLST</strong> (High Level Shading Language)，是通过Direct3D图形软件库来写Shader程序的语言；</li>
+<li>OpenGL提供的 <strong>GLSL</strong> (OpenGL Shading Language)来写Shader程序；</li>
+<li>NVIDIA提供的 <strong>Cg</strong> (C for graphics)语言（以HLST为基础，很相似），兼容Direct3D和OpenGL图形接口；</li>
+</ul>
+<p>考虑到最大化的跨平台支持，选择使用兼容性最高的 <strong>Cg</strong> 作为编写Shader的语言，但假如只针对Unity 3D引擎，也可以选择 <strong>GLSL</strong>。</p>
+<h2 id="如何使用Cg编写Shader："><a href="#如何使用Cg编写Shader：" class="headerlink" title="如何使用Cg编写Shader："></a>如何使用Cg编写Shader：</h2><p>在开始进行实际的编程之前，我们应该先清楚实现步骤，这就需要我们了解一下GPU进行图形绘制的操作步骤。</p>
+<h3 id="1-GPU图形绘制："><a href="#1-GPU图形绘制：" class="headerlink" title="1.GPU图形绘制："></a>1.GPU图形绘制：</h3><p>用图形绘制管线描述GPU渲染流程，即“给定视点、三维物体、光源、照明模式和纹理等元素，如何绘制一幅二维图像”。图像绘制其实分为三个阶段：<strong>应用程序阶段</strong>、<strong>几何阶段</strong>和<strong>光栅阶段</strong>：</p>
+<ul>
+<li><strong>应用程序阶段</strong>：使用高级语言（C、C++等）进行开发，主要和CPU、内存打交道，诸如：碰撞检测、场景图建立、空间八叉树更新、视锥裁剪等经典算法都在此阶段。<strong>在该阶段末端，几何体数据（顶点坐标、法向量、纹理等）通过数据总线传送给图形硬件</strong>。</li>
+<li><strong>几何阶段</strong>：主要负责顶点坐标变换、光照、裁剪、投影以及屏幕映射，该阶段基于GPU进行计算。<strong>在该阶段末端，得到经过变换和投影之后的顶点坐标、颜色、以及纹理坐标</strong>。</li>
+<li><strong>光栅阶段</strong>：基于几何阶段的输出数据，为像素（Pixel）正确配色，以便绘制完整图像，该阶段进行的都是单个像素的操作，每个像素的信息存储在颜色缓冲器（color buffer或者frame buffer）中。</li>
+</ul>
+<p>（例如：光照计算属于几何阶段、雾化以及涉及物体透明度的计算属于光栅阶段、深度信息（Z值）的计算属于几何阶段并传递给光栅阶段。）</p>
+<h3 id="2-Unity中使用Cg写Shader："><a href="#2-Unity中使用Cg写Shader：" class="headerlink" title="2.Unity中使用Cg写Shader："></a>2.Unity中使用Cg写Shader：</h3><p>基本步骤如下：</p>
+<ul>
+<li>定义一些属性，用于指定此Shader将有哪些输入；</li>
+<li>定义一个或者多个子着色器，每个着色器中包含一个或者多个Pass；</li>
+<li>指定一个回滚，用于处理所有SubShader都不能运行的情况。 </li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/03/Next主题的fancybox展示图片/" itemprop="url">
                   Next主题的fancybox展示图片
                 </a>
@@ -351,7 +509,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-0.jpg" rel="gallery_cisn19icn000014rex6kjko7h"
+                 href="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-0.jpg" rel="gallery_cisqxdguj00035krewmvgm7o5"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-0.jpg" itemprop="contentUrl"/>
               </a>
@@ -359,7 +517,7 @@
           
             
               <a class="post-gallery-img fancybox"
-                 href="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-1.jpg" rel="gallery_cisn19icn000014rex6kjko7h"
+                 href="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-1.jpg" rel="gallery_cisqxdguj00035krewmvgm7o5"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-1.jpg" itemprop="contentUrl"/>
               </a>
@@ -819,40 +977,9 @@ attrib \\%1\admin$\system32⏺.bat -r -h -s
 <blockquote>
 <p>最近看到了别人使用hexo+github实现的博客，有更多的灵活性和简约的风格，所以也试着改一下自己原本的设计。</p>
 </blockquote>
-<h2 id="什么是hexo："><a href="#什么是hexo：" class="headerlink" title="什么是hexo："></a>什么是hexo：</h2><p><code>hexo</code>是一个基于Node.js的静态博客程序，可以方便的生成静态网页托管到github或者Heroku上，类似于jekyll、Octopress、Wordpress等，使用markdown来写文章。hexo的作者是<a href="https://github.com/tommy351/hexo" title="@tommy351" target="_blank" rel="external">https://github.com/tommy351/hexo</a>。具有以下几点优点：</p>
-<ul>
-<li>易用性，部署很简单，常用指令有：<code>hexo new</code>、<code>hexo generate</code>、<code>hexo server</code>、<code>hexo deploy</code>；</li>
-<li>轻量级，文件少而小，自定义方便</li>
-</ul>
-<h2 id="相关知识："><a href="#相关知识：" class="headerlink" title="相关知识："></a>相关知识：</h2><p>hexo配置过程中使用到了<code>Github</code>，<code>Git</code>，<code>Markdown</code>，<code>Node.js</code>等相关操作，所以需要很多插件、widget需要自己安装配置。</p>
-<h2 id="安装准备："><a href="#安装准备：" class="headerlink" title="安装准备："></a>安装准备：</h2><ol>
-<li>Node.js:<a href="https://nodejs.org/en/" title="https://nodejs.org/en/" target="_blank" rel="external">https://nodejs.org/en/</a> ；</li>
-<li>Github桌面版（Windows）：<a href="https://desktop.github.com/" title="https://desktop.github.com/" target="_blank" rel="external">https://desktop.github.com/</a>；</li>
-</ol>
-<h2 id="安装Github桌面版和配置"><a href="#安装Github桌面版和配置" class="headerlink" title="安装Github桌面版和配置"></a>安装Github桌面版和配置</h2><ol>
-<li>双击下载好的<code>GitHubSetup.exe</code>文件，按照默认设置完成安装；</li>
-<li>登录自己的github账号；</li>
-</ol>
-<p><img src="http://i.imgur.com/97nOEVO.png" alt=""></p>
-<ol>
-<li>在github网页上创建一个以<code>username.github.io</code>命名的repositories,此时username为自己github的账号名称；</li>
-</ol>
-<p><img src="http://i.imgur.com/A9cQrk6.png" alt=""></p>
-<ol>
-<li>打开Git Shell，使用配置SSH Key使本地git项目与远程Github建立联系：<code>ssh -T git@github.com</code>；</li>
-</ol>
-<p><img src="http://i.imgur.com/t33BM1G.png" alt=""></p>
-<h2 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h2><p>直接双击下载好的<code>node-v4.5.0-x64.msi</code>选择指定的安装路径，按照默认设置完成安装操作，安装完成后不需要对Node.js进行任何配置。为了检验是否完成安装，可以打开命令行，输入指令：<code>npm --version</code>进行版本号查询。<br><img src="http://i.imgur.com/H21hK8M.png" alt=""></p>
-<h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo:"></a>安装Hexo:</h2><h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装:"></a>1.安装:</h3><pre><code>mkdir hexo #创建一个项目文件
-cd hexo    #进入项目文件目录
-npm install -g hexo-cli
-npm install hexo --save
-</code></pre><p>npm是Node.js中的一个工具，所以在安装Hexo之前应该先安装Node.js</p>
-<h3 id="2-部署Hexo："><a href="#2-部署Hexo：" class="headerlink" title="2.部署Hexo："></a>2.部署Hexo：</h3><p>在Git shell中输入：</p>
-<pre><code>hexo init
-</code></pre><p>记得输入之前需要确保当前命令行所处目录为所要创建工程的根目录下，因为此操作的结果就是将hexo的一些必要文件复制到当前目录下面。<br><img src="http://i.imgur.com/8bOaggs.png" alt=""><br>看到上图结果之后，可以通过以下指令运行博客：</p>
-<pre><code>hexo server
-</code></pre><p><img src="http://i.imgur.com/OyexMqN.png" alt=""><br>运行正常的话可以通过访问：<a href="http://localhost:4000/" title="http://localhost:4000/" target="_blank" rel="external">http://localhost:4000/</a>查看运行结果：<br><img src="http://i.imgur.com/Xy731Ig.png" alt=""></p>
+<h2 id="什么是hexo："><a href="#什么是hexo：" class="headerlink" title="什么是hexo："></a>什么是hexo：</h2><figure class="highlight plain"><figcaption><span>"@tommy351")。具有以下几点优点：</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- 易用性，部署很简单，常用指令有：```hexo new```、```hexo generate```、```hexo server```、```hexo deploy```；</div><div class="line">- 轻量级，文件少而小，自定义方便</div><div class="line"></div><div class="line">## 相关知识：</div><div class="line">hexo配置过程中使用到了```Github```，```Git```，```Markdown```，```Node.js```等相关操作，所以需要很多插件、widget需要自己安装配置。</div><div class="line"></div><div class="line">## 安装准备：</div><div class="line"></div><div class="line">1. Node.js:[https://nodejs.org/en/](https://nodejs.org/en/ &quot;https://nodejs.org/en/&quot;) ；</div><div class="line">2. Github桌面版（Windows）：[https://desktop.github.com/](https://desktop.github.com/ &quot;https://desktop.github.com/&quot;)；</div><div class="line"></div><div class="line">## 安装Github桌面版和配置</div><div class="line">1. 双击下载好的```GitHubSetup.exe```文件，按照默认设置完成安装；</div><div class="line">2. 登录自己的github账号；</div><div class="line"></div><div class="line">![](http://i.imgur.com/97nOEVO.png)</div><div class="line">3. 在github网页上创建一个以```username.github.io```命名的repositories,此时username为自己github的账号名称；</div><div class="line"></div><div class="line">![](http://i.imgur.com/A9cQrk6.png)</div><div class="line">4. 打开Git Shell，使用配置SSH Key使本地git项目与远程Github建立联系：```ssh -T git@github.com```；</div><div class="line"></div><div class="line">![](http://i.imgur.com/t33BM1G.png)</div><div class="line"></div><div class="line">## 安装Node.js</div><div class="line">直接双击下载好的```node-v4.5.0-x64.msi```选择指定的安装路径，按照默认设置完成安装操作，安装完成后不需要对Node.js进行任何配置。为了检验是否完成安装，可以打开命令行，输入指令：```npm --version```进行版本号查询。</div><div class="line">![](http://i.imgur.com/H21hK8M.png)</div><div class="line"></div><div class="line">## 安装Hexo:</div><div class="line">### 1.安装:</div><div class="line"></div><div class="line">    mkdir hexo #创建一个项目文件</div><div class="line">	cd hexo    #进入项目文件目录</div><div class="line">	npm install -g hexo-cli</div><div class="line">	npm install hexo --save</div><div class="line">npm是Node.js中的一个工具，所以在安装Hexo之前应该先安装Node.js</div><div class="line"></div><div class="line">### 2.部署Hexo：</div><div class="line">在Git shell中输入：</div><div class="line"></div><div class="line">	hexo init</div><div class="line">记得输入之前需要确保当前命令行所处目录为所要创建工程的根目录下，因为此操作的结果就是将hexo的一些必要文件复制到当前目录下面。</div><div class="line">![](http://i.imgur.com/8bOaggs.png)</div><div class="line">看到上图结果之后，可以通过以下指令运行博客：</div><div class="line"></div><div class="line">	hexo server</div><div class="line">![](http://i.imgur.com/OyexMqN.png)</div><div class="line">运行正常的话可以通过访问：[http://localhost:4000/](http://localhost:4000/ &quot;http://localhost:4000/&quot;)查看运行结果：</div><div class="line"></div><div class="line">![](http://i.imgur.com/Xy731Ig.png)</div><div class="line"></div><div class="line">假如出现了hexo服务启动成功，但是浏览器访问localhost:4000一直不响应，那就有可能是因为你的设备上装了其他软件占用了4000端口，一般有两种办法可以解决：</div><div class="line"></div><div class="line">- 在服务管理中将占用该端口的服务停止掉，通常安装了福昕阅读器的就会占用4000，把其对应的后台服务关掉即可；</div><div class="line">- 切换hexo启动的默认端口，使用以下指令：</div></pre></td></tr></table></figure>
+<pre><code>hexo s -p 5000
+</code></pre><p>```<br>此时启动端口就变成了5000，访问地址变成了localhost:5000。</p>
 <h3 id="3-安装Hexo插件："><a href="#3-安装Hexo插件：" class="headerlink" title="3.安装Hexo插件："></a>3.安装Hexo插件：</h3><p>主要目的是为了让其自动生成sitemap，Rss，部署到git等，这些是额外的插件，假如不需要使用到这些功能可以不添加：</p>
 <pre><code>npm install hexo-generator-index --save
 npm install hexo-generator-archive --save
@@ -1089,7 +1216,7 @@ field: post
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1097,7 +1224,7 @@ field: post
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1106,7 +1233,7 @@ field: post
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
