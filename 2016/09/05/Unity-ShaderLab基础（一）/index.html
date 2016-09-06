@@ -88,13 +88,13 @@
 
 <meta name="description" content="什么是Shader?1.Shader的概念：Shader，即着色器，是一种运行在GPU上的程序，用来对三维物体进行着色处理、光和影的计算、纹理颜色的呈现等，从而将一个个作为抽象的几何数据存在的模型、场景和特效，以近似于真实世界的光与影的形式呈现出来。（简单点的理解就是：利用GPU编程使得构件出来的对象近似于真实世界中的对象呈现出来的处理）通过Shader可以改变物体的形状、大小、位置以及旋转等。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Unity ShaderLab基础（一）">
+<meta property="og:title" content="Unity ShaderLab基础（一）概述">
 <meta property="og:url" content="http://yoursite.com/2016/09/05/Unity-ShaderLab基础（一）/index.html">
 <meta property="og:site_name" content="Linsh-何乐不为~">
 <meta property="og:description" content="什么是Shader?1.Shader的概念：Shader，即着色器，是一种运行在GPU上的程序，用来对三维物体进行着色处理、光和影的计算、纹理颜色的呈现等，从而将一个个作为抽象的几何数据存在的模型、场景和特效，以近似于真实世界的光与影的形式呈现出来。（简单点的理解就是：利用GPU编程使得构件出来的对象近似于真实世界中的对象呈现出来的处理）通过Shader可以改变物体的形状、大小、位置以及旋转等。">
-<meta property="og:updated_time" content="2016-09-06T03:33:40.131Z">
+<meta property="og:updated_time" content="2016-09-06T06:54:50.127Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Unity ShaderLab基础（一）">
+<meta name="twitter:title" content="Unity ShaderLab基础（一）概述">
 <meta name="twitter:description" content="什么是Shader?1.Shader的概念：Shader，即着色器，是一种运行在GPU上的程序，用来对三维物体进行着色处理、光和影的计算、纹理颜色的呈现等，从而将一个个作为抽象的几何数据存在的模型、场景和特效，以近似于真实世界的光与影的形式呈现出来。（简单点的理解就是：利用GPU编程使得构件出来的对象近似于真实世界中的对象呈现出来的处理）通过Shader可以改变物体的形状、大小、位置以及旋转等。">
 
 
@@ -118,7 +118,7 @@
 
   <link rel="canonical" href="http://yoursite.com/2016/09/05/Unity-ShaderLab基础（一）/"/>
 
-  <title> Unity ShaderLab基础（一） | Linsh-何乐不为~ </title>
+  <title> Unity ShaderLab基础（一）概述 | Linsh-何乐不为~ </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -291,7 +291,7 @@
             
             
               
-                Unity ShaderLab基础（一）
+                Unity ShaderLab基础（一）概述
               
             
           </h1>
@@ -344,7 +344,7 @@
 
           
           
-             <span id="/2016/09/05/Unity-ShaderLab基础（一）/" class="leancloud_visitors" data-flag-title="Unity ShaderLab基础（一）">
+             <span id="/2016/09/05/Unity-ShaderLab基础（一）/" class="leancloud_visitors" data-flag-title="Unity ShaderLab基础（一）概述">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -366,7 +366,7 @@
       
 
       
-        <h2 id="什么是Shader"><a href="#什么是Shader" class="headerlink" title="什么是Shader?"></a>什么是Shader?</h2><h3 id="1-Shader的概念："><a href="#1-Shader的概念：" class="headerlink" title="1.Shader的概念："></a>1.Shader的概念：</h3><p><strong>Shader</strong>，即着色器，是一种运行在GPU上的程序，用来对三维物体进行着色处理、光和影的计算、纹理颜色的呈现等，从而将一个个作为抽象的几何数据存在的模型、场景和特效，以近似于真实世界的光与影的形式呈现出来。（简单点的理解就是：利用GPU编程使得构件出来的对象近似于真实世界中的对象呈现出来的处理）<strong>通过Shader可以改变物体的形状、大小、位置以及旋转等</strong>。</p>
+        <h2 id="什么是Shader"><a href="#什么是Shader" class="headerlink" title="什么是Shader?"></a>什么是Shader?</h2><h3 id="1-Shader的概念："><a href="#1-Shader的概念：" class="headerlink" title="1.Shader的概念："></a>1.Shader的概念：</h3><p><strong>Shader</strong>，即着色器，是一种运行在GPU上的程序，用来对三维物体进行着色处理、光和影的计算、纹理颜色的呈现等，从而将一个个作为抽象的几何数据存在的模型、场景和特效，以近似于真实世界的光与影的形式呈现出来。（简单点的理解就是：利用GPU编程使得构件出来的对象近似于真实世界中的对象呈现出来的处理）<strong>通过Shader可以改变物体的形状、大小、位置以及旋转等</strong>。<br><a id="more"></a></p>
 <h3 id="2-Shader和Material的关系："><a href="#2-Shader和Material的关系：" class="headerlink" title="2.Shader和Material的关系："></a>2.Shader和Material的关系：</h3><p>Shader负责将输入的Mesh(网格)以指定的方式和输入的贴图或者颜色等组合起来输出，绘图单元可以依据这个输出来将图像绘制在屏幕之上。输入的贴图或颜色，加上对应的Shader和Shader的特定参数设置，这些打包存储在一起就得到了一个Material。</p>
 <h3 id="3-以面向对象的思想理解Shader："><a href="#3-以面向对象的思想理解Shader：" class="headerlink" title="3.以面向对象的思想理解Shader："></a>3.以面向对象的思想理解Shader：</h3><p>假设把Shader当做一个类，那么在对某个物体使用此Shader时，就需要实例化此Shader，得到一个对象，而<strong>Material就相当于是一个Shader的对象</strong>。</p>
 <h3 id="4-Shader的分类："><a href="#4-Shader的分类：" class="headerlink" title="4.Shader的分类："></a>4.Shader的分类：</h3><p>Shader的基础类型有两种：<strong>顶点Shader</strong>和<strong>片段Shader</strong>，它们的特点：</p>
@@ -435,6 +435,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2016/09/06/Unity-ShaderLab基础（二）/" rel="prev" title="Unity ShaderLab基础（二）Cg语言">
+                Unity ShaderLab基础（二）Cg语言 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -483,7 +487,7 @@
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2016/09/05/Unity-ShaderLab基础（一）/"
-           data-title="Unity ShaderLab基础（一）" data-url="http://yoursite.com/2016/09/05/Unity-ShaderLab基础（一）/">
+           data-title="Unity ShaderLab基础（一）概述" data-url="http://yoursite.com/2016/09/05/Unity-ShaderLab基础（一）/">
       </div>
     
   </div>
@@ -528,7 +532,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-count">6</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -545,7 +549,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

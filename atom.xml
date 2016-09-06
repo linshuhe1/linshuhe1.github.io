@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-09-06T03:33:40.131Z</updated>
+  <updated>2016-09-06T07:27:05.322Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,13 +16,55 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Unity ShaderLab基础（一）</title>
+    <title>Unity ShaderLab基础（二）Cg语言</title>
+    <link href="http://yoursite.com/2016/09/06/Unity-ShaderLab%E5%9F%BA%E7%A1%80%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
+    <id>http://yoursite.com/2016/09/06/Unity-ShaderLab基础（二）/</id>
+    <published>2016-09-06T03:55:59.000Z</published>
+    <updated>2016-09-06T07:27:05.322Z</updated>
+    
+    <content type="html"><![CDATA[<p>学习一门新的语言，有几个基本需要掌握的：数据类型（基本数据类型和结构类型），基本语法（表达式和控制语句等），编译和运行方式，这一点在CPU编程语言和GPU编程语言中是相似的，Cg作为一门GPU图形学语言也是如此。<br><a id="more"></a></p>
+<h2 id="Cg的数据类型："><a href="#Cg的数据类型：" class="headerlink" title="Cg的数据类型："></a>Cg的数据类型：</h2><h3 id="1-基本数据类型"><a href="#1-基本数据类型" class="headerlink" title="1.基本数据类型"></a>1.基本数据类型</h3><p>Cg支持7种基本的数据类型，分别是：</p>
+<ul>
+<li><strong>float</strong>， 32 位浮点数据，一个符号位。浮点数据类型被所有的 profile 支持</li>
+<li><strong>half</strong>，16 为浮点数据</li>
+<li><strong>int</strong>，32 位整形数据，有些 profile 会将 int 类型作为 float 类型使用</li>
+<li><strong>fixed</strong>，12 位定点数，被所有的 fragment profiles 所支持</li>
+<li><strong>bool</strong>，布尔数据，通常用于 if 和条件操作符（ ?: ） ，布尔数据类型被所有的profiles 支持</li>
+<li><strong>simpler*</strong>， 纹理对象的句柄（ the handle to a texture object ） ，分为 6 类：<br>sampler, sampler1D, sampler2D, sampler3D, samplerCUBE, 和 samplerRECT 。DirectX profiles 不支持 samplerRECT 类型， 除此之外这些类型被所有的 pixelprofiles 和 NV40 vertex program profile 所支持（ CgUsersManual 30 页） 。由此可见，在不远的未来，顶点程序也将广泛支持纹理操作</li>
+<li><strong>string</strong>，字符类型，该类型不被当前存在的 profile 所支持，实际上也没有必要在 Cg 程序中用到字符类型，但是你可以通过 Cg runtime API 声明该类型变量，并赋值；因此，该类型变量可以保存 Cg 文件的信息。</li>
+</ul>
+<blockquote>
+<p>前6种类型为常用类型，<strong>string</strong>类型几乎不使用。</p>
+</blockquote>
+<h3 id="2-其他内置数据类型："><a href="#2-其他内置数据类型：" class="headerlink" title="2.其他内置数据类型："></a>2.其他内置数据类型：</h3><ul>
+<li><strong>向量</strong></li>
+<li><strong>矩阵</strong></li>
+<li><strong>数组</strong></li>
+</ul>
+<p>注：在Cg中，向量、矩阵与数组是完全不同的，向量和矩阵是内置的数据类型，而数组则是一种数据结构。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;学习一门新的语言，有几个基本需要掌握的：数据类型（基本数据类型和结构类型），基本语法（表达式和控制语句等），编译和运行方式，这一点在CPU编程语言和GPU编程语言中是相似的，Cg作为一门GPU图形学语言也是如此。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Unity" scheme="http://yoursite.com/categories/Unity/"/>
+    
+    
+      <category term="Unity,ShaderLab,Cg" scheme="http://yoursite.com/tags/Unity-ShaderLab-Cg/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Unity ShaderLab基础（一）概述</title>
     <link href="http://yoursite.com/2016/09/05/Unity-ShaderLab%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89/"/>
     <id>http://yoursite.com/2016/09/05/Unity-ShaderLab基础（一）/</id>
     <published>2016-09-05T06:20:07.000Z</published>
-    <updated>2016-09-06T03:33:40.131Z</updated>
+    <updated>2016-09-06T06:54:50.127Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="什么是Shader"><a href="#什么是Shader" class="headerlink" title="什么是Shader?"></a>什么是Shader?</h2><h3 id="1-Shader的概念："><a href="#1-Shader的概念：" class="headerlink" title="1.Shader的概念："></a>1.Shader的概念：</h3><p><strong>Shader</strong>，即着色器，是一种运行在GPU上的程序，用来对三维物体进行着色处理、光和影的计算、纹理颜色的呈现等，从而将一个个作为抽象的几何数据存在的模型、场景和特效，以近似于真实世界的光与影的形式呈现出来。（简单点的理解就是：利用GPU编程使得构件出来的对象近似于真实世界中的对象呈现出来的处理）<strong>通过Shader可以改变物体的形状、大小、位置以及旋转等</strong>。</p>
+    <content type="html"><![CDATA[<h2 id="什么是Shader"><a href="#什么是Shader" class="headerlink" title="什么是Shader?"></a>什么是Shader?</h2><h3 id="1-Shader的概念："><a href="#1-Shader的概念：" class="headerlink" title="1.Shader的概念："></a>1.Shader的概念：</h3><p><strong>Shader</strong>，即着色器，是一种运行在GPU上的程序，用来对三维物体进行着色处理、光和影的计算、纹理颜色的呈现等，从而将一个个作为抽象的几何数据存在的模型、场景和特效，以近似于真实世界的光与影的形式呈现出来。（简单点的理解就是：利用GPU编程使得构件出来的对象近似于真实世界中的对象呈现出来的处理）<strong>通过Shader可以改变物体的形状、大小、位置以及旋转等</strong>。<br><a id="more"></a></p>
 <h3 id="2-Shader和Material的关系："><a href="#2-Shader和Material的关系：" class="headerlink" title="2.Shader和Material的关系："></a>2.Shader和Material的关系：</h3><p>Shader负责将输入的Mesh(网格)以指定的方式和输入的贴图或者颜色等组合起来输出，绘图单元可以依据这个输出来将图像绘制在屏幕之上。输入的贴图或颜色，加上对应的Shader和Shader的特定参数设置，这些打包存储在一起就得到了一个Material。</p>
 <h3 id="3-以面向对象的思想理解Shader："><a href="#3-以面向对象的思想理解Shader：" class="headerlink" title="3.以面向对象的思想理解Shader："></a>3.以面向对象的思想理解Shader：</h3><p>假设把Shader当做一个类，那么在对某个物体使用此Shader时，就需要实例化此Shader，得到一个对象，而<strong>Material就相当于是一个Shader的对象</strong>。</p>
 <h3 id="4-Shader的分类："><a href="#4-Shader的分类：" class="headerlink" title="4.Shader的分类："></a>4.Shader的分类：</h3><p>Shader的基础类型有两种：<strong>顶点Shader</strong>和<strong>片段Shader</strong>，它们的特点：</p>
@@ -56,7 +98,7 @@
     
     <summary type="html">
     
-      &lt;h2 id=&quot;什么是Shader&quot;&gt;&lt;a href=&quot;#什么是Shader&quot; class=&quot;headerlink&quot; title=&quot;什么是Shader?&quot;&gt;&lt;/a&gt;什么是Shader?&lt;/h2&gt;&lt;h3 id=&quot;1-Shader的概念：&quot;&gt;&lt;a href=&quot;#1-Shader的概念
+      &lt;h2 id=&quot;什么是Shader&quot;&gt;&lt;a href=&quot;#什么是Shader&quot; class=&quot;headerlink&quot; title=&quot;什么是Shader?&quot;&gt;&lt;/a&gt;什么是Shader?&lt;/h2&gt;&lt;h3 id=&quot;1-Shader的概念：&quot;&gt;&lt;a href=&quot;#1-Shader的概念：&quot; class=&quot;headerlink&quot; title=&quot;1.Shader的概念：&quot;&gt;&lt;/a&gt;1.Shader的概念：&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Shader&lt;/strong&gt;，即着色器，是一种运行在GPU上的程序，用来对三维物体进行着色处理、光和影的计算、纹理颜色的呈现等，从而将一个个作为抽象的几何数据存在的模型、场景和特效，以近似于真实世界的光与影的形式呈现出来。（简单点的理解就是：利用GPU编程使得构件出来的对象近似于真实世界中的对象呈现出来的处理）&lt;strong&gt;通过Shader可以改变物体的形状、大小、位置以及旋转等&lt;/strong&gt;。&lt;br&gt;
     
     </summary>
     
@@ -72,9 +114,10 @@
     <link href="http://yoursite.com/2016/09/03/Next%E4%B8%BB%E9%A2%98%E7%9A%84fancybox%E5%B1%95%E7%A4%BA%E5%9B%BE%E7%89%87/"/>
     <id>http://yoursite.com/2016/09/03/Next主题的fancybox展示图片/</id>
     <published>2016-09-03T09:15:22.000Z</published>
-    <updated>2016-09-03T09:35:05.176Z</updated>
+    <updated>2016-09-06T06:58:17.698Z</updated>
     
     <content type="html"><![CDATA[<h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>在创建的文章开头假如图片，并且支持点击放大功能，这是Next主题包含的一个功能。</p>
+<a id="more"></a>
 <h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>使用方法就是在开头匹配内容中假如<code>photos</code>字段，可以加图片链接列表：</p>
 <pre><code>---
 title: Next主题的fancybox展示图片
@@ -90,7 +133,6 @@ photos:
     <summary type="html">
     
       &lt;h3 id=&quot;描述&quot;&gt;&lt;a href=&quot;#描述&quot; class=&quot;headerlink&quot; title=&quot;描述&quot;&gt;&lt;/a&gt;描述&lt;/h3&gt;&lt;p&gt;在创建的文章开头假如图片，并且支持点击放大功能，这是Next主题包含的一个功能。&lt;/p&gt;
-&lt;h3 id=&quot;实现&quot;&gt;&lt;a href=&quot;#实现&quot;
     
     </summary>
     
@@ -102,7 +144,7 @@ photos:
     <link href="http://yoursite.com/2016/09/03/BATCH%E6%89%B9%E5%A4%84%E7%90%86%E7%AE%80%E8%AE%B0/"/>
     <id>http://yoursite.com/2016/09/03/BATCH批处理简记/</id>
     <published>2016-09-03T09:10:59.000Z</published>
-    <updated>2016-09-03T09:13:19.744Z</updated>
+    <updated>2016-09-06T06:56:34.971Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>本文转载自原文<a href="http://www.jb51.net/article/7131_3.htm" target="_blank" rel="external">批处理经典入门教程！(从不懂到高手)</a>，只是原文作者太罗嗦了，我做了稍微的简化。</p>
@@ -112,6 +154,7 @@ photos:
 <li>基本语法和常用命令</li>
 <li>例子</li>
 </ol>
+<a id="more"></a>
 <hr>
 <h3 id="一-批处理定义"><a href="#一-批处理定义" class="headerlink" title="一.批处理定义"></a>一.批处理定义</h3><p>批处理的本质，其实是一堆DOS命令，他们按一定顺序排列而形成的集合就是批处理。批处理，也称为批处理脚本，英文译为BATCH，批处理文件后缀BAT就取的前三个字母。<br><strong>注意：</strong>批处理的每一行可视为一个命令，每个命令里可以含多条子命令，从第一行开始执行，直到最后一行结束，它运行的平台是DOS。</p>
 <hr>
@@ -150,7 +193,13 @@ attrib \\%1\admin$\system32⏺.bat -r -h -s
     <summary type="html">
     
       &lt;blockquote&gt;
-&lt;p&gt;本文转载自原文&lt;a href=&quot;http://www.jb51.net/article/7131_3.htm&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;批处理经典入门教程！(从不懂到高手)&lt;/a&gt;，只是原文作者太罗嗦了，我做了
+&lt;p&gt;本文转载自原文&lt;a href=&quot;http://www.jb51.net/article/7131_3.htm&quot;&gt;批处理经典入门教程！(从不懂到高手)&lt;/a&gt;，只是原文作者太罗嗦了，我做了稍微的简化。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;批处理定义&lt;/li&gt;
+&lt;li&gt;基本语法和常用命令&lt;/li&gt;
+&lt;li&gt;例子&lt;/li&gt;
+&lt;/ol&gt;
     
     </summary>
     
@@ -164,13 +213,12 @@ attrib \\%1\admin$\system32⏺.bat -r -h -s
     <link href="http://yoursite.com/2016/09/03/Python-Web-1-%E2%80%94%E2%80%94-python%E5%92%8CMongoDB%E5%AE%89%E8%A3%85/"/>
     <id>http://yoursite.com/2016/09/03/Python-Web-1-——-python和MongoDB安装/</id>
     <published>2016-09-03T07:28:22.000Z</published>
-    <updated>2016-09-03T07:33:58.093Z</updated>
+    <updated>2016-09-06T07:04:17.878Z</updated>
     
-    <content type="html"><![CDATA[<p>–</p>
-<blockquote>
+    <content type="html"><![CDATA[<blockquote>
 <p>做了很长时间的客户端，主要从事过Android软件开发和Unity 3D的游戏开发，之前还看过一段时间的Java Web，但是由于没有实际的应用，所以就搁置了很久。最近突然有对服务器后台编程产生了浓厚的兴趣，想试着用Python + Mongo DB进行游戏后台的开发。</p>
 </blockquote>
-<h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><p>Python是一门具有强类型(即变量类型是强制要求的)、动态性、隐式类型(不需要做变量声明)、大小写敏感(var和VAR代表了不同的变量)以及面向对象等特点的编程语言。<strong>Python是一种解释型的语言，相比于C语言，Python的运行速度慢，且不能进行加密。</strong></p>
+<h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><p>Python是一门具有强类型(即变量类型是强制要求的)、动态性、隐式类型(不需要做变量声明)、大小写敏感(var和VAR代表了不同的变量)以及面向对象等特点的编程语言。<strong>Python是一种解释型的语言，相比于C语言，Python的运行速度慢，且不能进行加密。</strong><br><a id="more"></a></p>
 <h4 id="一、Python的安装："><a href="#一、Python的安装：" class="headerlink" title="一、Python的安装："></a>一、Python的安装：</h4><p>由于我使用的开发环境是Mac OS，所以自带了Python，但由于10.10自带的版本是2.7的，所以我们需要重新安装3.x的版本，安装方法：</p>
 <p> 1.没有安装Homebrew的先安装此Mac插件，安装方法就是打开终端，输入以下指令：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ruby -e <span class="string">"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"</span></div></pre></td></tr></table></figure></p>
 <p>2.使用以下指令安装Python3：</p>
@@ -191,9 +239,10 @@ attrib \\%1\admin$\system32⏺.bat -r -h -s
     
     <summary type="html">
     
-      &lt;p&gt;–&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;做了很长时间的客户端，主要从事过Android软件开发和Unity 3D的游戏开发，之前还看过一段时间的Java Web，但是由于没有实际的应用，所以就搁置了很久。最近突然有对服务器后台编程产生了浓厚的兴趣，想试着用Python 
+      &lt;blockquote&gt;
+&lt;p&gt;做了很长时间的客户端，主要从事过Android软件开发和Unity 3D的游戏开发，之前还看过一段时间的Java Web，但是由于没有实际的应用，所以就搁置了很久。最近突然有对服务器后台编程产生了浓厚的兴趣，想试着用Python + Mongo DB进行游戏后台的开发。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;Python&quot;&gt;&lt;a href=&quot;#Python&quot; class=&quot;headerlink&quot; title=&quot;Python&quot;&gt;&lt;/a&gt;Python&lt;/h3&gt;&lt;p&gt;Python是一门具有强类型(即变量类型是强制要求的)、动态性、隐式类型(不需要做变量声明)、大小写敏感(var和VAR代表了不同的变量)以及面向对象等特点的编程语言。&lt;strong&gt;Python是一种解释型的语言，相比于C语言，Python的运行速度慢，且不能进行加密。&lt;/strong&gt;&lt;br&gt;
     
     </summary>
     
@@ -209,7 +258,7 @@ attrib \\%1\admin$\system32⏺.bat -r -h -s
     <link href="http://yoursite.com/2016/09/02/github-pages-Hexo/"/>
     <id>http://yoursite.com/2016/09/02/github-pages-Hexo/</id>
     <published>2016-09-02T09:17:52.000Z</published>
-    <updated>2016-09-06T03:36:22.312Z</updated>
+    <updated>2016-09-06T07:05:36.967Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>之前使用过jekyll+github做过一版自己的博客网站，有兴趣的可以看一下我之前的文章：<a href="http://blog.csdn.net/linshuhe1/article/details/51143026" title="Github+Jekyll —— 创建个人免费博客（一）从零开始" target="_blank" rel="external">http://blog.csdn.net/linshuhe1/article/details/51143026</a>，其实也很简单，但是存在一些问题：目录、Rss、sitemap无法自动生成。</p>
@@ -218,6 +267,7 @@ attrib \\%1\admin$\system32⏺.bat -r -h -s
 <blockquote>
 <p>最近看到了别人使用hexo+github实现的博客，有更多的灵活性和简约的风格，所以也试着改一下自己原本的设计。</p>
 </blockquote>
+<a id="more"></a>
 <h2 id="什么是hexo："><a href="#什么是hexo：" class="headerlink" title="什么是hexo："></a>什么是hexo：</h2><figure class="highlight plain"><figcaption><span>"@tommy351")。具有以下几点优点：</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- 易用性，部署很简单，常用指令有：```hexo new```、```hexo generate```、```hexo server```、```hexo deploy```；</div><div class="line">- 轻量级，文件少而小，自定义方便</div><div class="line"></div><div class="line">## 相关知识：</div><div class="line">hexo配置过程中使用到了```Github```，```Git```，```Markdown```，```Node.js```等相关操作，所以需要很多插件、widget需要自己安装配置。</div><div class="line"></div><div class="line">## 安装准备：</div><div class="line"></div><div class="line">1. Node.js:[https://nodejs.org/en/](https://nodejs.org/en/ &quot;https://nodejs.org/en/&quot;) ；</div><div class="line">2. Github桌面版（Windows）：[https://desktop.github.com/](https://desktop.github.com/ &quot;https://desktop.github.com/&quot;)；</div><div class="line"></div><div class="line">## 安装Github桌面版和配置</div><div class="line">1. 双击下载好的```GitHubSetup.exe```文件，按照默认设置完成安装；</div><div class="line">2. 登录自己的github账号；</div><div class="line"></div><div class="line">![](http://i.imgur.com/97nOEVO.png)</div><div class="line">3. 在github网页上创建一个以```username.github.io```命名的repositories,此时username为自己github的账号名称；</div><div class="line"></div><div class="line">![](http://i.imgur.com/A9cQrk6.png)</div><div class="line">4. 打开Git Shell，使用配置SSH Key使本地git项目与远程Github建立联系：```ssh -T git@github.com```；</div><div class="line"></div><div class="line">![](http://i.imgur.com/t33BM1G.png)</div><div class="line"></div><div class="line">## 安装Node.js</div><div class="line">直接双击下载好的```node-v4.5.0-x64.msi```选择指定的安装路径，按照默认设置完成安装操作，安装完成后不需要对Node.js进行任何配置。为了检验是否完成安装，可以打开命令行，输入指令：```npm --version```进行版本号查询。</div><div class="line">![](http://i.imgur.com/H21hK8M.png)</div><div class="line"></div><div class="line">## 安装Hexo:</div><div class="line">### 1.安装:</div><div class="line"></div><div class="line">    mkdir hexo #创建一个项目文件</div><div class="line">	cd hexo    #进入项目文件目录</div><div class="line">	npm install -g hexo-cli</div><div class="line">	npm install hexo --save</div><div class="line">npm是Node.js中的一个工具，所以在安装Hexo之前应该先安装Node.js</div><div class="line"></div><div class="line">### 2.部署Hexo：</div><div class="line">在Git shell中输入：</div><div class="line"></div><div class="line">	hexo init</div><div class="line">记得输入之前需要确保当前命令行所处目录为所要创建工程的根目录下，因为此操作的结果就是将hexo的一些必要文件复制到当前目录下面。</div><div class="line">![](http://i.imgur.com/8bOaggs.png)</div><div class="line">看到上图结果之后，可以通过以下指令运行博客：</div><div class="line"></div><div class="line">	hexo server</div><div class="line">![](http://i.imgur.com/OyexMqN.png)</div><div class="line">运行正常的话可以通过访问：[http://localhost:4000/](http://localhost:4000/ &quot;http://localhost:4000/&quot;)查看运行结果：</div><div class="line"></div><div class="line">![](http://i.imgur.com/Xy731Ig.png)</div><div class="line"></div><div class="line">假如出现了hexo服务启动成功，但是浏览器访问localhost:4000一直不响应，那就有可能是因为你的设备上装了其他软件占用了4000端口，一般有两种办法可以解决：</div><div class="line"></div><div class="line">- 在服务管理中将占用该端口的服务停止掉，通常安装了福昕阅读器的就会占用4000，把其对应的后台服务关掉即可；</div><div class="line">- 切换hexo启动的默认端口，使用以下指令：</div></pre></td></tr></table></figure>
 <pre><code>hexo s -p 5000
 </code></pre><p>```<br>此时启动端口就变成了5000，访问地址变成了localhost:5000。</p>
@@ -388,12 +438,20 @@ field: post
 <blockquote>
 <p>最终结果可以查看我的博客：<a href="https://linshuhe1.github.io/" target="_blank" rel="external">https://linshuhe1.github.io/</a></p>
 </blockquote>
+<h3 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h3><p>可能有人跟我一样遇到了带你麻烦，那就是主页面的文章列表中，博客内容全部显示出来而不是只显示文章一部分和 <code>阅读全文》</code> 按钮，这样显得首页的列表很杂乱和冗长，其实要解决这个问题很简单，只需要在我们编写markdown内容的时候，在适当的位置假如如下标签：</p>
+<pre><code>&lt;!--more--&gt;
+</code></pre><p>那么在首页显示的部分就是此标签前面的文章内容，而非全文显示：<br><img src="http://i.imgur.com/PIN0F0K.png" alt=""></p>
 ]]></content>
     
     <summary type="html">
     
       &lt;blockquote&gt;
-&lt;p&gt;之前使用过jekyll+github做过一版自己的博客网站，有兴趣的可以看一下我之前的文章：&lt;a href=&quot;http://blog.csdn.net/linshuhe1/article/details/51143026&quot; title=&quot;Githu
+&lt;p&gt;之前使用过jekyll+github做过一版自己的博客网站，有兴趣的可以看一下我之前的文章：&lt;a href=&quot;http://blog.csdn.net/linshuhe1/article/details/51143026&quot; title=&quot;Github+Jekyll —— 创建个人免费博客（一）从零开始&quot;&gt;http://blog.csdn.net/linshuhe1/article/details/51143026&lt;/a&gt;，其实也很简单，但是存在一些问题：目录、Rss、sitemap无法自动生成。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;blockquote&gt;
+&lt;p&gt;最近看到了别人使用hexo+github实现的博客，有更多的灵活性和简约的风格，所以也试着改一下自己原本的设计。&lt;/p&gt;
+&lt;/blockquote&gt;
     
     </summary>
     

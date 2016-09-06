@@ -290,8 +290,139 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/06/Unity-ShaderLab基础（二）/" itemprop="url">
+                  Unity ShaderLab基础（二）Cg语言
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-06T11:55:59+08:00" content="2016-09-06">
+              2016-09-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/06/Unity-ShaderLab基础（二）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/06/Unity-ShaderLab基础（二）/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/09/06/Unity-ShaderLab基础（二）/" class="leancloud_visitors" data-flag-title="Unity ShaderLab基础（二）Cg语言">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>学习一门新的语言，有几个基本需要掌握的：数据类型（基本数据类型和结构类型），基本语法（表达式和控制语句等），编译和运行方式，这一点在CPU编程语言和GPU编程语言中是相似的，Cg作为一门GPU图形学语言也是如此。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/06/Unity-ShaderLab基础（二）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/05/Unity-ShaderLab基础（一）/" itemprop="url">
-                  Unity ShaderLab基础（一）
+                  Unity ShaderLab基础（一）概述
                 </a>
               
             
@@ -345,7 +476,7 @@
 
           
           
-             <span id="/2016/09/05/Unity-ShaderLab基础（一）/" class="leancloud_visitors" data-flag-title="Unity ShaderLab基础（一）">
+             <span id="/2016/09/05/Unity-ShaderLab基础（一）/" class="leancloud_visitors" data-flag-title="Unity ShaderLab基础（一）概述">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -368,39 +499,12 @@
 
       
         
-          
-            <h2 id="什么是Shader"><a href="#什么是Shader" class="headerlink" title="什么是Shader?"></a>什么是Shader?</h2><h3 id="1-Shader的概念："><a href="#1-Shader的概念：" class="headerlink" title="1.Shader的概念："></a>1.Shader的概念：</h3><p><strong>Shader</strong>，即着色器，是一种运行在GPU上的程序，用来对三维物体进行着色处理、光和影的计算、纹理颜色的呈现等，从而将一个个作为抽象的几何数据存在的模型、场景和特效，以近似于真实世界的光与影的形式呈现出来。（简单点的理解就是：利用GPU编程使得构件出来的对象近似于真实世界中的对象呈现出来的处理）<strong>通过Shader可以改变物体的形状、大小、位置以及旋转等</strong>。</p>
-<h3 id="2-Shader和Material的关系："><a href="#2-Shader和Material的关系：" class="headerlink" title="2.Shader和Material的关系："></a>2.Shader和Material的关系：</h3><p>Shader负责将输入的Mesh(网格)以指定的方式和输入的贴图或者颜色等组合起来输出，绘图单元可以依据这个输出来将图像绘制在屏幕之上。输入的贴图或颜色，加上对应的Shader和Shader的特定参数设置，这些打包存储在一起就得到了一个Material。</p>
-<h3 id="3-以面向对象的思想理解Shader："><a href="#3-以面向对象的思想理解Shader：" class="headerlink" title="3.以面向对象的思想理解Shader："></a>3.以面向对象的思想理解Shader：</h3><p>假设把Shader当做一个类，那么在对某个物体使用此Shader时，就需要实例化此Shader，得到一个对象，而<strong>Material就相当于是一个Shader的对象</strong>。</p>
-<h3 id="4-Shader的分类："><a href="#4-Shader的分类：" class="headerlink" title="4.Shader的分类："></a>4.Shader的分类：</h3><p>Shader的基础类型有两种：<strong>顶点Shader</strong>和<strong>片段Shader</strong>，它们的特点：</p>
-<ul>
-<li><strong>顶点Shader</strong>：具有可以处理、变换，最终会渲染到屏幕上的网格物体的顶点位置的功能，但它不能生成新的顶点；</li>
-<li><strong>片段Shader</strong>：会对一个片段（预备像素）进行各种测试，如Z深度测试、Alpha比较测试，能通过各种测试的片段，最终会被写入渲染的输出帧中，从而成为屏幕上的一个可见像素。</li>
-</ul>
-<h2 id="GPU编程和Shader的编程语言"><a href="#GPU编程和Shader的编程语言" class="headerlink" title="GPU编程和Shader的编程语言"></a>GPU编程和Shader的编程语言</h2><h3 id="1-GPU编程简介："><a href="#1-GPU编程简介：" class="headerlink" title="1.GPU编程简介："></a>1.GPU编程简介：</h3><p><strong>GPU</strong>——Programmable Graphics Processing Unit，即可编程图形处理单元，也成为可编程图形硬件，至于GPU上的编程，实质上就是GPU允许应用程序指定一个序列的指令进行顶点操作控制</p>
-<h3 id="2-Shader的编程语言："><a href="#2-Shader的编程语言：" class="headerlink" title="2.Shader的编程语言："></a>2.Shader的编程语言：</h3><p>GPU与CPU是截然不同的，这不仅仅再其硬件结构的差异上，这也就决定了在两者运行环境下的编程过程也是不同的。目前面向GPU的编程，有<strong>3种高级图像语言</strong>，分别是：</p>
-<ul>
-<li>微软的 <strong>HLST</strong> (High Level Shading Language)，是通过Direct3D图形软件库来写Shader程序的语言；</li>
-<li>OpenGL提供的 <strong>GLSL</strong> (OpenGL Shading Language)来写Shader程序；</li>
-<li>NVIDIA提供的 <strong>Cg</strong> (C for graphics)语言（以HLST为基础，很相似），兼容Direct3D和OpenGL图形接口；</li>
-</ul>
-<p>考虑到最大化的跨平台支持，选择使用兼容性最高的 <strong>Cg</strong> 作为编写Shader的语言，但假如只针对Unity 3D引擎，也可以选择 <strong>GLSL</strong>。</p>
-<h2 id="如何使用Cg编写Shader："><a href="#如何使用Cg编写Shader：" class="headerlink" title="如何使用Cg编写Shader："></a>如何使用Cg编写Shader：</h2><p>在开始进行实际的编程之前，我们应该先清楚实现步骤，这就需要我们了解一下GPU进行图形绘制的操作步骤。</p>
-<h3 id="1-GPU图形绘制："><a href="#1-GPU图形绘制：" class="headerlink" title="1.GPU图形绘制："></a>1.GPU图形绘制：</h3><p>用图形绘制管线描述GPU渲染流程，即“给定视点、三维物体、光源、照明模式和纹理等元素，如何绘制一幅二维图像”。图像绘制其实分为三个阶段：<strong>应用程序阶段</strong>、<strong>几何阶段</strong>和<strong>光栅阶段</strong>：</p>
-<ul>
-<li><strong>应用程序阶段</strong>：使用高级语言（C、C++等）进行开发，主要和CPU、内存打交道，诸如：碰撞检测、场景图建立、空间八叉树更新、视锥裁剪等经典算法都在此阶段。<strong>在该阶段末端，几何体数据（顶点坐标、法向量、纹理等）通过数据总线传送给图形硬件</strong>。</li>
-<li><strong>几何阶段</strong>：主要负责顶点坐标变换、光照、裁剪、投影以及屏幕映射，该阶段基于GPU进行计算。<strong>在该阶段末端，得到经过变换和投影之后的顶点坐标、颜色、以及纹理坐标</strong>。</li>
-<li><strong>光栅阶段</strong>：基于几何阶段的输出数据，为像素（Pixel）正确配色，以便绘制完整图像，该阶段进行的都是单个像素的操作，每个像素的信息存储在颜色缓冲器（color buffer或者frame buffer）中。</li>
-</ul>
-<p>（例如：光照计算属于几何阶段、雾化以及涉及物体透明度的计算属于光栅阶段、深度信息（Z值）的计算属于几何阶段并传递给光栅阶段。）</p>
-<h3 id="2-Unity中使用Cg写Shader："><a href="#2-Unity中使用Cg写Shader：" class="headerlink" title="2.Unity中使用Cg写Shader："></a>2.Unity中使用Cg写Shader：</h3><p>基本步骤如下：</p>
-<ul>
-<li>定义一些属性，用于指定此Shader将有哪些输入；</li>
-<li>定义一个或者多个子着色器，每个着色器中包含一个或者多个Pass；</li>
-<li>指定一个回滚，用于处理所有SubShader都不能运行的情况。 </li>
-</ul>
-
-          
+          <h2 id="什么是Shader"><a href="#什么是Shader" class="headerlink" title="什么是Shader?"></a>什么是Shader?</h2><h3 id="1-Shader的概念："><a href="#1-Shader的概念：" class="headerlink" title="1.Shader的概念："></a>1.Shader的概念：</h3><p><strong>Shader</strong>，即着色器，是一种运行在GPU上的程序，用来对三维物体进行着色处理、光和影的计算、纹理颜色的呈现等，从而将一个个作为抽象的几何数据存在的模型、场景和特效，以近似于真实世界的光与影的形式呈现出来。（简单点的理解就是：利用GPU编程使得构件出来的对象近似于真实世界中的对象呈现出来的处理）<strong>通过Shader可以改变物体的形状、大小、位置以及旋转等</strong>。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/05/Unity-ShaderLab基础（一）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -509,7 +613,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-0.jpg" rel="gallery_cisqxdguj00035krewmvgm7o5"
+                 href="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-0.jpg" rel="gallery_cisr5m3gb0002qcre4og2hd6h"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-0.jpg" itemprop="contentUrl"/>
               </a>
@@ -517,7 +621,7 @@
           
             
               <a class="post-gallery-img fancybox"
-                 href="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-1.jpg" rel="gallery_cisqxdguj00035krewmvgm7o5"
+                 href="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-1.jpg" rel="gallery_cisr5m3gb0002qcre4og2hd6h"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-1.jpg" itemprop="contentUrl"/>
               </a>
@@ -531,20 +635,12 @@
 
       
         
-          
-            <h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>在创建的文章开头假如图片，并且支持点击放大功能，这是Next主题包含的一个功能。</p>
-<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>使用方法就是在开头匹配内容中假如<code>photos</code>字段，可以加图片链接列表：</p>
-<pre><code>---
-title: Next主题的fancybox展示图片
-date: 2016-09-03 17:15:22
-tags:
-photos:
-- http://bruce.u.qiniudn.com/2013/11/27/reading/photos-0.jpg
-- http://bruce.u.qiniudn.com/2013/11/27/reading/photos-1.jpg
----
-</code></pre><h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><p>此案例的运行结果，如本文的开头所示。</p>
-
-          
+          <h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>在创建的文章开头假如图片，并且支持点击放大功能，这是Next主题包含的一个功能。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/03/Next主题的fancybox展示图片/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -651,50 +747,19 @@ photos:
 
       
         
-          
-            <blockquote>
-<p>本文转载自原文<a href="http://www.jb51.net/article/7131_3.htm" target="_blank" rel="external">批处理经典入门教程！(从不懂到高手)</a>，只是原文作者太罗嗦了，我做了稍微的简化。</p>
+          <blockquote>
+<p>本文转载自原文<a href="http://www.jb51.net/article/7131_3.htm">批处理经典入门教程！(从不懂到高手)</a>，只是原文作者太罗嗦了，我做了稍微的简化。</p>
 </blockquote>
 <ol>
 <li>批处理定义</li>
 <li>基本语法和常用命令</li>
 <li>例子</li>
 </ol>
-<hr>
-<h3 id="一-批处理定义"><a href="#一-批处理定义" class="headerlink" title="一.批处理定义"></a>一.批处理定义</h3><p>批处理的本质，其实是一堆DOS命令，他们按一定顺序排列而形成的集合就是批处理。批处理，也称为批处理脚本，英文译为BATCH，批处理文件后缀BAT就取的前三个字母。<br><strong>注意：</strong>批处理的每一行可视为一个命令，每个命令里可以含多条子命令，从第一行开始执行，直到最后一行结束，它运行的平台是DOS。</p>
-<hr>
-<h3 id="二-基本语法和常用命令"><a href="#二-基本语法和常用命令" class="headerlink" title="二.基本语法和常用命令"></a>二.基本语法和常用命令</h3><p>1.注释方式：<br>使用“::”双冒号的方式进行注释，注释符号之后的同一行中的内容在脚本执行时不显示，也不起任何作用，只是增加了脚本的可读性，在批处理脚本中和rem命令等效。例如：</p>
-<pre><code>@echo off 
-::close echo 
-cls 
-::clean screen 
-</code></pre><p>2.@符号：<br>让脚本执行窗口不显示此符号之后指令内容的命令本身，而只显示执行结果，就像上例中的“@echo off”，@可以使得doc中不显示echo off，而直接显示其执行的结果。</p>
-<p>3.echo:<br>可以看做是回写或者是反馈，但实际上它是一个开关，而控制它的指令就是echo on和echo off了，而直接执行echo指令则会显示当前echo所处的状态（on或off）。执行echo off将关闭回显，它后面的所有命令都不显示命令本身，只显示执行后的结果，除非执行echo on命令。<br>echo命令的另一种用法一：可以用它来显示信息，如：```echo hello world<code>,会在doc中打印“hello world”;
-echo命令的另一种用法二：可以直接编辑文本文件,如：在doc窗口直接输入</code>echo nbtstat -A 192.168.0.1 &gt; a.bat ````，执行结果会在当前目录下创建一个a.bat文件。</p>
-<p>4.pause:<br>直接可以看出它是“暂停”的意思，即让当前程序进程暂停一下，并显示一行信息：请按任意键继续. . .。</p>
-<p>5.”goto”和”:”:<br>这两个指令是以一个组合形式出现的，goto是一个跳转指令，一般脚本执行到goto指令时，会跳转到：:标签定义的部分区执行。例如：</p>
-<pre><code>goto usage
-...
-:usage
-...
-</code></pre><p>不难看出，goto命令就是根据这个冒号和标签名称来寻找它该跳转的地方，它们是一一对应的关系，goto命令也经常和if命令结合使用。<br>goto命令的另一种用法一：提前结束程序。在程序中间使用goto命令跳转到某一标签，而这一标签的内容却定义为退出。<br>如： </p>
-<pre><code>…… 
-goto end 
-…… 
-:end 
-</code></pre><p>这里:end在脚本最后一行！</p>
-<p>6.%:<br>单个%不算是命令，而相当于参数，例如：</p>
-<pre><code>net use \\%1\ipc$ %3 /u:&quot;%2&quot; 
-copy 11.BAT \\%1\admin$\system32 /y 
-copy 13.BAT \\%1\admin$\system32 /y 
-copy ipc2.BAT \\%1\admin$\system32 /y 
-copy NWZI.EXE \\%1\admin$\system32 /y 
-attrib \\%1\admin$\system32⏺.bat -r -h -s 
-</code></pre><p>以上代码是Bat.Worm.Muma病毒中的一部分，%1代表的IP，2%代表的username，3%代表password。执行形式为：脚本文件名 参数一 参数二 ……。假设这个脚本被保存为a.bat，则执行形式如下：a IP username password。这里IP、username、password是三个参数，缺一不可（因为程序不能正确运行，并不是因为少了参数语法就不对）这样在脚本执行过程中，脚本就自动用用你的三个参数依次（记住，是依次！也是一一对应的关系。）代换1%、2%和3%，这样就达到了灵活运用的目的。 </p>
-<hr>
-<h3 id="三、例子"><a href="#三、例子" class="headerlink" title="三、例子"></a>三、例子</h3><p>将所需的命令都写在一个文件中，并且修改文件的后缀名为.bat，双击执行即会弹出doc窗口执行文件中的脚本命令。</p>
-
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/03/BATCH批处理简记/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -820,30 +885,15 @@ attrib \\%1\admin$\system32⏺.bat -r -h -s
 
       
         
-          
-            <p>–</p>
-<blockquote>
+          <blockquote>
 <p>做了很长时间的客户端，主要从事过Android软件开发和Unity 3D的游戏开发，之前还看过一段时间的Java Web，但是由于没有实际的应用，所以就搁置了很久。最近突然有对服务器后台编程产生了浓厚的兴趣，想试着用Python + Mongo DB进行游戏后台的开发。</p>
 </blockquote>
-<h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><p>Python是一门具有强类型(即变量类型是强制要求的)、动态性、隐式类型(不需要做变量声明)、大小写敏感(var和VAR代表了不同的变量)以及面向对象等特点的编程语言。<strong>Python是一种解释型的语言，相比于C语言，Python的运行速度慢，且不能进行加密。</strong></p>
-<h4 id="一、Python的安装："><a href="#一、Python的安装：" class="headerlink" title="一、Python的安装："></a>一、Python的安装：</h4><p>由于我使用的开发环境是Mac OS，所以自带了Python，但由于10.10自带的版本是2.7的，所以我们需要重新安装3.x的版本，安装方法：</p>
-<p> 1.没有安装Homebrew的先安装此Mac插件，安装方法就是打开终端，输入以下指令：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ruby -e <span class="string">"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"</span></div></pre></td></tr></table></figure></p>
-<p>2.使用以下指令安装Python3：</p>
-<ul>
-<li>先查看当前计算机的python版本：<strong>python</strong></li>
-</ul>
-<p><img src="http://img.blog.csdn.net/20160611163033678" alt="这里写图片描述"></p>
-<ul>
-<li>安装新版本：<strong>brew install python3</strong></li>
-</ul>
-<p><img src="http://img.blog.csdn.net/20160611163202196" alt="这里写图片描述"><br>这里我的安装出错了，出错不可怕，解决就好了，不难看出这个错误出现的原因是对/usr/local/share/man/man3目录的权限不够，那么解决方法：<strong>sudo chown -R linshuhe /usr/local/share/man/man3</strong><br><img src="http://img.blog.csdn.net/20160611172025531" alt="这里写图片描述"><br>但是，这里又出现了多版本的python共存和版本切换的问题了：<br><img src="http://img.blog.csdn.net/20160611172635305" alt="这里写图片描述"><br>假如不想修改或者删除系统自带的python，我们可以直接通过以下方式指定使用哪个版本执行代码：<br><img src="http://img.blog.csdn.net/20160611173455348" alt="这里写图片描述"></p>
-<p>除了上述方法之外，还可以直接到官网下载最新版本，直接安装即可。</p>
-<hr>
-<h3 id="Mongo-DB"><a href="#Mongo-DB" class="headerlink" title="Mongo DB"></a>Mongo DB</h3><h4 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h4><p>使用Homebrew进行安装是比较简单的安装方式：<br>1.更新Homebrew:<strong>brew update</strong><br><img src="http://img.blog.csdn.net/20160610091546638" alt="这里写图片描述"><br>2.开始安装mongodb:<strong>brew install mongodb</strong><br><img src="http://img.blog.csdn.net/20160610091527985" alt="这里写图片描述"><br>3.根据安装完成最后的提示，启动mongodb:<br><strong>mongod —config /usr/local/etc/mongod.conf</strong></p>
-<p>4.下载一个可视化管理工具Robomongo：下载的地址为：<br><a href="https://robomongo.org/download" target="_blank" rel="external">https://robomongo.org/download</a><br><img src="http://img.blog.csdn.net/20160610091457232" alt="这里写图片描述"></p>
-<hr>
-
-          
+<h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><p>Python是一门具有强类型(即变量类型是强制要求的)、动态性、隐式类型(不需要做变量声明)、大小写敏感(var和VAR代表了不同的变量)以及面向对象等特点的编程语言。<strong>Python是一种解释型的语言，相比于C语言，Python的运行速度慢，且不能进行加密。</strong><br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/03/Python-Web-1-——-python和MongoDB安装/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -969,186 +1019,18 @@ attrib \\%1\admin$\system32⏺.bat -r -h -s
 
       
         
-          
-            <blockquote>
-<p>之前使用过jekyll+github做过一版自己的博客网站，有兴趣的可以看一下我之前的文章：<a href="http://blog.csdn.net/linshuhe1/article/details/51143026" title="Github+Jekyll —— 创建个人免费博客（一）从零开始" target="_blank" rel="external">http://blog.csdn.net/linshuhe1/article/details/51143026</a>，其实也很简单，但是存在一些问题：目录、Rss、sitemap无法自动生成。</p>
+          <blockquote>
+<p>之前使用过jekyll+github做过一版自己的博客网站，有兴趣的可以看一下我之前的文章：<a href="http://blog.csdn.net/linshuhe1/article/details/51143026" title="Github+Jekyll —— 创建个人免费博客（一）从零开始">http://blog.csdn.net/linshuhe1/article/details/51143026</a>，其实也很简单，但是存在一些问题：目录、Rss、sitemap无法自动生成。</p>
 </blockquote>
 <hr>
 <blockquote>
 <p>最近看到了别人使用hexo+github实现的博客，有更多的灵活性和简约的风格，所以也试着改一下自己原本的设计。</p>
 </blockquote>
-<h2 id="什么是hexo："><a href="#什么是hexo：" class="headerlink" title="什么是hexo："></a>什么是hexo：</h2><figure class="highlight plain"><figcaption><span>"@tommy351")。具有以下几点优点：</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- 易用性，部署很简单，常用指令有：```hexo new```、```hexo generate```、```hexo server```、```hexo deploy```；</div><div class="line">- 轻量级，文件少而小，自定义方便</div><div class="line"></div><div class="line">## 相关知识：</div><div class="line">hexo配置过程中使用到了```Github```，```Git```，```Markdown```，```Node.js```等相关操作，所以需要很多插件、widget需要自己安装配置。</div><div class="line"></div><div class="line">## 安装准备：</div><div class="line"></div><div class="line">1. Node.js:[https://nodejs.org/en/](https://nodejs.org/en/ &quot;https://nodejs.org/en/&quot;) ；</div><div class="line">2. Github桌面版（Windows）：[https://desktop.github.com/](https://desktop.github.com/ &quot;https://desktop.github.com/&quot;)；</div><div class="line"></div><div class="line">## 安装Github桌面版和配置</div><div class="line">1. 双击下载好的```GitHubSetup.exe```文件，按照默认设置完成安装；</div><div class="line">2. 登录自己的github账号；</div><div class="line"></div><div class="line">![](http://i.imgur.com/97nOEVO.png)</div><div class="line">3. 在github网页上创建一个以```username.github.io```命名的repositories,此时username为自己github的账号名称；</div><div class="line"></div><div class="line">![](http://i.imgur.com/A9cQrk6.png)</div><div class="line">4. 打开Git Shell，使用配置SSH Key使本地git项目与远程Github建立联系：```ssh -T git@github.com```；</div><div class="line"></div><div class="line">![](http://i.imgur.com/t33BM1G.png)</div><div class="line"></div><div class="line">## 安装Node.js</div><div class="line">直接双击下载好的```node-v4.5.0-x64.msi```选择指定的安装路径，按照默认设置完成安装操作，安装完成后不需要对Node.js进行任何配置。为了检验是否完成安装，可以打开命令行，输入指令：```npm --version```进行版本号查询。</div><div class="line">![](http://i.imgur.com/H21hK8M.png)</div><div class="line"></div><div class="line">## 安装Hexo:</div><div class="line">### 1.安装:</div><div class="line"></div><div class="line">    mkdir hexo #创建一个项目文件</div><div class="line">	cd hexo    #进入项目文件目录</div><div class="line">	npm install -g hexo-cli</div><div class="line">	npm install hexo --save</div><div class="line">npm是Node.js中的一个工具，所以在安装Hexo之前应该先安装Node.js</div><div class="line"></div><div class="line">### 2.部署Hexo：</div><div class="line">在Git shell中输入：</div><div class="line"></div><div class="line">	hexo init</div><div class="line">记得输入之前需要确保当前命令行所处目录为所要创建工程的根目录下，因为此操作的结果就是将hexo的一些必要文件复制到当前目录下面。</div><div class="line">![](http://i.imgur.com/8bOaggs.png)</div><div class="line">看到上图结果之后，可以通过以下指令运行博客：</div><div class="line"></div><div class="line">	hexo server</div><div class="line">![](http://i.imgur.com/OyexMqN.png)</div><div class="line">运行正常的话可以通过访问：[http://localhost:4000/](http://localhost:4000/ &quot;http://localhost:4000/&quot;)查看运行结果：</div><div class="line"></div><div class="line">![](http://i.imgur.com/Xy731Ig.png)</div><div class="line"></div><div class="line">假如出现了hexo服务启动成功，但是浏览器访问localhost:4000一直不响应，那就有可能是因为你的设备上装了其他软件占用了4000端口，一般有两种办法可以解决：</div><div class="line"></div><div class="line">- 在服务管理中将占用该端口的服务停止掉，通常安装了福昕阅读器的就会占用4000，把其对应的后台服务关掉即可；</div><div class="line">- 切换hexo启动的默认端口，使用以下指令：</div></pre></td></tr></table></figure>
-<pre><code>hexo s -p 5000
-</code></pre><p>```<br>此时启动端口就变成了5000，访问地址变成了localhost:5000。</p>
-<h3 id="3-安装Hexo插件："><a href="#3-安装Hexo插件：" class="headerlink" title="3.安装Hexo插件："></a>3.安装Hexo插件：</h3><p>主要目的是为了让其自动生成sitemap，Rss，部署到git等，这些是额外的插件，假如不需要使用到这些功能可以不添加：</p>
-<pre><code>npm install hexo-generator-index --save
-npm install hexo-generator-archive --save
-npm install hexo-generator-category --save
-npm install hexo-generator-tag --save
-npm install hexo-server --save
-npm install hexo-deployer-git --save
-npm install hexo-deployer-heroku --save
-npm install hexo-deployer-rsync --save
-npm install hexo-deployer-openshift --save
-npm install hexo-renderer-marked@0.2 --save
-npm install hexo-renderer-stylus@0.2 --save
-npm install hexo-generator-feed@1 --save
-npm install hexo-generator-sitemap@1 --save
-</code></pre><h2 id="将当前工程上传到github"><a href="#将当前工程上传到github" class="headerlink" title="将当前工程上传到github"></a>将当前工程上传到github</h2><h3 id="1-修改配置文件："><a href="#1-修改配置文件：" class="headerlink" title="1.修改配置文件："></a>1.修改配置文件：</h3><p>在当前项目的根目录下找到<code>_config.yml</code>配置文件，用编辑器打开，并找到Deployment标签处deploy节点，填写以下配置信息，<code>type</code>是指定拖过平台类型，<code>repository</code>指定了github上创建的repository仓库地址，<code>branch</code>指定了版本类型。（注：冒号后面需要加一个空格，否则会出现报错）</p>
-<pre><code># Deployment
-## Docs: https://hexo.io/docs/deployment.html
-deploy:
-  type: github
-  repository: https://github.com/linshuhe1/linshuhe1.github.io.git
-  branch: master
-</code></pre><h3 id="2-将项目deploy到github仓库："><a href="#2-将项目deploy到github仓库：" class="headerlink" title="2.将项目deploy到github仓库："></a>2.将项目deploy到github仓库：</h3><p>打开Git shell进入当前项目的根目录，依次执行指令：</p>
-<pre><code>hexo clean
-hexo generate
-hexo deploy
-</code></pre><p>一般执行最后一步的时候会出现错误如下：<br><img src="http://i.imgur.com/68SebBI.png" alt=""><br>解决错误的方法是：将deploy的type改成git，然后在Git shell中执行：</p>
-<pre><code>npm install hexo-deployer-git --save
-</code></pre><p>执行结束后再次执行上述三个指令，正确结果应该如下：<br><img src="http://i.imgur.com/G0wPCXU.png" alt=""><br>如此我们便完成了将本地的hexo工程deploy到github上的操作，访问地址：<a href="https://username.github.io/可以看到页面效果,这里以我的github为例：[https://linshuhe1.github.io/](https://linshuhe1.github.io/" target="_blank" rel="external">https://username.github.io/可以看到页面效果,这里以我的github为例：[https://linshuhe1.github.io/](https://linshuhe1.github.io/</a> “<a href="https://linshuhe1.github.io/&quot;)。" target="_blank" rel="external">https://linshuhe1.github.io/&quot;)。</a></p>
-<h2 id="Hexo常用指令使用："><a href="#Hexo常用指令使用：" class="headerlink" title="Hexo常用指令使用："></a>Hexo常用指令使用：</h2><h3 id="创建新博文："><a href="#创建新博文：" class="headerlink" title="创建新博文："></a>创建新博文：</h3><p>在Git shell中使用以下指令：</p>
-<pre><code>hexo new &quot;postName&quot;
-</code></pre><p>生成指定名称postName的文章到hexo\source_posts\postName.md，当然也可以直接到hexo\source_posts目录下，手动创建一个文件，命名时注意后缀名必须是“.md”即可。<br><img src="http://i.imgur.com/qjVQtnG.png" alt=""><br>可以打开查看新建出来的.md文件的内容：</p>
-<pre><code>---
-title: github pages + Hexo
-date: 2016-09-02 17:17:52
-tags:
----
-</code></pre><p><code>title</code>是博文的标题，<code>date</code>是博文的日期，<code>tags</code>是分类标签。</p>
-<p>更详细的内容可以参考：<a href="https://hexo.io/docs/writing.html" title="Writing" target="_blank" rel="external">https://hexo.io/docs/writing.html</a></p>
-<h3 id="新建页面："><a href="#新建页面：" class="headerlink" title="新建页面："></a>新建页面：</h3><p>上面的步骤其实就是新建一篇博文的步骤，他们最后都是通过一个文章页面来显示的单个子页，但是我们的博客页面出来需要有博文显示页面之后，还需要有其他的页面，每个页面相当于一个分类对应顶栏菜单中的一个页签，如下图首页、下载等都是一个页面，所以可以理解为页面就相当于子页的父节点：<br><img src="http://i.imgur.com/V33kn9P.png" alt=""><br>创建一个页签的操作是在Git shell中输入指令：</p>
-<pre><code>hexo new page &quot;页签名称&quot;
-</code></pre><p>上述步骤操作结果是在hexo\source目录下多出一个文件夹，而且里面还有一个index.md，这就表明了我们新建了一个页签。</p>
-<h3 id="运行博客："><a href="#运行博客：" class="headerlink" title="运行博客："></a>运行博客：</h3><p>使用Git shell在当前项目的根目录下执行以下指令：</p>
-<pre><code>hexo server
-</code></pre><p>更详细的内容可以参考：<a href="http://hexo.io/docs/server.html" title="Server" target="_blank" rel="external">http://hexo.io/docs/server.html</a></p>
-<h3 id="生成静态站点文件："><a href="#生成静态站点文件：" class="headerlink" title="生成静态站点文件："></a>生成静态站点文件：</h3><pre><code>hexo generate
-</code></pre><p>更详细的内容可以参考：<a href="http://hexo.io/docs/generating.html" title="Generating" target="_blank" rel="external">http://hexo.io/docs/generating.html</a></p>
-<h2 id="发表一篇新博文"><a href="#发表一篇新博文" class="headerlink" title="发表一篇新博文"></a>发表一篇新博文</h2><h3 id="1-新建博文："><a href="#1-新建博文：" class="headerlink" title="1.新建博文："></a>1.新建博文：</h3><p>使用新建博文的指令：</p>
-<pre><code>hexo new &quot;github pages + Hexo&quot;
-</code></pre><h3 id="2-编辑博文内容："><a href="#2-编辑博文内容：" class="headerlink" title="2.编辑博文内容："></a>2.编辑博文内容：</h3><p>打开步骤1创建得到的.md文件，使用的语法是markdown，假设内容如下：</p>
-<pre><code>---
-title: github pages + Hexo
-date: 2016-09-02 17:17:52
-tags: 测试
----
-
-&gt;测试博客
-</code></pre><h3 id="3-发表博文："><a href="#3-发表博文：" class="headerlink" title="3.发表博文："></a>3.发表博文：</h3><p>之前的内容中已经提到了将本地内容更新到github需要三个步骤：</p>
-<pre><code>hexo clean
-hexo generate
-hexo deploy
-</code></pre><p>其实还有快捷的指令输入方式，如下：</p>
-<pre><code>hexo g == hexo generate
-hexo d == hexo deploy
-hexo s == hexo server
-hexo n == hexo new
-# 还能组合使用，如：
-hexo d -g
-</code></pre><p>完成上述三个步骤，一篇新的博文就发表到github上面了。</p>
-<h2 id="使用Next主题美化界面："><a href="#使用Next主题美化界面：" class="headerlink" title="使用Next主题美化界面："></a>使用Next主题美化界面：</h2><p>安装好hexo之后，主题使用的是hexo默认自带的<code>landscape</code>主题，Next主题是iissnan设计的，使用指南其实可以直接参考Next官方网：<a href="http://theme-next.iissnan.com/" title="Next" target="_blank" rel="external">http://theme-next.iissnan.com/</a></p>
-<h3 id="1-Next主题下载："><a href="#1-Next主题下载：" class="headerlink" title="1.Next主题下载："></a>1.Next主题下载：</h3><p>打开Git shell，在当前项目根目下使用git从github上checkout主题的代码，输入指令：</p>
-<pre><code>git clone https://github.com/iissnan/hexo-theme-next themes/next
-</code></pre><p><img src="http://i.imgur.com/bGoWtvn.png" alt=""><br>下载完成后，在hexo\theme目录下回多出一个next文件夹，里面就是next主题所需的文件,当然我们也可以看到在theme文件目录还有一个landscape文件夹，这也就是hexo默认的主题。<br><img src="http://i.imgur.com/rqq71ts.png" alt=""></p>
-<h3 id="2-配置主题："><a href="#2-配置主题：" class="headerlink" title="2.配置主题："></a>2.配置主题：</h3><p>之前我们配置hexo的时候，有用到<code>_config.yml</code>文件，称其为<strong>站点配置文件</strong>，而我们打开next主题文件夹，发现里面也有一个<code>_config.yml</code>文件，我们称这个为<strong>主题配置文件</strong>。在hexo中启用next主题的方式：就是打开站点配置文件，找到<code>theme</code>字段，将其值改为“next”，如下：</p>
-<pre><code># Extensions
-## Plugins: https://hexo.io/plugins/
-## Themes: https://hexo.io/themes/
-theme: next
-</code></pre><p>配置完成后，在Git shell中使用<code>hexo server</code>指令启动本地博客，在浏览器中访问<a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a>可以看到如下结果：<br><img src="http://i.imgur.com/ZKzamkL.png" alt=""></p>
-<h3 id="3-next的样式选择："><a href="#3-next的样式选择：" class="headerlink" title="3.next的样式选择："></a>3.next的样式选择：</h3><p>next的样式其实有三种：Muse、Mist和Pisces，步骤2中看到的其实是next默认的模式Muse，根据官方说明三个样式的特点如下：</p>
-<ul>
-<li><strong>Muse：</strong> 默认 Scheme，这是 NexT 最初的版本，黑白主调，大量留白</li>
-<li><strong>Mist：</strong> Muse 的紧凑版本，整洁有序的单栏外观</li>
-<li><strong>Pisces：</strong> 双栏 Scheme，小家碧玉似的清新</li>
-</ul>
-<p>切换的控制其实很简单，使用next主题配置文件中的<code>scheme</code>字段来控制，假设我们选择Mist样式（个人认为最好看的样式），操作步骤是：打开next文件夹中的<code>_config.yml</code>文件，找到<code>scheme</code>字段，将其设置为“Mist”，如下所示：</p>
-<pre><code># ------------------------------------------------------
-# Scheme Settings
-# ------------------------------------------------------
-
-# Schemes
-#scheme: Muse
-scheme: Mist
-#scheme: Pisces
-</code></pre><p>重新启动博客，刷新浏览器可以看到：<br><img src="http://i.imgur.com/6YFzhyz.png" alt=""></p>
-<h2 id="额外的优化："><a href="#额外的优化：" class="headerlink" title="额外的优化："></a>额外的优化：</h2><h3 id="1-设置favicon："><a href="#1-设置favicon：" class="headerlink" title="1.设置favicon："></a>1.设置favicon：</h3><p>favicon的全称Favorites Icon，即地址栏左侧的图标：</p>
-<p><img src="http://i.imgur.com/ZNLKFAE.png" alt=""></p>
-<p>有个在线工具可以上传自己的图片去生成指定规格的favicon.ico文件：<a href="http://www.atool.org/ico.php" target="_blank" rel="external">http://www.atool.org/ico.php</a>。打开主题配置文件<code>_config.yml</code>可以看到favicon的配置信息：</p>
-<pre><code># Put your favicon.ico into `hexo-site/source/` directory.
-favicon: /favicon.ico
-</code></pre><p>根据说明，我们将图标取名为<code>favicon.ico</code>然后放到当前工程的hexo\source目录下，重启博客即可生效。</p>
-<h3 id="2-菜单栏控制："><a href="#2-菜单栏控制：" class="headerlink" title="2.菜单栏控制："></a>2.菜单栏控制：</h3><p>我们看到页面顶部的菜单栏，其实是由主题配置文件中的<code>menu</code>字段控制的，例如原本的样子是这样：<br><img src="http://i.imgur.com/iyg45Yj.png" alt=""></p>
-<p>我们修改一下主题配置文件，如下把about页面前面的注释去掉，即让此页签处于显示状态：</p>
-<pre><code># ------------------------------------------------------
-# Menu Settings
-# ------------------------------------------------------
-
-# When running the site in a subdirectory (e.g. domain.tld/blog), remove the leading slash (/archives -&gt; archives)
-menu:
-  home: /
-  #categories: /categories
-  about: /about
-  archives: /archives
-  tags: /tags
-  #commonweal: /404.html
-</code></pre><p>重启博客可以看到效果如下：<br><img src="http://i.imgur.com/O6Z9NvT.png" alt=""></p>
-<p>然而，点击打开About却出现了“Cannot GET /about/”的页面错误，这是因为我们还没有about这个页面，需要使用<code>hexo new page &quot;页面名称&quot;</code>进行创建：</p>
-<pre><code>hexo new page about
-</code></pre><p>执行结果就是在hexo\source目录下面多出了一个about文件夹，里面有index.md，这就是点击About会展示的内容页面。同理，也可以创建tags页面。</p>
-<h3 id="3-语言设置："><a href="#3-语言设置：" class="headerlink" title="3.语言设置："></a>3.语言设置：</h3><p>在站点配置文件中假如如下内容，明确指定使用的语言，例如中文：</p>
-<pre><code>language: zh-Hans
-</code></pre><p>设置完毕后，发现菜单栏也发生了变化：<br><img src="http://i.imgur.com/Ekxi8Tv.png" alt=""></p>
-<h3 id="4-侧栏设置："><a href="#4-侧栏设置：" class="headerlink" title="4.侧栏设置："></a>4.侧栏设置：</h3><p>在主题配置文件的<code>sidebar</code>字段，此处我直接设置为侧栏一直显示，而且显示在右边：</p>
-<pre><code>sidebar:
-  # Sidebar Position, available value: left | right
-  position: left
-  #position: right
-
-  # Sidebar Display, available value:
-  #  - post    expand on posts automatically. Default.
-  #  - always  expand for all pages automatically
-  #  - hide    expand only when click on the sidebar toggle icon.
-  #  - remove  Totally remove sidebar including sidebar toggler.
-  #display: post
-  display: always
-  #display: hide
-  #display: remove
-</code></pre><h3 id="5-设置头像和作者名称："><a href="#5-设置头像和作者名称：" class="headerlink" title="5.设置头像和作者名称："></a>5.设置头像和作者名称：</h3><p>在站点配置文件中，新加一个字段<code>avatar</code>，值就是头像的连接地址，这里我使用站内地址，将avatar.png放到本地目录hexo\source\images中；作者名称直接设置站点配置文件中<code>author</code>字段的值：</p>
-<pre><code># Site
-title: Linsh-何乐不为~
-subtitle:
-description:
-author: Linshuhe
-avatar: /images/avatar.png
-language: zh-Hans
-timezone:
-</code></pre><h2 id="第三方服务："><a href="#第三方服务：" class="headerlink" title="第三方服务："></a>第三方服务：</h2><h3 id="1-多说评论："><a href="#1-多说评论：" class="headerlink" title="1.多说评论："></a>1.多说评论：</h3><p>进入多说官网，登录后点击“我要登录”，填写相关信息，注意要记住<code>多说域名</code>这个字段填写的内容，<code>http://(duoshuo_shortname).duoshuo.com</code>，这个duoshuo_shortname将用于我们站点配置文件中的配置。步骤：在站点配置文件中新建一个<code>duoshuo_shortname</code>的字段，填写注册使用的duoshuo_shortname，例如：</p>
-<pre><code>duoshuo_shortname: linshuhe1
-</code></pre><h3 id="2-百度统计："><a href="#2-百度统计：" class="headerlink" title="2.百度统计："></a>2.百度统计：</h3><p>用于统计阅读的次数，步骤如下：</p>
-<ul>
-<li>登录百度统计官网：<a href="http://tongji.baidu.com/web/welcome/login" title="百度统计" target="_blank" rel="external">http://tongji.baidu.com/web/welcome/login</a>定位到站点的代码获取页面；</li>
-<li>复制<code>hm.js?</code>后面的那串id；</li>
-<li>在站点配置文件中，新增一个字段<code>baidu_analytics</code>，设置其值为上面复制的百度统计的id</li>
-<li>阅读次数统计，使用LeanCloud来实现，详情查看：<a href="https://notes.wanghao.work/2015-10-21-%E4%B8%BANexT%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0%E9%98%85%E8%AF%BB%E9%87%8F%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD.html#%E9%85%8D%E7%BD%AELeanCloud" target="_blank" rel="external">https://notes.wanghao.work/2015-10-21-%E4%B8%BANexT%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0%E9%98%85%E8%AF%BB%E9%87%8F%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD.html#%E9%85%8D%E7%BD%AELeanCloud</a></li>
-</ul>
-<h3 id="3-Swiftype搜索"><a href="#3-Swiftype搜索" class="headerlink" title="3.Swiftype搜索"></a>3.Swiftype搜索</h3><p>使用 Swiftype 之前需要前往 Swiftype 配置一个搜索引擎。 而后编辑 站点配置文件， 新增 swiftype_key 字段，值为你的 swiftype 搜索引擎的 key。 详细的配置请参考： <a href="http://theme-next.iissnan.com/third-party-services.html#swfitype" title="Swiftype" target="_blank" rel="external">http://theme-next.iissnan.com/third-party-services.html#swfitype</a></p>
-<p><strong>Local Search:</strong>添加百度/谷歌/本地 自定义站点内容搜索：</p>
-<ul>
-<li>安装hexo-generator-search:</li>
-<li>  npm install hexo-generator-search –save</li>
-<li>在站点配置文件中加入：</li>
-<li>  search:<pre><code>path: search.xml
-field: post
-</code></pre></li>
-</ul>
-<blockquote>
-<p>最终结果可以查看我的博客：<a href="https://linshuhe1.github.io/" target="_blank" rel="external">https://linshuhe1.github.io/</a></p>
-</blockquote>
-
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/02/github-pages-Hexo/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1216,7 +1098,7 @@ field: post
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-count">6</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1233,7 +1115,7 @@ field: post
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
