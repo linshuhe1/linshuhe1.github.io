@@ -22,11 +22,113 @@
 </blockquote>
 <h3 id="2-其他内置数据类型："><a href="#2-其他内置数据类型：" class="headerlink" title="2.其他内置数据类型："></a>2.其他内置数据类型：</h3><ul>
 <li><strong>向量</strong></li>
+</ul>
+<p>Cg还提供了内置的向量数据类型 (built-in vector data types) ，内置的向量数据类型基于基础数据类型。 例如： float4， 表示 float 类型的 4 元向量； bool4， 表示 bool类型 4 元向量。<br>（注意： <strong>向量最长不能超过 4 元</strong>， 即在 Cg 程序中可以声明 float1 、 float2 、 float3 、float4 类型的数组变量，但是不能声明超过 4 元的向量。）<br>向量初始化方式一般为：</p>
+<pre><code>float4 array = float4(1.0, 2.0, 3.0, 4.0);
+</code></pre><p>较长的向量还可以通过较短的向量进行构建：</p>
+<pre><code>float2 a = float2(1.0, 1.0);  
+float4 b = float4(a, 0.0, 0.0);  
+</code></pre><ul>
 <li><strong>矩阵</strong></li>
+</ul>
+<p>Cg还提供矩阵数据类型，不过<strong>最大的维数不能超过4X4阶</strong>，例如：</p>
+<pre><code>float1x1 matrix1;//等价于float matirx1; x是字符，并不是乘号！  
+float2x3 matrix2;//表示 2*3 阶矩阵，包含6个float类型数据  
+float4x2 matrix3;//表示 4*2 阶矩阵，包含8个float类型数据  
+float4x4 matrix4;//表示 4*4 阶矩阵，这是最大的维数  
+</code></pre><p>矩阵初始化：</p>
+<pre><code>float2x3 matrix5 = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0};  
+</code></pre><ul>
 <li><strong>数组</strong></li>
 </ul>
-<p>注：在Cg中，向量、矩阵与数组是完全不同的，向量和矩阵是内置的数据类型，而数组则是一种数据结构。</p>
-]]></content>
+<p><strong>数组数据类型在Cg中的作用：作为函数的形参，用于大量数据的传递</strong>，例如：顶点参数数组、光照参数数据等。</p>
+<p>一维数组：</p>
+<pre><code>float a[10];//声明了一个数组，包含 10 个 float 类型数据  
+float a[4] = {1.0, 2.0, 3.0, 4.0}; //初始化一个数组  
+int length = a.length;//获取数组长度  
+</code></pre><p>多维数组：</p>
+<pre><code>float b[2][3] = {{0.0, 0.0, 0.0},{1.0, 1.0, 1.0}};  
+int length1 = b.length; // length1 值为 2  
+int length2 = b[0].length; // length2 值为 3  
+</code></pre><p>注：在Cg中，向量、矩阵与数组是完全不同的，向量和矩阵是内置的数据类型，而数组则是一种数据结构。</p>
+<ul>
+<li><strong>类型转换</strong></li>
+</ul>
+<p>Cg 中的类型转换和 C 语言中的类型转换很类似。 C 语言中类型转换可以是<strong>强制类型转换</strong>，也可以是<strong>隐式转换</strong>，如果是后者，则数据类型从低精度向高精度转换。在 Cg 语言中也是如此：</p>
+<pre><code>float a = 1.0;  
+half b = 2.0;  
+float c = a+b; //等价于 float c = a + (float)b;  
+</code></pre><p>当有类型变量和无类型常量数据进行运算时，该常量数据不做类型转换，例如：</p>
+<pre><code>float a = 1.0;  
+float b = a + 2.0;//2.0为无类型常量数据，编译时作为float 类型
+</code></pre><p>Cg 语言中对于常量数据可以加上类型后缀，表示该数据的类型，例如：</p>
+<pre><code>float a = 1.0;  
+float b = a + 2.0h;//2.0h为half类型常量数据，运算是需要做类型转换
+</code></pre><p>常量的类型后缀有3种：</p>
+<ul>
+<li>f：表示float</li>
+<li>h：表示half</li>
+<li>x：表示fixed</li>
+</ul>
+<hr>
+<h2 id="Cg的语法："><a href="#Cg的语法：" class="headerlink" title="Cg的语法："></a>Cg的语法：</h2><p>Cg的关系操作符、逻辑操作符、位移操作符都与C语言有相似之处，需要特别注意的是<strong>Swizzle操作符</strong>，例如：</p>
+<pre><code>float4(a, b, c, d).xyz     //等价于 float3(a, b, c)
+float4(a, b, c, d).xyy     //等价于 float3(a, b, b)
+float4(a, b, c, d).wzyx //等价于 float4(d, c, b, a)
+float4(a, b, c, d).w     //等价于 float d
+</code></pre><hr>
+<h2 id="Cg的编译："><a href="#Cg的编译：" class="headerlink" title="Cg的编译："></a>Cg的编译：</h2><h3 id="1-编译方式："><a href="#1-编译方式：" class="headerlink" title="1.编译方式："></a>1.编译方式：</h3><ul>
+<li><strong>编译程序</strong>：</li>
+</ul>
+<p>计算机只能理解和执行由 0 、 1 序列（电压序列）构成的机器语言，所以汇编语言和高级语言程序都需要进行翻译才能被计算机所理解， 担负这一任务的程序称为语言处理程序，通常也被称为编译程序。</p>
+<ul>
+<li><strong>静态编译</strong>：</li>
+</ul>
+<p>一旦编译后，除非改变程序代码，否则不需要重新编译，这种方式称为静态编译（ static compilation ） 。静态编译最重要的特征是：<strong>一旦编译为可执行文件，在可执行文件运行期间不再需要源码信息</strong>。</p>
+<ul>
+<li><strong>动态编译</strong>：</li>
+</ul>
+<p>编译程序和源码都要参与到程序的运行过程中，就像脚本语言（Lua、JavaScrpit等），源码嵌套到调用的宿主语言程序中，运行时进行编译。</p>
+<p><strong>Cg通常采用动态编译的方式（Cg也支持静态编译方式），即在宿主程序运行时，利用Cg运行库（Cg Runtimer Library）动态编译Cg代码。使用动态编译的方式，可以将Cg程序当做一个脚本，随时修改随时运行，节省时间，在OGRE图形引擎中就采用了这种方式。</strong></p>
+<h3 id="2-编译器："><a href="#2-编译器：" class="headerlink" title="2.编译器："></a>2.编译器：</h3><p>Cg 编译器首先将 Cg 程序翻译成可被图形 API （ OpenGL 和 Direct3D ）所接受的形式， 然后应用程序使用适当的 OpenGL 和 Direct3D 命令将翻译后的 Cg 程序传递给图形处理器， OpenGL 和 Direct3D 驱动程序最后把它翻译成图形处理器所需要的硬件可执行格式。<strong>NVIDIA 提供的 Cg 编译器为 cgc.exe</strong>。</p>
+<ul>
+<li>下载<a href="https://developer.nvidia.com/cg-toolkit-download" target="_blank" rel="external">Cg Toolkit</a>；</li>
+<li>安装之后，在安装目录的Cg\bin中就有cgc.exe；</li>
+<li>打开命令行窗口，输入 <code>cgc -h</code> ，假如不报错则说明安装成功。</li>
+</ul>
+<h3 id="3-Cg指令："><a href="#3-Cg指令：" class="headerlink" title="3.Cg指令："></a>3.Cg指令：</h3><p><strong>编译指令</strong></p>
+<pre><code>cgc [options] file
+</code></pre><ul>
+<li><code>[options]</code> 表示可选配置项;</li>
+<li><code>file</code> 表示 Cg 程序文件名。</li>
+</ul>
+<p>例如，比较典型的编译方式：</p>
+<pre><code>cgc -profile glslv -entry main_v test.cg
+</code></pre><ul>
+<li><code>-profile</code> 是profile配置项名；</li>
+<li><code>glslv</code> 是当前所使用的profile名称；</li>
+<li><code>-entry</code> 着色程序的入口函数名称配置项；</li>
+<li><code>main_v</code> 是顶点着色程序的入口函数名；</li>
+<li><code>test.cg</code> 是当前的着色程序文件名（必须带后缀名）,Cg源码文件需以<strong>.cg</strong>为后缀名；</li>
+</ul>
+<p>将Cg语言所写的着色程序转换为使用<strong>GLSL</strong>或<strong>HLSL</strong>所编写的程序：</p>
+<pre><code>cgc –profile glslv –o direct.glsl –entry main_v test.cg
+</code></pre><p>表示编译文件 test.cg 中的顶点着色程序， 入口函数名为 main_v ， 并将顶点着色程序转换为 glsl 程序，然后保存成文件 direct.glsl 。</p>
+<p><strong>备注</strong>：GPU编程，是无法跟踪调试着色程序的，一个着色程序，语法错误可以通过编译器发现，但是代码的逻辑错误只能认真查找。</p>
+<blockquote>
+<p>关于Cg的更详细的介绍可以参考这篇博客，利用OpenGL、C++和Cg进行Cg的测试：<a href="http://blog.csdn.net/xiajun07061225/article/details/6937272" target="_blank" rel="external">【GPU编程】开始Cg之旅，编译自己的第一个Cg程序</a></p>
+</blockquote>
+<h3 id="4-Cg-Profiles"><a href="#4-Cg-Profiles" class="headerlink" title="4.Cg Profiles:"></a>4.<strong>Cg Profiles:</strong></h3><p>Cg 程序的编译不但依赖于宿主程序所使用的三维编程接口，而且依赖于图形硬件环境，因为图形硬件自身的限制，不一定支持某种 Cg 语句。<br><strong>被特定的图形硬件环境或 AIP 所支持的 Cg 语言子集，被称为Cg Profiles</strong> 。</p>
+<p>profile分为：<strong>顶点程序的profile</strong>和<strong>片段程序的profile</strong>，所以编译顶点着色程序时必须选用当前图形硬件支持的顶点profile ，同理，编译片段着色程序时必须选用当前图形硬件支持的片段profile 。</p>
+<p>顶点 profile 和片段 profile 又基于 OpenGL 和 DirectX 的不同版本或扩展，划分为各种版本，当前 Cg compiler 所支持的 profiles 有：</p>
+<pre><code>OpenGL ARB vertex programs
+        Runtime profile: CG_PROFILE_ARBVP1
+        Compiler option: _profile arbvp1
+OpenGL ARB fragment programs
+        Runtime profile: CG_PROFILE_ARBFP1
+        Compiler option: _profile arbfp1
+......
+</code></pre>]]></content>
     </entry>
     
     <entry>
@@ -207,9 +309,10 @@ npm install hexo --save
 <ul>
 <li>在服务管理中将占用该端口的服务停止掉，通常安装了福昕阅读器的就会占用4000，把其对应的后台服务关掉即可；</li>
 <li><p>切换hexo启动的默认端口，使用以下指令：</p>
-<p>  hexo s -p 5000<br>此时启动端口就变成了5000，访问地址变成了localhost:5000。</p>
+<p>  hexo s -p 5000</p>
 </li>
 </ul>
+<p>此时启动端口就变成了5000，访问地址变成了localhost:5000。</p>
 <h3 id="3-安装Hexo插件："><a href="#3-安装Hexo插件：" class="headerlink" title="3.安装Hexo插件："></a>3.安装Hexo插件：</h3><p>主要目的是为了让其自动生成sitemap，Rss，部署到git等，这些是额外的插件，假如不需要使用到这些功能可以不添加：</p>
 <pre><code>npm install hexo-generator-index --save
 npm install hexo-generator-archive --save
