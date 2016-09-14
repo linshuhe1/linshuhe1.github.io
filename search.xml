@@ -4,6 +4,84 @@
   
     
     <entry>
+      <title><![CDATA[Redis数据库]]></title>
+      <url>http://yoursite.com/2016/09/08/Redis%E7%AE%80%E4%BB%8B/</url>
+      <content type="html"><![CDATA[<h2 id="Redis简介："><a href="#Redis简介：" class="headerlink" title="Redis简介："></a>Redis简介：</h2><p><strong>Redis</strong>是一种常用的Nosql（Not Only SQL，非关系型）数据库，遵守BSD协议，是一个高性能的<strong>key-value数据库</strong>，一般用来代替Memcached做缓存服务，同时，它也支持数据的持久化。</p>
+<p>更详细的介绍可以查看<a href="http://redis.io/" target="_blank" rel="external">redis官网</a>，这里我们主要讲解一下如何安装和使用它。</p>
+<a id="more"></a>
+<p>Redis相比于其他key-value缓存产品，具有以下特点：</p>
+<ul>
+<li>支持数据的持久化，可以将内存中的数据保持在磁盘中，重启的时候可以再次加载进行使用；</li>
+<li>不仅支持简单的key-value类型的数据，还提供对于list、set、zset、hash等数据结构的存储；</li>
+<li>支持数据的备份，即master-slave模式的数据备份。</li>
+</ul>
+<h2 id="Redis的安装和配置："><a href="#Redis的安装和配置：" class="headerlink" title="Redis的安装和配置："></a>Redis的安装和配置：</h2><h3 id="1-安装："><a href="#1-安装：" class="headerlink" title="1.安装："></a>1.安装：</h3><p>这里我下载的是最新的版本3.2.3：<a href="http://download.redis.io/releases/redis-3.2.3.tar.gz" target="_blank" rel="external">redis-3.2.3.tar.gz</a></p>
+<p>下载</p>
+<h3 id="2-配置："><a href="#2-配置：" class="headerlink" title="2.配置："></a>2.配置：</h3><h2 id="Redis的使用操作："><a href="#Redis的使用操作：" class="headerlink" title="Redis的使用操作："></a>Redis的使用操作：</h2><h3 id="1-启动："><a href="#1-启动：" class="headerlink" title="1.启动："></a>1.启动：</h3><h3 id="2-访问："><a href="#2-访问：" class="headerlink" title="2.访问："></a>2.访问：</h3><h3 id="3-关闭："><a href="#3-关闭：" class="headerlink" title="3.关闭："></a>3.关闭：</h3>]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Unity ShaderLab基础（三）Unity创建一个Shader]]></title>
+      <url>http://yoursite.com/2016/09/07/Unity-ShaderLab%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%89%EF%BC%89/</url>
+      <content type="html"><![CDATA[<p>Unity引擎是一个非常强大的支持跨平台开发的游戏引擎，基于Mono这个开源.Net的框架设计而成，在Unity中定义了<strong>ShaderLab</strong>来组织Shader的内容，针对不同平台进行编译。了解了Shader和Cg的一些基础知识之后，接下来我们要做的就是：学会如何在Unity中使用Cg编写Shader并实现一些简单的Shader效果。</p>
+<a id="more"></a>
+<h2 id="Unity-Shader："><a href="#Unity-Shader：" class="headerlink" title="Unity Shader："></a>Unity Shader：</h2><p>说到底，Shader其实只是一段规定好输入（颜色，贴图等）和输出（渲染器能读懂的点和颜色的对应关系）的程序。那么，<strong>设计一个Shader的过程其实就是根据输入，进行计算变换从而产生输出而已</strong>。</p>
+<h3 id="1-分类："><a href="#1-分类：" class="headerlink" title="1.分类："></a>1.分类：</h3><p>在Unity中的Shader分为两类：</p>
+<ul>
+<li><strong>表面着色器</strong>（Surface Shader）:已经为我们完成了大部分的工作，只需要简单的操作即可得到不错的效果；</li>
+<li><strong>片段着色器</strong>（Fragment Shader）:可以自己设计出很多东西，因为可自行设置的内容更多，但也更加难写。使用片段着色器的目的是可以在更加底层进行更复杂（或者针对目标设备更高效）的开发。</li>
+</ul>
+<h3 id="2-Shader程序基本结构："><a href="#2-Shader程序基本结构：" class="headerlink" title="2.Shader程序基本结构："></a>2.Shader程序基本结构：</h3><p>使用Unity中的框架来编写Shader程序，其实相对于其他游戏引擎要简单一些，在Cocos2d中还得从OpenGL层面开始编写逻辑，但是在Unity只需要往框架中填入需要控制的内容即可，一个Shader程序的基本结构如下图所示：</p>
+<p><img src="http://i.imgur.com/a6T9fF8.png" alt=""></p>
+<ul>
+<li>首先，定义一些属性，用来指定代码将有哪些输入；</li>
+<li>其次，会有一个或者多个子着色器，但是在实际运行中哪一个子着色器被使用是由运行的平台所决定的；</li>
+<li>子着色器是代码的主体，每个子着色器包含一个或多个Pass；</li>
+<li>最后指定一个回滚，用来处理所有Subshader都不能运行的情况（比如设备太老）。</li>
+</ul>
+<p>执行着色时，平台选择最优先可以使用的子着色器，然后依次执行该子着色器中的Pass，然后输出结果。</p>
+<h3 id="3-Unity创建第一个Shader："><a href="#3-Unity创建第一个Shader：" class="headerlink" title="3.Unity创建第一个Shader："></a>3.Unity创建第一个Shader：</h3><p>在Unity的Project面板中，<code>右键</code>-<code>Create</code>-<code>Shader</code>，取名为<code>Diffuse_Texture</code>，使用VS打开可以查看新建的Shader的内容如下所示：</p>
+<pre><code>Shader &quot;Custom/Diffuse_Texture&quot; {
+    Properties {
+        _MainTex (&quot;Base (RGB)&quot;, 2D) = &quot;white&quot; {}
+    }
+    SubShader {
+        Tags { &quot;RenderType&quot;=&quot;Opaque&quot; }
+        LOD 200
+
+        CGPROGRAM
+        #pragma surface surf Lambert
+
+        sampler2D _MainTex;
+
+        struct Input {
+            float2 uv_MainTex;
+        };
+
+        void surf (Input IN, inout SurfaceOutput o) {
+            half4 c = tex2D (_MainTex, IN.uv_MainTex);
+            o.Albedo = c.rgb;
+            o.Alpha = c.a;
+        }
+        ENDCG
+    } 
+    FallBack &quot;Diffuse&quot;
+}
+</code></pre><p>接下来我们要做的，就是解析这个Shader中每一行的含义和作用，包括了属性、Tags、LOD、光照模型等。</p>
+<p>参考链接：</p>
+<ul>
+<li>了解Shader的基础知识：<a href="https://onevcat.com/2013/07/shader-tutorial-1/" target="_blank" rel="external">猫都能学会的Unity3D Shader入门指南（一）</a></li>
+<li>Unity官方关于Shader的一些资料：<a href="https://docs.unity3d.com/Manual/Shaders.html" target="_blank" rel="external">Materials, Shaders &amp; Textures</a></li>
+<li>了解Shader的机制：<a href="http://blog.csdn.net/candycat1992/article/details/39994049" target="_blank" rel="external">【Unity Shaders】初探Surface Shader背后的机制</a></li>
+</ul>
+<p>推荐书籍：</p>
+<ul>
+<li>《Unity Shader and Effect Cookbook》，中文版：《Unity着色器和屏幕特效开发秘笈》</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Unity ShaderLab基础（二）Cg语言]]></title>
       <url>http://yoursite.com/2016/09/06/Unity-ShaderLab%E5%9F%BA%E7%A1%80%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
       <content type="html"><![CDATA[<p>学习一门新的语言，有几个基本需要掌握的：数据类型（基本数据类型和结构类型），基本语法（表达式和控制语句等），编译和运行方式，这一点在CPU编程语言和GPU编程语言中是相似的，Cg作为一门GPU图形学语言也是如此。<br><a id="more"></a></p>

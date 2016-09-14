@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2016/09/08/Redis%E7%AE%80%E4%BB%8B/</loc>
+    
+    <lastmod>2016-09-14T06:03:39.733Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2016/09/07/Unity-ShaderLab%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%89%EF%BC%89/</loc>
+    
+    <lastmod>2016-09-14T06:02:13.087Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2016/09/05/Unity-ShaderLab%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
+    
+    <lastmod>2016-09-07T07:33:17.338Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2016/09/06/Unity-ShaderLab%E5%9F%BA%E7%A1%80%EF%BC%88%E4%BA%8C%EF%BC%89/</loc>
     
     <lastmod>2016-09-07T07:27:18.130Z</lastmod>
@@ -33,13 +54,6 @@
     <loc>http://yoursite.com/2016/09/03/BATCH%E6%89%B9%E5%A4%84%E7%90%86%E7%AE%80%E8%AE%B0/</loc>
     
     <lastmod>2016-09-06T06:56:34.971Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2016/09/05/Unity-ShaderLab%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
-    
-    <lastmod>2016-09-06T06:54:50.127Z</lastmod>
     
   </url>
   
