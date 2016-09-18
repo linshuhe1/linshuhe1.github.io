@@ -500,123 +500,12 @@
 
       
         
-          
-            <p>Unity引擎是一个非常强大的支持跨平台开发的游戏引擎，基于Mono这个开源.Net的框架设计而成，在Unity中定义了<strong>ShaderLab</strong>来组织Shader的内容，针对不同平台进行编译。了解了Shader和Cg的一些基础知识之后，接下来我们要做的就是：学会如何在Unity中使用Cg编写Shader并实现一些简单的Shader效果。</p>
-<h2 id="Unity-Shader："><a href="#Unity-Shader：" class="headerlink" title="Unity Shader："></a>Unity Shader：</h2><p>说到底，Shader其实只是一段规定好输入（颜色，贴图等）和输出（渲染器能读懂的点和颜色的对应关系）的程序。那么，<strong>设计一个Shader的过程其实就是根据输入，进行计算变换从而产生输出而已</strong>。</p>
-<h3 id="1-分类："><a href="#1-分类：" class="headerlink" title="1.分类："></a>1.分类：</h3><p>在Unity中的Shader分为两类：</p>
-<ul>
-<li><strong>表面着色器</strong>（Surface Shader）:已经为我们完成了大部分的工作，只需要简单的操作即可得到不错的效果；</li>
-<li><strong>片段着色器</strong>（Fragment Shader）:可以自己设计出很多东西，因为可自行设置的内容更多，但也更加难写。使用片段着色器的目的是可以在更加底层进行更复杂（或者针对目标设备更高效）的开发。</li>
-</ul>
-<h3 id="2-Shader程序基本结构："><a href="#2-Shader程序基本结构：" class="headerlink" title="2.Shader程序基本结构："></a>2.Shader程序基本结构：</h3><p>使用Unity中的框架来编写Shader程序，其实相对于其他游戏引擎要简单一些，在Cocos2d中还得从OpenGL层面开始编写逻辑，但是在Unity只需要往框架中填入需要控制的内容即可，一个Shader程序的基本结构如下图所示：</p>
-<p><img src="http://i.imgur.com/a6T9fF8.png" alt=""></p>
-<ul>
-<li>首先，定义一些属性，用来指定代码将有哪些输入；</li>
-<li>其次，会有一个或者多个子着色器，但是在实际运行中哪一个子着色器被使用是由运行的平台所决定的；</li>
-<li>子着色器是代码的主体，每个子着色器包含一个或多个Pass；</li>
-<li>最后指定一个回滚，用来处理所有Subshader都不能运行的情况（比如设备太老）。</li>
-</ul>
-<p>执行着色时，平台选择最优先可以使用的子着色器，然后依次执行该子着色器中的Pass，然后输出结果。</p>
-<h3 id="3-Unity创建第一个Shader："><a href="#3-Unity创建第一个Shader：" class="headerlink" title="3.Unity创建第一个Shader："></a>3.Unity创建第一个Shader：</h3><p>在Unity的Project面板中，<code>右键</code>-<code>Create</code>-<code>Shader</code>，取名为<code>Diffuse_Texture</code>，使用VS打开可以查看新建的Shader的内容如下所示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">Shader &quot;Custom/Diffuse_Texture&quot; &#123;</div><div class="line">	Properties &#123;</div><div class="line">		_MainTex (&quot;Base (RGB)&quot;, 2D) = &quot;white&quot; &#123;&#125;</div><div class="line">	&#125;</div><div class="line">	SubShader &#123;</div><div class="line">		Tags &#123; &quot;RenderType&quot;=&quot;Opaque&quot; &#125;</div><div class="line">		LOD 200</div><div class="line">		</div><div class="line">		CGPROGRAM</div><div class="line">		#pragma surface surf Lambert</div><div class="line"></div><div class="line">		sampler2D _MainTex;</div><div class="line"></div><div class="line">		struct Input &#123;</div><div class="line">			float2 uv_MainTex;</div><div class="line">		&#125;;</div><div class="line"></div><div class="line">		void surf (Input IN, inout SurfaceOutput o) &#123;</div><div class="line">			half4 c = tex2D (_MainTex, IN.uv_MainTex);</div><div class="line">			o.Albedo = c.rgb;</div><div class="line">			o.Alpha = c.a;</div><div class="line">		&#125;</div><div class="line">		ENDCG</div><div class="line">	&#125; </div><div class="line">	FallBack &quot;Diffuse&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>接下来我们要做的，就是解析这个Shader中每一行的含义和作用，包括了属性、Tags、LOD、光照模型等。</p>
-<h4 id="解析："><a href="#解析：" class="headerlink" title="解析："></a><strong>解析：</strong></h4><p>第一行指定了此Shader的名字，严格来说是指定了它的路径，在材质面板中选择Shader时，我们可以根据这个路径找到此Shader。</p>
-<h4 id="属性"><a href="#属性" class="headerlink" title="属性"></a><strong>属性</strong></h4><p>在<code>Properties{}</code>块中定义的内容就是着色器的属性，【可以理解为一些CPU语言例如java类在开始处定义的一些属性（全局变量或常量）】，<strong>这些属性将作为输入提供给所有的子着色器</strong>。每个属性定义的语法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">_Name(&quot;Display_Name&quot;,type) = defaultValue[&#123;options&#125;]</div></pre></td></tr></table></figure></p>
-<ul>
-<li><code>_Name</code>：属性的名称，或者理解为变量名，在之后整个    Shader代码中通过此名称获取属性内容；</li>
-</ul>
-<ul>
-<li><code>Display_Name</code>：此字符串是Shader在Unity的材质编辑器中作为Shader可视化信息；</li>
-</ul>
-<ul>
-<li><code>type</code>：此属性的类型，Unity中支持的类型有：<ul>
-<li>Color：颜色，由RGBA(红绿蓝和透明度)四个量定义；</li>
-<li>2D：一张2的阶数大小（256，512等）的贴图，此贴图将在采样后被转为对应基于模型UV的每个像素的颜色，最终显示出来；</li>
-<li>Rect：一个非2阶数大小的贴图；</li>
-<li>Cube：即Cub map texture(立方体纹理)，即6张有联系的2D贴图的组合，主要用来做<strong>反射效果</strong>（比如：天空盒和动态反射），也会被转换为对应点的采样；</li>
-<li>Range(min,max)：一个介于最大值max和最小值min之间的浮点数，一般用作调整Shader某些特性的参数（例如：透明度从0到1）；</li>
-<li>Float：一个浮点数；</li>
-<li>Vector：一个四维数；</li>
-</ul>
-</li>
-<li><code>defaultValue</code>：定义的这个属性的默认值或者初始值，但不同属性类型的默认值格式不同，例如：<ul>
-<li>Color：咦0~1定义的rgba颜色，可以赋值(1,1,1,1);</li>
-<li>2D/Rect/Cube：贴图默认值需要是一个代表tini颜色的字符串，可以是空字符串或者”white”,”black”,”gray”,”bump”中的一个；</li>
-<li>Float、Range：任意浮点数即可；</li>
-<li>Vector：四维数，格式(x,y,z,w)；</li>
-</ul>
-</li>
-<li><code>{option}</code>：只对2D、Rect和Cube贴图有关，初始值至少要在贴图后面写一对空白的<code>{}</code>，当需要打开特定选项时可以吧其写入到此花括号中，多个选项以空白分隔。可能的选项：ObjectLinear, EyeLinear, SphereMap, CubeReflect, CubeNormal，这些都是OpenGL中TexGen的模式。</li>
-</ul>
-<p><strong>例子：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//颜色输入</div><div class="line">_MainColor (&quot;Main Color&quot;, Color) = (0,0.5,1,0.5)</div><div class="line">//2的阶数大小的贴图输入</div><div class="line">_Texture (&quot;Texture&quot;, 2D) = &quot;white&quot; &#123;&#125;</div></pre></td></tr></table></figure>
-<h4 id="Subshader"><a href="#Subshader" class="headerlink" title="Subshader"></a><strong>Subshader</strong></h4><p>上面已经解析了Shader代码的第一部分，接下来我们要将的就是Shader的代码主体，即SubShader的内容，在<code>SubShader{}</code>中的内容就是一个SubShader。</p>
-<h5 id="1-Tags"><a href="#1-Tags" class="headerlink" title="(1) Tags"></a><strong>(1) Tags</strong></h5><p>SubShader中的第一句就是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Tags &#123; &quot;RenderType&quot;=&quot;Opaque&quot; &#125;</div></pre></td></tr></table></figure></p>
-<p>这是SubShader的标签，因为表面着色器可以被若干个标签（tags）所修饰，而<strong>硬件正是通过判定这些标签（Tags）来决定什么时候调用该着色器</strong>。所以，我们例子中的这一句<code>&quot;RenderType&quot;=&quot;Opaque&quot;</code>的意思：告诉系统应该在渲染非透明物体时调用此SubShader，这与RenderType是Opaque是相对应的。</p>
-<p>此外，<strong>Tags其实也暗示了此Shader的输出情况</strong>，例如：输出中都是半透明的物体，那就写在Opaque里；如果想渲染透明或者半透明的像素，那就应该写在Transparent里。</p>
-<p>另外比较有用的标签还有：</p>
-<ul>
-<li><code>&quot;IgnoreProjector&quot;=&quot;True&quot;</code>：不被Projects影响；</li>
-<li>``”ForceNoShadowCasting”=”True”：从不产生阴影；</li>
-<li><code>&quot;Queue&quot;=&quot;xxx&quot;</code>：<strong>指定渲染顺序队列</strong>。在Unity中，如果需要进行透明和不透明物体混合时，可能会遇到不透明物体无法呈现在透明物体之后的情况，这是由于Shader的渲染顺序不正确导致的。Queue指定物体渲染顺序，预定义的Queue有：<ul>
-<li>Background：最早被调用的渲染，用于渲染天空盒或者背景；</li>
-<li>Geometry：默认值，用来渲染非透明的物体；</li>
-<li>AlphaTest：用来渲染经过Alpha Test的像素，单独为AlphaTest设定一个Queue是出于对效率的考虑；</li>
-<li>Transparent：以后从后往前的顺序渲染透明物体；</li>
-<li>Overlay：用来渲染叠加的效果，是渲染的最后阶段（比如镜头光晕等特效）；</li>
-</ul>
-</li>
-</ul>
-<p>以上这些预定义的值，本质上是一组定义<strong>整数</strong>，Background = 1000， Geometry = 2000, AlphaTest = 2450， Transparent = 3000，最后Overlay = 4000。当然，在实际设置Queue值时，不仅可以使用上述的预定义值，还可以指定自己的Queue值，例如：<code>&quot;Queue&quot;=&quot;Transparent+100&quot;</code>，表示一个在Transparent之后100的Queue上进行调用。</p>
-<p><strong>通过调整Queue值，我们可以确保某些物体一定在另一个物体之前或之后被渲染</strong>。</p>
-<h5 id="2-LOD"><a href="#2-LOD" class="headerlink" title="(2) LOD"></a><strong>(2) LOD</strong></h5><p>第二行中的内容：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">LOD 200</div></pre></td></tr></table></figure>
-<p>LOD，即Level of Detail，这其实是<strong>Unity的内建Diffuse着色器的设定值，决定了我们能够用什么样的Shader</strong>。在Unity的Quality Settings中，我们可以设置允许的最大LOD，当设定的LOD小于SubShader的LOD时，这个SubShader将不可用。</p>
-<p>Unity内建Shader定义了一组LOD的数值，我们在实现自己的Shader的时候可以将其作为参考来设定自己的LOD数值，这样在之后调整根据设备图形性能来调整画质时可以进行比较精确的控制。</p>
-<ul>
-<li>VertexLit及其系列 = 100</li>
-<li>Decal, Reflective VertexLit = 150</li>
-<li>Diffuse = 200</li>
-<li>Diffuse Detail, Reflective Bumped Unlit, Reflective Bumped VertexLit = 250</li>
-<li>Bumped, Specular = 300</li>
-<li>Bumped Specular = 400</li>
-<li>Parallax = 500</li>
-<li>Parallax Specular = 600</li>
-</ul>
-<h5 id="2-CGPROGRAM…ENDCG"><a href="#2-CGPROGRAM…ENDCG" class="headerlink" title="(2) CGPROGRAM…ENDCG"></a><strong>(2) CGPROGRAM…ENDCG</strong></h5><p>用<code>CGPROGRAM</code>开始和<code>ENDCG</code>结束，表明这部分是Cg代码。这是SubShader的主体部分，我们前面已经提到了属性中定义了此Shader的输入，那么此处代码的作用，便是对输入进行处理，并输出。接下来我们逐句进行解析：</p>
-<ul>
-<li><code>#pragma surface surf Lambert</code>：这是一个编译指令，声明此Shader是一个表面着色器，并指定了着色器的自动调用的函数名称为surf,而且指定光照模型为Lambert(普通的diffuse)，它的一般语法如下：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#pragma surface surfaceFunction lightModel [optionalparams]</div></pre></td></tr></table></figure>
-<ul>
-<li>surface：声明的是一个表面着色器</li>
-<li>surfaceFunction：着色器代码的方法名称，着色器其作用时被调用</li>
-<li>lightModel：使用的光照模型</li>
-</ul>
-<hr>
-<ul>
-<li><code>sampler2D _MainTex;</code>：</li>
-</ul>
-<hr>
-<pre><code>struct Input {
-    float2 uv_MainTex;
-};
-
-void surf (Input IN, inout SurfaceOutput o) {
-    half4 c = tex2D (_MainTex, IN.uv_MainTex);
-    o.Albedo = c.rgb;
-    o.Alpha = c.a;
-}
-</code></pre><h4 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h4><ul>
-<li>了解Shader的基础知识：<a href="https://onevcat.com/2013/07/shader-tutorial-1/" target="_blank" rel="external">猫都能学会的Unity3D Shader入门指南（一）</a></li>
-<li>Unity官方关于Shader的一些资料：<a href="https://docs.unity3d.com/Manual/Shaders.html" target="_blank" rel="external">Materials, Shaders &amp; Textures</a></li>
-<li>了解Shader的机制：<a href="http://blog.csdn.net/candycat1992/article/details/39994049" target="_blank" rel="external">【Unity Shaders】初探Surface Shader背后的机制</a></li>
-</ul>
-<h4 id="推荐书籍："><a href="#推荐书籍：" class="headerlink" title="推荐书籍："></a>推荐书籍：</h4><ul>
-<li>《Unity Shader and Effect Cookbook》，中文版：《Unity着色器和屏幕特效开发秘笈》</li>
-</ul>
-
-          
+          <p>Unity引擎是一个非常强大的支持跨平台开发的游戏引擎，基于Mono这个开源.Net的框架设计而成，在Unity中定义了<strong>ShaderLab</strong>来组织Shader的内容，针对不同平台进行编译。了解了Shader和Cg的一些基础知识之后，接下来我们要做的就是：学会如何在Unity中使用Cg编写Shader并实现一些简单的Shader效果。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/07/Unity-ShaderLab基础（三）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -987,7 +876,7 @@ void surf (Input IN, inout SurfaceOutput o) {
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-0.jpg" rel="gallery_cit7zvyur0002rgreltjlbtl3"
+                 href="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-0.jpg" rel="gallery_cit7zykqy00065wreb2gxe4tm"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-0.jpg" itemprop="contentUrl"/>
               </a>
@@ -995,7 +884,7 @@ void surf (Input IN, inout SurfaceOutput o) {
           
             
               <a class="post-gallery-img fancybox"
-                 href="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-1.jpg" rel="gallery_cit7zvyur0002rgreltjlbtl3"
+                 href="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-1.jpg" rel="gallery_cit7zykqy00065wreb2gxe4tm"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://bruce.u.qiniudn.com/2013/11/27/reading/photos-1.jpg" itemprop="contentUrl"/>
               </a>

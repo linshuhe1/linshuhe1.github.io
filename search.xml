@@ -24,6 +24,7 @@
       <title><![CDATA[Unity ShaderLab基础（三）Unity创建一个Shader]]></title>
       <url>http://yoursite.com/2016/09/07/Unity-ShaderLab%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%89%EF%BC%89/</url>
       <content type="html"><![CDATA[<p>Unity引擎是一个非常强大的支持跨平台开发的游戏引擎，基于Mono这个开源.Net的框架设计而成，在Unity中定义了<strong>ShaderLab</strong>来组织Shader的内容，针对不同平台进行编译。了解了Shader和Cg的一些基础知识之后，接下来我们要做的就是：学会如何在Unity中使用Cg编写Shader并实现一些简单的Shader效果。</p>
+<a id="more"></a>
 <h2 id="Unity-Shader："><a href="#Unity-Shader：" class="headerlink" title="Unity Shader："></a>Unity Shader：</h2><p>说到底，Shader其实只是一段规定好输入（颜色，贴图等）和输出（渲染器能读懂的点和颜色的对应关系）的程序。那么，<strong>设计一个Shader的过程其实就是根据输入，进行计算变换从而产生输出而已</strong>。</p>
 <h3 id="1-分类："><a href="#1-分类：" class="headerlink" title="1.分类："></a>1.分类：</h3><p>在Unity中的Shader分为两类：</p>
 <ul>
