@@ -387,7 +387,7 @@ OpenGL ARB fragment programs
     <link href="http://yoursite.com/2016/09/03/Next%E4%B8%BB%E9%A2%98%E7%9A%84fancybox%E5%B1%95%E7%A4%BA%E5%9B%BE%E7%89%87/"/>
     <id>http://yoursite.com/2016/09/03/Next主题的fancybox展示图片/</id>
     <published>2016-09-03T09:15:22.000Z</published>
-    <updated>2016-09-06T06:58:17.698Z</updated>
+    <updated>2016-09-18T12:12:33.632Z</updated>
     
     <content type="html"><![CDATA[<h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>在创建的文章开头假如图片，并且支持点击放大功能，这是Next主题包含的一个功能。</p>
 <a id="more"></a>
@@ -409,6 +409,10 @@ photos:
     
     </summary>
     
+      <category term="Web" scheme="http://yoursite.com/categories/Web/"/>
+    
+    
+      <category term="Hexo,Next" scheme="http://yoursite.com/tags/Hexo-Next/"/>
     
   </entry>
   

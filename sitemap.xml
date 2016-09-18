@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2016/09/03/Next%E4%B8%BB%E9%A2%98%E7%9A%84fancybox%E5%B1%95%E7%A4%BA%E5%9B%BE%E7%89%87/</loc>
+    
+    <lastmod>2016-09-18T12:12:33.632Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/about/index.html</loc>
     
     <lastmod>2016-09-18T12:08:16.670Z</lastmod>
@@ -47,13 +54,6 @@
     <loc>http://yoursite.com/2016/09/03/Python-Web-1-%E2%80%94%E2%80%94-python%E5%92%8CMongoDB%E5%AE%89%E8%A3%85/</loc>
     
     <lastmod>2016-09-06T07:04:17.878Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2016/09/03/Next%E4%B8%BB%E9%A2%98%E7%9A%84fancybox%E5%B1%95%E7%A4%BA%E5%9B%BE%E7%89%87/</loc>
-    
-    <lastmod>2016-09-06T06:58:17.698Z</lastmod>
     
   </url>
   
