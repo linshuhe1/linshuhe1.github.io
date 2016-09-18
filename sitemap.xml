@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/about/index.html</loc>
+    
+    <lastmod>2016-09-18T12:06:17.735Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2016/09/07/Unity-ShaderLab%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%89%EF%BC%89/</loc>
     
     <lastmod>2016-09-18T02:21:30.549Z</lastmod>
@@ -61,13 +68,6 @@
     <loc>http://yoursite.com/page/index.html</loc>
     
     <lastmod>2016-09-03T09:43:32.229Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/about/index.html</loc>
-    
-    <lastmod>2016-09-03T09:04:07.708Z</lastmod>
     
   </url>
   
