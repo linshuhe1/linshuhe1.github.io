@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="Lin-何乐不为~">
 <meta property="og:description" content="Unity引擎是一个非常强大的支持跨平台开发的游戏引擎，基于Mono这个开源.Net的框架设计而成，在Unity中定义了ShaderLab来组织Shader的内容，针对不同平台进行编译。了解了Shader和Cg的一些基础知识之后，接下来我们要做的就是：学会如何在Unity中使用Cg编写Shader并实现一些简单的Shader效果。">
 <meta property="og:image" content="http://i.imgur.com/a6T9fF8.png">
-<meta property="og:updated_time" content="2016-09-18T02:21:30.549Z">
+<meta property="og:updated_time" content="2016-09-19T09:39:21.665Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Unity ShaderLab基础（三）Unity创建一个Shader">
 <meta name="twitter:description" content="Unity引擎是一个非常强大的支持跨平台开发的游戏引擎，基于Mono这个开源.Net的框架设计而成，在Unity中定义了ShaderLab来组织Shader的内容，针对不同平台进行编译。了解了Shader和Cg的一些基础知识之后，接下来我们要做的就是：学会如何在Unity中使用Cg编写Shader并实现一些简单的Shader效果。">
@@ -425,7 +425,7 @@
 <p>另外比较有用的标签还有：</p>
 <ul>
 <li><code>&quot;IgnoreProjector&quot;=&quot;True&quot;</code>：不被Projects影响；</li>
-<li>``”ForceNoShadowCasting”=”True”：从不产生阴影；</li>
+<li><code>&quot;ForceNoShadowCasting&quot;=&quot;True&quot;</code>：从不产生阴影；</li>
 <li><code>&quot;Queue&quot;=&quot;xxx&quot;</code>：<strong>指定渲染顺序队列</strong>。在Unity中，如果需要进行透明和不透明物体混合时，可能会遇到不透明物体无法呈现在透明物体之后的情况，这是由于Shader的渲染顺序不正确导致的。Queue指定物体渲染顺序，预定义的Queue有：<ul>
 <li>Background：最早被调用的渲染，用于渲染天空盒或者背景；</li>
 <li>Geometry：默认值，用来渲染非透明的物体；</li>
@@ -463,19 +463,26 @@
 </ul>
 <hr>
 <ul>
-<li><code>sampler2D _MainTex;</code>：</li>
+<li><code>sampler2D _MainTex;</code>：其中<code>sampler2D</code>是GLSL中2D贴图的类型，类似的还有sampler1D、sampler3D、samplerCube等格式，主要用于存储texture数据。<code>_MainTex</code>是与之前在Proterties属性模块中声明的图贴所对应的，因为这个Shader是由两个独立的程序块组成的：外部的属性声明和回滚等Unity可以直接使用和编译的ShaderLab；而在<code>CGPROGRAM...ENDCG</code>中的代码块，是一段CG程序。<strong>假如要在CG程序中访问Proterties中所定义的变量，必须使用和之前的变量相同的名字进行声明</strong>。所以此句Cg代码的作用就是<strong>再次声明并链接_MainTex，使接下来的Cg程序能够使用此变量</strong>。</li>
 </ul>
 <hr>
-<pre><code>struct Input {
-    float2 uv_MainTex;
-};
-
-void surf (Input IN, inout SurfaceOutput o) {
-    half4 c = tex2D (_MainTex, IN.uv_MainTex);
-    o.Albedo = c.rgb;
-    o.Alpha = c.a;
-}
-</code></pre><h4 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h4><ul>
+<ul>
+<li>Input结构体：这其实是用来把需要参与计算的数据封装起来，然后作为输入参数传入到下面surf函数中使用的，而且必须以<code>Input</code>命名。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">struct Input &#123;</div><div class="line">	float2 uv_MainTex;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>这里我们的Input结构体很简单，只是定义了一个float2类型的变量，这是Cg的数据类型，表示2个float类型的数据打包在一起，所以此处<code>uv_MainTex</code>表示的就是包含两个浮点数的变量，类似的还有float3和float4。</p>
+<p>这里以uv作为前缀，其实UV mapping的作用是将一个2D贴图上的点按照一定规律映射到3D模型上，是3D渲染中最常见的一种顶点处理手段。所以在Cg中，在一个贴图变量（例如这里的_MainTex）前面加上uv，表示提取它的uv值（其实就是两个代表贴图上点的二维坐标）。后面的<strong>surf函数中直接通过访问uv_MainTex来去的这张贴图当前需要计算的点的坐标值</strong>。</p>
+<hr>
+<ul>
+<li>surf函数：这是在之前<code>#progma</code>中指定的着色器的调用方法，这也是着色器最核心的部分，这个方法的定义需要按照规定：<strong>第一个参数是一个Input结构，第二个参数是一个inout的SurfaceOutput结构</strong>。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">void surf (Input IN, inout SurfaceOutput o) &#123;</div><div class="line">	half4 c = tex2D (_MainTex, IN.uv_MainTex);</div><div class="line">	o.Albedo = c.rgb;</div><div class="line">	o.Alpha = c.a;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>上面已经说过了Input结构体的定义和使用，<strong>在计算输出时，Shader会多次调用surf函数，每次给入一个贴图上的点坐标，用来计算输出</strong>。</p>
+<p>surf的第二个参数是一个可写的<code>SurfaceOutput</code>，SurfaceOutput是一个预定义的输出结构，我们的surf函数的目标就是根据输入把这个输出结构填上。SurfaceOutput结构体的定义如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">struct SurfaceOutput &#123;</div><div class="line">    half3 Albedo;     //像素的颜色</div><div class="line">    half3 Normal;     //像素的法向值</div><div class="line">    half3 Emission;   //像素的发散颜色</div><div class="line">    half Specular;    //像素的镜面高光</div><div class="line">    half Gloss;       //像素的发光强度</div><div class="line">    half Alpha;       //像素的透明度</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>half其实跟float与double类似，都是浮点数，只是精度不同，half称为半精度浮点数。</p>
+<p>这个例子中，surf的代码如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">half4 c = tex2D (_MainTex, IN.uv_MainTex);</div><div class="line">o.Albedo = c.rgb;</div><div class="line">o.Alpha = c.a;</div></pre></td></tr></table></figure></p>
+<p>这里的<code>tex2D</code>函数是Cg中用来在一张贴图中对点进行采样的方法，返回一个float4。这里，我们队_MainTex在输入点上进行采样，并将其颜色的rgb值<code>c.rgb</code>赋给输出的像素颜色<code>o.Albedo</code>，将透明度<code>c.a</code>赋值给输出像素透明度<code>o.Alpha</code>。</p>
+<h4 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h4><ul>
 <li>了解Shader的基础知识：<a href="https://onevcat.com/2013/07/shader-tutorial-1/" target="_blank" rel="external">猫都能学会的Unity3D Shader入门指南（一）</a></li>
 <li>Unity官方关于Shader的一些资料：<a href="https://docs.unity3d.com/Manual/Shaders.html" target="_blank" rel="external">Materials, Shaders &amp; Textures</a></li>
 <li>了解Shader的机制：<a href="http://blog.csdn.net/candycat1992/article/details/39994049" target="_blank" rel="external">【Unity Shaders】初探Surface Shader背后的机制</a></li>
