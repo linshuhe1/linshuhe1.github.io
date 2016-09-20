@@ -4,6 +4,55 @@
   
     
     <entry>
+      <title><![CDATA[CG手绘初学笔记（1）]]></title>
+      <url>http://yoursite.com/2016/09/20/CG%E6%89%8B%E7%BB%98%E5%88%9D%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89/</url>
+      <content type="html"><![CDATA[<p>其实从小学开始就酷爱临摹各种卡通人物，虽然不能媲美专业级别，但是自我感觉还是可以的（也不知道哪来的自信）。感觉与其把工作之余的时间浪费掉，还不如用来学点自己感兴趣的东西更实在一些，就当做是业余爱好吧，不是有这么一句话吗？——“灵魂和身体，总得有一个在路上”</p>
+<h3 id="准备工作："><a href="#准备工作：" class="headerlink" title="准备工作："></a>准备工作：</h3><h4 id="1-手绘板："><a href="#1-手绘板：" class="headerlink" title="1.手绘板："></a>1.手绘板：</h4><p>询问了专业美术意见之后，在<a href="http://estore.wacom.com.cn/" target="_blank" rel="external">Wacom官网</a>选择了适合初学者的手绘板，型号：</p>
+<ul>
+<li><strong>学习板One By Wacom CTL-471/K0-F</strong>  300元左右的价位</li>
+<li><strong>学习板One By Wacom CTL-671/K0-F</strong>  600元左右的价位<br><img src="http://i.imgur.com/YtcCeL6.png" alt=""></li>
+</ul>
+<a id="more"></a>
+<h4 id="2-绘图软件："><a href="#2-绘图软件：" class="headerlink" title="2.绘图软件："></a>2.绘图软件：</h4><p>作为一个初学者，一切都要以省钱为目的，所以找到了这个软件：<a href="http://www.udongman.cn/index.php?m=product&amp;c=youman" target="_blank" rel="external">优漫</a>，关键就是因为它是免费的！！！</p>
+<p>官方介绍：优漫是国内唯一一款专业漫画绘制软件，拥有多种功能非凡的笔、尺子等工具，而网点纸编辑、2DLT/3DLT等特色功能更可给予用户快速流畅的创作体验。<br><img src="http://i.imgur.com/30T8Fjb.png" alt=""></p>
+<h4 id="3-素材网站："><a href="#3-素材网站：" class="headerlink" title="3.素材网站："></a>3.素材网站：</h4><ul>
+<li><a href="http://www.pixiv.net/" target="_blank" rel="external">P站</a></li>
+</ul>
+<h3 id="结束语："><a href="#结束语：" class="headerlink" title="结束语："></a>结束语：</h3><p>反正人生的意义就在于瞎折腾嘛，总比混吃等死要好一些，待续……</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[《Unity Shaders and Effects Cookbook》读书笔记1]]></title>
+      <url>http://yoursite.com/2016/09/19/%E3%80%8AUnity-Shaders-and-Effects-Cookbook%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B01/</url>
+      <content type="html"><![CDATA[<p>最近在深入学习Unity的ShaderLab，起初看了很多别人的博客，但是内容都比较杂乱零散，想着应该找本书类系统学习一番，经过搜索找到了这本书<strong>《Unity Shaders and Effects Cookbook》</strong>，是当前对于Unity的Shader知识有比较系统介绍的一本书，本书也有中文翻译版，名称为<strong>《Unity着色器与屏幕特效开发秘笈》</strong>，作者是<strong>Kenny Lammers</strong>。</p>
+<p><img src="http://i.imgur.com/0S2JOfR.png" alt=""></p>
+<h3 id="简介："><a href="#简介：" class="headerlink" title="简介："></a>简介：</h3><p>根据书的概述，阅读本书将学到模拟人体皮肤的着色器、处理动态反射的着色器、三维场景中的渲染次序等，同时也将学习如何开发后期特效，如夜视、反射等。</p>
+<a id="more"></a>
+<h3 id="章节概述："><a href="#章节概述：" class="headerlink" title="章节概述："></a>章节概述：</h3><ul>
+<li>第1章：Unity中构建一个着色器和着色器编写的基础知识，学习如创建默认的<strong>漫反射光照</strong>，从游戏的角度提供创建自定义漫反射光照的技巧；</li>
+<li>第2章：介绍如何利用<strong>纹理</strong>来创建不同的特效，学习如何利用着色器在精灵表单（Sprite Sheet）上实现动画纹理，以及如何利用纹理的不同通道，让着色器更有效率；</li>
+<li>第3章：创建应用最广泛的高光类型——Blinn和Phong时所需的知识，学习如何应用这些着色器效果来创建蒙版镜面、金属镜面，并学习如何创建各向异性<strong>镜面</strong>的技术；</li>
+<li>第4章：把反射技术写入着色器中，从Unity3D着色器中反射的基础到如何使用C#创建简单的自定义动态<strong>反射系统</strong>；</li>
+<li>第5章：创建更复杂的着色器，学习如何创建自定义<strong>光照模型</strong>来实现自定义类型的表面，可以创建自己的皮肤着色器、发光球体着色器以及车辆喷漆着色器；</li>
+<li>第6章：介绍<strong>透明度</strong>，在游戏制作的过程中，透明度已经成为一项必要的技术，在一定程度上，几乎所有游戏都需要使用透明度，如：图形用户界面（GUI）、树叶、贴花等。本章将学习如何使用Unity3D中的透明度，已经使用透明度时如何处理可能发生的任何问题；</li>
+<li>第7章：如何访问存储在3D网格中的每个顶点信息，学习如何得到<strong>顶点信息</strong>，并在着色器中使用这些信息实现诸如纹理混合和动画的效果；</li>
+<li>第8章：介绍利用Unity内置标记和内置值来<strong>减少着色器内存开销</strong>的方法，这对于我们处理移动平台上的着色器特别重要；</li>
+<li>第9章：学习<strong>重用代码</strong>的必要性，重用代码可以让着色器的编写更有效率。如何创建自定义CgInclude文件来存储需要重用的重复代码；</li>
+<li>第10章：从现代游戏如何利用<strong>屏幕特效</strong>（有时也称为后期特效）开始，到如何改变一个游戏的最终渲染效果。学习如何创建自己的屏幕特效，并了解如何添加颜色调整以及纹理叠加背后的秘密，从而为你的游戏制造出不一样的视觉外观；</li>
+<li>第11章：屏幕特效深入，学习如何在游戏中增强游戏氛围。学习如何创建一种老电影的屏幕特效以及夜视的屏幕特效。</li>
+</ul>
+<h3 id="预备工作："><a href="#预备工作：" class="headerlink" title="预备工作："></a>预备工作：</h3><p>需要用到几个软件：</p>
+<ul>
+<li>Unity3D（10和11章需要使用专业版Unity）</li>
+<li>3D建模软件，如Maya、Max或Blender</li>
+<li>2D图像编辑软件，如Photoshop或Gimp</li>
+</ul>
+<h3 id="额外资源："><a href="#额外资源：" class="headerlink" title="额外资源："></a>额外资源：</h3><p>本书中的一些效果图，可以通过下一网站下载：<a href="https://www.packtpub.com/sites/default/files/downloads/5084OT_Images.pdf" target="_blank" rel="external">https://www.packtpub.com/sites/default/files/downloads/5084OT_Images.pdf</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Unity3D —— protobuf网络框架]]></title>
       <url>http://yoursite.com/2016/09/19/Unity3D-protobuf%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6/</url>
       <content type="html"><![CDATA[<h3 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h3><p>protobuf是google的一个开源项目，主要的用途是：</p>
@@ -325,6 +374,7 @@
 </ul>
 <h4 id="推荐书籍："><a href="#推荐书籍：" class="headerlink" title="推荐书籍："></a>推荐书籍：</h4><ul>
 <li>《Unity Shader and Effect Cookbook》，中文版：《Unity着色器和屏幕特效开发秘笈》</li>
+<li>《GPU 编程与CG 语言之阳春白雪下里巴人》</li>
 </ul>
 ]]></content>
     </entry>
