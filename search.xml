@@ -4,6 +4,51 @@
   
     
     <entry>
+      <title><![CDATA[UE4笔记（1） 源码编译和安装]]></title>
+      <url>http://yoursite.com/2017/01/21/UE4%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/</url>
+      <content type="html"><![CDATA[<blockquote>
+<p>序言<br>近来UE4渐渐有了抬头的趋势，并且因为其在VR游戏设计中表现突出的渲染性能而饱受开发者青睐，更令人惊叹不已的是这个引擎的源码是开源的，这对于希望研究引擎底层代码的码农来说，优秀得有点过分啦。</p>
+</blockquote>
+<a id="more"></a>
+<hr>
+<p>###一、引擎安装：<br>关于引擎安装，其实有两种方式：</p>
+<ul>
+<li>通过官方提供的Laucher下载引擎、工具和资源，具体步骤：登录Epic Games账号后，打开<a href="https://www.unrealengine.com/dashboard" target="_blank" rel="external">https://www.unrealengine.com/dashboard</a>，在第一项中选择平台下载安装引擎所需的EpicGamesLauncherInstaller；<br><img src="http://img.blog.csdn.net/20170116153109625" alt="获取引擎"></li>
+<li>下载Github官方源码，然后使用Visual Studio进行编译得到引擎工具。</li>
+</ul>
+<p>###二、UE4源码下载：<br>打开UE4的<a href="https://www.unrealengine.com" target="_blank" rel="external">官网</a>链接，注册一个Epic Games的个人账号。登录账号后，参考官方<a href="https://www.unrealengine.com/zh-CN/ue4-on-github" target="_blank" rel="external">如何链接您的Github账户以下载虚幻引擎4源代码</a>的相关说明，即可通过github下载完整的Unreal Engine源码。</p>
+<hr>
+<p>###三、源码编译：<br>下载源码后，解压到<strong>不包含中文</strong>的本地目录下：<br><img src="http://img.blog.csdn.net/20170116153304065" alt="目录结构"></p>
+<ul>
+<li>编译需要借助Visual Studio编程工具，所以需提前安装2013版或2012版的VS；</li>
+<li>在解压根目录找到<code>GenerateProjectFiles.bat</code>文件，双击此文件即可生成源码项目的<code>UE4.sh</code>文件；</li>
+<li>双击上述生成的.sh文件，会在VS中打开源码，带导入完毕，选中<code>UE4.sh</code>，<code>右键</code>-&gt;<code>生成</code>，等待编译完成。</li>
+<li>生成完毕之后，在当前源码根目录下，打开<code>Engine\Binaries</code>，会有适用于不同平台的的文件夹，打开win64，打开<code>UE4Editor.exe</code>即可打开UE4编辑器。</li>
+</ul>
+<hr>
+<p>###四、缺陷说明：<br>使用源码编译的引擎工具有一点不足，那就是访问MarketPlace时必须通过Laucher，而只要安装并启动了官方的Laucher，则会自动下载最新的引擎工具包（大概7G），那此时机器上就会同时存在两个版本的UE4（官方Laucher下载安装的和自己编译得到的），不过使用官方Laucher在MarketPlace中下载的资源，在自己编译得到的引擎工具中是可以正常使用的。</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[CG手绘初学笔记（3）从线稿到上色]]></title>
+      <url>http://yoursite.com/2016/11/15/CG%E6%89%8B%E7%BB%98%E5%88%9D%E5%AD%A6%E7%AC%94%E8%AE%B0%EF%BC%883%EF%BC%89%E4%BB%8E%E7%BA%BF%E7%A8%BF%E5%88%B0%E4%B8%8A%E8%89%B2/</url>
+      <content type="html"><![CDATA[<p>虽然学习画画没有捷径，但我们也应该避免走弯路，使用比较科学的绘画思路往往能使得绘画这件事情更加直观。</p>
+<a id="more"></a>
+<h3 id="线稿"><a href="#线稿" class="headerlink" title="线稿"></a>线稿</h3><p>通常有两种方式来获取线稿：</p>
+<ul>
+<li>在纸上用铅笔完成线稿，然后通过扫描输入到绘画软件中；</li>
+<li>直接使用绘画板（手绘板）在软件上进行线稿绘制。</li>
+</ul>
+<p>通过扫描铅笔线稿获取线稿时，需要对文件进行一些处理，从而提取出优质的线稿，以便于后面的上色工作，这里以Photoshop为例，提取线稿快捷键组合：<br>Ctrl+A -&gt; Ctrl+C -&gt; Ctrl+V -&gt; Q -&gt; Ctrl+Shift+I -&gt; Ctrl+C -&gt; Ctrl+V(此步骤重复2到3次)</p>
+<h3 id="上色"><a href="#上色" class="headerlink" title="上色"></a>上色</h3><p>上色的技法关键在于光影和素描关系的把握，而非色彩多么的丰富</p>
+<h4 id="光影："><a href="#光影：" class="headerlink" title="光影："></a>光影：</h4><p>光影的产生：当光线落在物体性状上，从而按照逻辑关系创造出来光和影，也就是物体的<strong><code>黑白灰</code></strong>。主要分析两点：<strong>光与影的分布</strong>和<strong>光与影的形状</strong>。</p>
+<p>色彩：<br>反光的补色（灰蓝色）——明暗交界线的固有色（暖红灰色）——亮部的浅灰色（浅灰红）<br>一般暗部的纯度都比亮部的纯度要高</p>
+<h4 id="Photoshop底色法："><a href="#Photoshop底色法：" class="headerlink" title="Photoshop底色法："></a>Photoshop底色法：</h4><p>在一个底色的基础上逐步绘制出人物的造型，底色起到规范色调的作用。</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Unity3D —— 小地图制作插件NJG MiniMap]]></title>
       <url>http://yoursite.com/2016/10/11/Unity3D-%E2%80%94%E2%80%94-%E5%B0%8F%E5%9C%B0%E5%9B%BE%E5%88%B6%E4%BD%9C%E6%8F%92%E4%BB%B6NJG-MiniMap/</url>
       <content type="html"><![CDATA[<p>在很多实时PVP对战游戏（如：英雄联盟、王者荣耀等）的战斗场景中，都会有一个小地图，用于实时地显示一些比较重要因素，例如：队友和对手位置、存活炮塔位置、Boss出生死亡情况等。</p>
