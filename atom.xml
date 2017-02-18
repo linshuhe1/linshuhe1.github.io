@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-01-21T02:59:12.055Z</updated>
+  <updated>2017-02-18T02:08:32.203Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,68 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Unity——NGUI染色遮罩Sharer</title>
+    <link href="http://yoursite.com/2017/02/14/NGUI%E4%BD%BF%E7%94%A8mask%E6%9F%93%E8%89%B2/"/>
+    <id>http://yoursite.com/2017/02/14/NGUI使用mask染色/</id>
+    <published>2017-02-14T02:57:00.000Z</published>
+    <updated>2017-02-18T02:08:32.203Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>简述：<br>遮罩的意思是指对原图被遮住的部分进行一定的处理，这里使用最简单的处理就是染色，所以我们需要创建一个遮罩层，通常使用另一个图片来作为遮罩层，也就是mask图。</p>
+</blockquote>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><p>###一、mask图的作用：<br>跟UITexture使用的图片尺寸大小必须一致，将原图中需要被遮住（染色）的部分的位置在mask图中对应位置用纯色（例如：绿色（三原色的一种））涂满，学过flash动画的应该知道遮罩动画的原理，mask图其实就是一个遮罩层。</p>
+<hr>
+<p>###二、sharer的实现思路：<br>其实就是获取原图UITexture上的每个像素点，然后根据坐标位置去获取mask图UITexture对应位置上指定颜色值的有无，然后乘以透明度（.a属性），例如：mask图为绿色，这获取mask图像素点的.g属性值，加入不为0，则该像素点要染色，否则则不染色，具体该像素点要染成什么颜色可以通过变量传给shader。</p>
+<hr>
+<p>###三、实例：<br>下面是一个染色shader的代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">Shader &quot;Micro/TransparentMasked&quot; &#123;</div><div class="line">	Properties &#123;</div><div class="line">		_MainTex (&quot;Base (RGB)&quot;, 2D) = &quot;white&quot; &#123;&#125;</div><div class="line">		_MaskTex (&quot;Base (RGB)&quot;, 2D) = &quot;white&quot; &#123;&#125;</div><div class="line">		_MyColor (&quot;MyColor&quot;, Color) = (0,0,1,1)</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	Category</div><div class="line">	&#123;	</div><div class="line">		Tags &#123;&quot;Queue&quot;=&quot;Transparent&quot; &quot;IgnoreProjector&quot;=&quot;True&quot;&#125;</div><div class="line">		Lighting Off</div><div class="line">		ZWrite On</div><div class="line">		Blend One Zero</div><div class="line">		SubShader &#123;</div><div class="line">			Pass &#123;</div><div class="line">				CGPROGRAM</div><div class="line">				#pragma vertex vert_img</div><div class="line">				#pragma fragment frag</div><div class="line">	</div><div class="line">				#include &quot;UnityCG.cginc&quot;</div><div class="line">	</div><div class="line">				uniform sampler2D _MainTex;</div><div class="line">				uniform sampler2D _MaskTex;</div><div class="line">				float4 _MyColor;</div><div class="line">	</div><div class="line">				float4 frag(v2f_img i) : COLOR </div><div class="line">				&#123;</div><div class="line">					float4 layer = tex2D(_MainTex, i.uv);					</div><div class="line">					float4 mask = tex2D(_MaskTex, i.uv);</div><div class="line">									</div><div class="line">					float4 returnColor = layer;</div><div class="line"></div><div class="line">					float gValue = max(0 ,mask.g - mask.b) * mask.a;</div><div class="line"></div><div class="line">					returnColor = (returnColor * (1 - gValue)) + (_MyColor * returnColor) * gValue;</div><div class="line"></div><div class="line">					returnColor.a = layer.a;</div><div class="line">					return returnColor;</div><div class="line">				&#125;</div><div class="line">				ENDCG</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>####1.输入声明：<br>首先是输入的声明，这里我们需要明确进行此操作所需的输入有：原图（Texture）、遮罩图（Texture）、目标染色色值（float4），即可声明如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">uniform sampler2D _MainTex;</div><div class="line">uniform sampler2D _MaskTex;</div><div class="line">float4 _MyColor;</div></pre></td></tr></table></figure></p>
+<p>####2.处理函数：<br>关键部分在于每个像素点处理函数部分代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">float4 frag(v2f_img i) : COLOR </div><div class="line">				&#123;</div><div class="line">					float4 layer = tex2D(_MainTex, i.uv);					</div><div class="line">					float4 mask = tex2D(_MaskTex, i.uv);</div><div class="line">									</div><div class="line">					float4 returnColor = layer;</div><div class="line"></div><div class="line">					float gValue = max(0 ,mask.g - mask.b) * mask.a;</div><div class="line"></div><div class="line">					returnColor = (returnColor * (1 - gValue)) + (_MyColor * returnColor) * gValue;</div><div class="line"></div><div class="line">					returnColor.a = layer.a;</div><div class="line">					return returnColor;</div><div class="line">				&#125;</div></pre></td></tr></table></figure></p>
+<p>####3.源码解析：<br>接下来我们进行逐句解析：</p>
+<ul>
+<li>首先，我们需要将两张图片传入到shader中，用两个float4四元矩阵layer和mask来保存图片数据，每个像素点的数据都是一个float4值，即表示（r,b,g,a）——&gt;（红，绿，蓝，透明度），其中layer是原图层，mask为遮罩层；</li>
+<li>通过<code>float gValue = max(0 ,mask.g - mask.b) * mask.a;</code>获得该像素点是否染色的状态；</li>
+<li>计算每个像素点染色之后的结果<code>returnColor = (returnColor * (1 - gValue)) + (_MyColor * returnColor) * gValue;</code>，计算得到每个像素点的输出值；</li>
+<li>透明度与原图保持一致<code>returnColor.a = layer.a;</code>。</li>
+</ul>
+<hr>
+<p>###四、Unity实践：</p>
+<ul>
+<li>1.新建一个Shader文件，步骤：在Project窗口中右键-&gt;Create-&gt;Shader，内容为上边的源码，命名为<code>MaskColor.shader</code>：<br><img src="http://img.blog.csdn.net/20170214103445766" alt="MaskColor"></li>
+<li>2.导入两张图片，原图和mask图：<br><img src="http://img.blog.csdn.net/20170214103154480" alt="原图和mask图"></li>
+<li>3.新建一个材质球，步骤：在Project窗口中右键-&gt;Create-&gt;Material，取名为选中<code>MaskColor.mat</code>，选中次材质球，将其Shader修改为我们刚刚创建的<code>MaskColor.shader</code>：<br><img src="http://img.blog.csdn.net/20170214103401577" alt="MaskColor.mat"><br>假如一切正常，更改后选中该材质球，在Inspecteor窗口查看其属性可以看到：<br><img src="http://img.blog.csdn.net/20170214103809974" alt="属性"></li>
+<li>4.将Avatar.png拖入到材质球的第一个Texture中，将Avatar_mask.png拖入到材质球的第二个Texture中，修改MyColor的色值，这个色值就是我们的遮罩目标染色值，可以在预览窗口看到染色结果：<br><img src="http://img.blog.csdn.net/20170214104456655" alt=""></li>
+<li>5.为了更加直观地观察到染色结果，可以使用NGUI在场景中创建一个UITexture，将<code>MaskColor.mat</code>拖到其Material属性中，即可在Game视窗中看到结果：<br><img src="http://img.blog.csdn.net/20170214105647261" alt=""></li>
+<li><p>6.加入要动态修改染色的颜色，通过代码对MyColor属性进行赋值：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">using UnityEngine;</div><div class="line">using System.Collections;</div><div class="line"></div><div class="line">public class TestColor : MonoBehaviour &#123;</div><div class="line">    public UITexture texture;</div><div class="line">    // Use this for initialization</div><div class="line">    void Start () &#123;</div><div class="line">        //染成紫色</div><div class="line">        texture.material.SetColor (&quot;_MyColor&quot;, new Color(0.619f, 0.431f, 0.717f));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>  得到新的染色结果:<br>  <img src="http://img.blog.csdn.net/20170214110324296" alt=""></p>
+<p>  最终资源文件结构：<br>  <img src="http://img.blog.csdn.net/20170214111019580" alt=""></p>
+</li>
+</ul>
+<p>####补充：<br>其实，Shader中的图片也是可以通过代码动态替换的，将散图放在<code>Resources</code>文件夹下，然后通过<code>Resources.Load(资源路径);</code>进行动态获取，然后通过材质的方法<code>material.SetTexture</code>进行赋值。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;简述：&lt;br&gt;遮罩的意思是指对原图被遮住的部分进行一定的处理，这里使用最简单的处理就是染色，所以我们需要创建一个遮罩层，通常使用另一个图片来作为遮罩层，也就是mask图。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&quot;&gt;&lt;/a&gt;
+    
+    </summary>
+    
+      <category term="游戏前端" scheme="http://yoursite.com/categories/%E6%B8%B8%E6%88%8F%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="Unity" scheme="http://yoursite.com/tags/Unity/"/>
+    
+  </entry>
+  
+  <entry>
     <title>UE4笔记（1） 源码编译和安装</title>
     <link href="http://yoursite.com/2017/01/21/UE4%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/"/>
     <id>http://yoursite.com/2017/01/21/UE4源码编译安装/</id>
     <published>2017-01-21T02:57:00.000Z</published>
-    <updated>2017-01-21T02:59:12.055Z</updated>
+    <updated>2017-01-21T03:22:52.876Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>序言<br>近来UE4渐渐有了抬头的趋势，并且因为其在VR游戏设计中表现突出的渲染性能而饱受开发者青睐，更令人惊叹不已的是这个引擎的源码是开源的，这对于希望研究引擎底层代码的码农来说，优秀得有点过分啦。</p>
