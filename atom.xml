@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-18T02:08:32.203Z</updated>
+  <updated>2017-03-03T03:03:53.126Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,163 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>《从零开始搭建游戏服务器》redis操作指令和Jedis工具</title>
+    <link href="http://yoursite.com/2017/03/03/%E3%80%8A%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E5%99%A8%E3%80%8Bredis%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4%E5%92%8CJedis%E5%B7%A5%E5%85%B7/"/>
+    <id>http://yoursite.com/2017/03/03/《从零开始搭建游戏服务器》redis操作指令和Jedis工具/</id>
+    <published>2017-03-03T02:48:37.000Z</published>
+    <updated>2017-03-03T03:03:53.126Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>上篇已经大致完成了redis的下载安装和简单的使用，接下来我们要真正地操作redis进行一些数据的增删改查操作。</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="常用指令："><a href="#常用指令：" class="headerlink" title="常用指令："></a>常用指令：</h3><h4 id="1-增加或者修改已有数据的值："><a href="#1-增加或者修改已有数据的值：" class="headerlink" title="1.增加或者修改已有数据的值："></a>1.增加或者修改已有数据的值：</h4><p>若此key对应的value不存在，则创建这个键值对，若已存在，则修改此key的value数值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">set key value</div></pre></td></tr></table></figure></p>
+<p>查询key是否存在：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">exists key</div></pre></td></tr></table></figure></p>
+<p>当然还可以设置失效时间：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">set key time value</div></pre></td></tr></table></figure></p>
+<p>可以通过指令查询key的存活时间：time to live<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ttl key</div></pre></td></tr></table></figure></p>
+<p>假如数值为整数，还可以进行递增（incr）递减（decr）操作：<br><img src="http://img.blog.csdn.net/20170228115717776" alt=""></p>
+<p>除了操作基本的数据类型，redis数据库还能操作<code>列表</code>、<code>集合</code>、<code>哈希表</code>等复杂的数据结构。</p>
+<h4 id="2-查询："><a href="#2-查询：" class="headerlink" title="2.查询："></a>2.查询：</h4><p>通过key来找对应的value值是redis这种键值对结构数据库最大的优势，检索速度快：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">get key</div></pre></td></tr></table></figure></p>
+<p>当然也可以通过key的特征来模糊检索符合条件的key集合：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">keys pattern</div></pre></td></tr></table></figure></p>
+<h4 id="3-删"><a href="#3-删" class="headerlink" title="3.删"></a>3.删</h4><p>跟查询一致，可以通过key值来删除单条数据：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">del key</div></pre></td></tr></table></figure></p>
+<p><img src="http://img.blog.csdn.net/20170228113002419" alt=""></p>
+<h4 id="4-其他指令："><a href="#4-其他指令：" class="headerlink" title="4.其他指令："></a>4.其他指令：</h4><p>这是一些服务器管理常用的指令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">info   #查看服务器信息</div><div class="line">select &lt;dbsize&gt; #选择数据库索引  select 1</div><div class="line">flushall #清空全部数据</div><div class="line">flushdb  #清空当前索引的数据库</div><div class="line">slaveof &lt;服务器&gt; &lt;端口&gt;  #设置为从服务器</div><div class="line">slaveof no one #设置为主服务器</div><div class="line">shutdown  #关闭服务</div><div class="line">quit #退出客户端</div></pre></td></tr></table></figure></p>
+<h3 id="Redis可视化操作工具："><a href="#Redis可视化操作工具：" class="headerlink" title="Redis可视化操作工具："></a>Redis可视化操作工具：</h3><h4 id="1-工具简介："><a href="#1-工具简介：" class="headerlink" title="1.工具简介："></a>1.工具简介：</h4><p><code>Redis Desktop Manager</code>（RedisDesktopManager，RDM）是一个快速、简单、支持跨平台的 Redis 桌面管理工具，基于 Qt 5 开发，支持通过 SSH Tunnel 连接。</p>
+<h4 id="2-下载安装："><a href="#2-下载安装：" class="headerlink" title="2.下载安装："></a>2.下载安装：</h4><p>下载安装包：<a href="https://redisdesktop.com/" target="_blank" rel="external">Redis Desktop</a></p>
+<h4 id="3-连接查看："><a href="#3-连接查看：" class="headerlink" title="3.连接查看："></a>3.连接查看：</h4><hr>
+<h3 id="Jedis工具："><a href="#Jedis工具：" class="headerlink" title="Jedis工具："></a>Jedis工具：</h3><p>我们在进行系统开发时，通常不通过这种低效率的指令来操作Redis数据库，而是使用封装好的操作Redis数据库的工具，这里要说到的就是Redis官方提供的Jedis，这就是Redis提供的Java API对Redis进行操作。</p>
+<h4 id="1-工具下载："><a href="#1-工具下载：" class="headerlink" title="1.工具下载："></a>1.工具下载：</h4><p>为了在项目中使用Jedis来操作Redis，需要下载对应的客户端开发包，这里我使用的版本是：</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;h3 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h3&gt;&lt;p&gt;上篇已经大致完成了redis的下载安装和简单的使用，接下来我们要真正地操作redis进行一些数据的增删改查操作。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="服务器开发" scheme="http://yoursite.com/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="Java,Protobuf" scheme="http://yoursite.com/tags/Java-Protobuf/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>《从零开始搭建游戏服务器》多个Protobuf协议的改造</title>
+    <link href="http://yoursite.com/2017/03/03/%E3%80%8A%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E5%99%A8%E3%80%8B%E5%A4%9A%E4%B8%AAProtobuf%E5%8D%8F%E8%AE%AE%E7%9A%84%E6%94%B9%E9%80%A0/"/>
+    <id>http://yoursite.com/2017/03/03/《从零开始搭建游戏服务器》多个Protobuf协议的改造/</id>
+    <published>2017-03-03T02:38:37.000Z</published>
+    <updated>2017-03-03T03:02:19.549Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>通过上篇 <a href="http://blog.csdn.net/linshuhe1/article/details/56280797" target="_blank" rel="external">《从零开始搭建游戏服务器》使用Protobuf定义网络协议</a> 的实践之后，我们知道在设置ChannelPiple的handler时，只能设置一个解码器，即protobufDecoder，但是在实际的网络通信过程中，我们需要传输的数据类型必然有很多种，这就需要通过某个标识来帮助我们在进行数据解析时进行数据类型的判断。</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h3><h4 id="方案一"><a href="#方案一" class="headerlink" title="方案一"></a>方案一</h4><p>这是protobuf官方的一种实现方式，通过自定义解析类，将要进行传输的protobuf类型数据都先转换为字节数组，放在一个byte数组里面，定义额外的属性来描述对应的proto文件和协议数据类型，格式如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">message SelfDescribingMessage &#123;</div><div class="line">  // Set of .proto files which define the type.</div><div class="line">  required FileDescriptorSet proto_files = 1;</div><div class="line"></div><div class="line">  // Name of the message type.  Must be defined by one of the files in</div><div class="line">  // proto_files.</div><div class="line">  required string type_name = 2;</div><div class="line"></div><div class="line">  // The message data.</div><div class="line">  required bytes message_data = 3;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><h5 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h5>如此，信道上传输的实际类型就是SelfDescribingMessage类型，由于message_data的兼容性，此数据类型可以承载任何类型的数据。</li>
+<li><h5 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h5>由于每次传输数据，序列化步骤包括：普通数据类型序列化为protobuf类型，protobuf类型序列化为byte数组，反序列化也是一个逆过程，如此就需要进行两次序列化和两次反序列化，这对于那些对延迟和性能比较敏感的系统，显然不是一个好的选择。</li>
+</ul>
+<h4 id="方案二"><a href="#方案二" class="headerlink" title="方案二"></a>方案二</h4><p>直接在protobuf序列化数据的前面，加上一个自定义的协议头，协议头里包含序列数据的长度和对应的数据类型，在数据解包的时候根据包头来进行反序列化。</p>
+<h5 id="协议头定义"><a href="#协议头定义" class="headerlink" title="协议头定义"></a>协议头定义</h5><p>关于这一块，我打算先采取比较简单的办法，结构如下：<br><img src="http://img.blog.csdn.net/20160824100320406" alt=""><br>协议号是自定义的一个<code>int</code>类型的枚举（当然，假如协议吧比较少的话，可以用一个<code>short</code>来代替int以缩小数据包），这个协议号与协议类型是一一对应的，而协议头通常使用数据总长度来填入，具体过程如下：</p>
+<ul>
+<li>当客户端向服务器发送数据时，会根据协议类型加上协议号，然后使用protobuf序列化之后再发送给服务器；</li>
+<li>当服务器发送数据给客户端时，根据协议号，确定protobuf协议类型以反序列化数据，并调用相应回调方法。</li>
+</ul>
+<p>这个办法是我之前在C#中尝试过的，具体情况可以参考：<a href="http://blog.csdn.net/linshuhe1/article/details/51781749" target="_blank" rel="external">Unity3D —— protobuf网络框架</a>。</p>
+<h5 id="自定义的编码器和解码器"><a href="#自定义的编码器和解码器" class="headerlink" title="自定义的编码器和解码器"></a>自定义的编码器和解码器</h5><ul>
+<li><p><strong>编码器</strong>：<br>参考netty自带的编码器<code>ProtobufEncoder</code>可以发现，被绑定到ChannelPipeline上用于序列化协议数据的编码器，必须继承<code>MessageToByteEncoder&lt;MessageLite&gt;</code>这个基类，并通过重写<code>protected void encode(ChannelHandlerContext ctx, MessageLite msg, ByteBuf out)</code>这个方法来实现自定义协议格式的目的：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">package</span> com.tw.login.tools;</div><div class="line"></div><div class="line"> <span class="keyword">import</span> com.google.protobuf.MessageLite;</div><div class="line"> <span class="keyword">import</span> com.tw.login.proto.CsEnum.EnmCmdID;</div><div class="line"> <span class="keyword">import</span> com.tw.login.proto.CsLogin;</div><div class="line"></div><div class="line"> <span class="keyword">import</span> io.netty.buffer.ByteBuf;</div><div class="line"> <span class="keyword">import</span> io.netty.channel.ChannelHandlerContext;</div><div class="line"> <span class="keyword">import</span> io.netty.handler.codec.MessageToByteEncoder;</div><div class="line"> <span class="comment">/**</span></div><div class="line">  * 自定义编码器</div><div class="line">  * <span class="doctag">@author</span> linsh</div><div class="line">  *</div><div class="line">  */</div><div class="line"> <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PackEncoder</span> <span class="keyword">extends</span> <span class="title">MessageToByteEncoder</span>&lt;<span class="title">MessageLite</span>&gt; </span>&#123;</div><div class="line"></div><div class="line">     <span class="comment">/**</span></div><div class="line">      * 传入协议数据，产生携带包头之后的数据</div><div class="line">      */</div><div class="line">     <span class="meta">@Override</span></div><div class="line">     <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">encode</span><span class="params">(ChannelHandlerContext ctx, MessageLite msg, ByteBuf out)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">         <span class="comment">// TODO Auto-generated method stub</span></div><div class="line">         <span class="keyword">byte</span>[] body = msg.toByteArray();</div><div class="line">         <span class="keyword">byte</span>[] header = encodeHeader(msg, (<span class="keyword">short</span>)body.length);</div><div class="line"></div><div class="line">         out.writeBytes(header);</div><div class="line">         out.writeBytes(body);</div><div class="line">         <span class="keyword">return</span>;</div><div class="line">     &#125;</div><div class="line"></div><div class="line">     <span class="comment">/**</span></div><div class="line">      * 获得一个协议头</div><div class="line">      * <span class="doctag">@param</span> msg</div><div class="line">      * <span class="doctag">@param</span> bodyLength</div><div class="line">      * <span class="doctag">@return</span></div><div class="line">      */</div><div class="line">     <span class="keyword">private</span> <span class="keyword">byte</span>[] encodeHeader(MessageLite msg,<span class="keyword">short</span> bodyLength)&#123;</div><div class="line">         <span class="keyword">short</span> _typeId = <span class="number">0</span>;</div><div class="line">         <span class="keyword">if</span>(msg <span class="keyword">instanceof</span> CsLogin.CSLoginReq)&#123;</div><div class="line">             _typeId = EnmCmdID.CS_LOGIN_REQ_VALUE;</div><div class="line">         &#125;<span class="keyword">else</span> <span class="keyword">if</span>(msg <span class="keyword">instanceof</span> CsLogin.CSLoginRes)&#123;</div><div class="line">             _typeId = EnmCmdID.CS_LOGIN_RES_VALUE;</div><div class="line">         &#125;</div><div class="line"><span class="comment">//存放两个short数据</span></div><div class="line">         <span class="keyword">byte</span>[] header = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">4</span>];</div><div class="line">         <span class="comment">//前两位放数据长度</span></div><div class="line">         header[<span class="number">0</span>] = (<span class="keyword">byte</span>) (bodyLength &amp; <span class="number">0xff</span>);</div><div class="line">         header[<span class="number">1</span>] = (<span class="keyword">byte</span>) ((bodyLength &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xff</span>);</div><div class="line">         <span class="comment">//后两个字段存协议id</span></div><div class="line">         header[<span class="number">2</span>] = (<span class="keyword">byte</span>) (_typeId &amp; <span class="number">0xff</span>);</div><div class="line">         header[<span class="number">3</span>] = (<span class="keyword">byte</span>) ((_typeId &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xff</span>);</div><div class="line">         <span class="keyword">return</span> header;</div><div class="line">     &#125;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>解码器</strong>：<br>参考netty自带的编码器<code>ProtobufDecoder</code>可以发现，被绑定到ChannelPipeline上用于序列化协议数据的解码器，必须继承<code>ByteToMessageDecoder</code>这个基类，并通过重写<code>protected void decode(ChannelHandlerContext ctx, ByteBuf in, List&lt;Object&gt; out)</code>这个方法来实现解析自定义协议格式的目的：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.tw.login.tools;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.google.protobuf.MessageLite;</div><div class="line"><span class="keyword">import</span> com.tw.login.proto.CsEnum.EnmCmdID;</div><div class="line"><span class="keyword">import</span> com.tw.login.proto.CsLogin.CSLoginReq;</div><div class="line"><span class="keyword">import</span> com.tw.login.proto.CsLogin.CSLoginRes;</div><div class="line"></div><div class="line"><span class="keyword">import</span> io.netty.buffer.ByteBuf;</div><div class="line"><span class="keyword">import</span> io.netty.channel.ChannelHandlerContext;</div><div class="line"><span class="keyword">import</span> io.netty.handler.codec.ByteToMessageDecoder;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PackDecoder</span> <span class="keyword">extends</span> <span class="title">ByteToMessageDecoder</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">decode</span><span class="params">(ChannelHandlerContext ctx, ByteBuf in, List&lt;Object&gt; out)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        <span class="comment">// 获取包头中的body长度</span></div><div class="line">        <span class="keyword">byte</span> low = in.readByte();</div><div class="line">        <span class="keyword">byte</span> high = in.readByte();</div><div class="line">        <span class="keyword">short</span> s0 = (<span class="keyword">short</span>) (low &amp; <span class="number">0xff</span>);</div><div class="line">        <span class="keyword">short</span> s1 = (<span class="keyword">short</span>) (high &amp; <span class="number">0xff</span>);</div><div class="line">        s1 &lt;&lt;= <span class="number">8</span>;</div><div class="line">        <span class="keyword">short</span> length = (<span class="keyword">short</span>) (s0 | s1);</div><div class="line"></div><div class="line">        <span class="comment">// 获取包头中的protobuf类型</span></div><div class="line">        <span class="keyword">byte</span> low_type = in.readByte();</div><div class="line">        <span class="keyword">byte</span> high_type = in.readByte();</div><div class="line">        <span class="keyword">short</span> s0_type = (<span class="keyword">short</span>) (low_type &amp; <span class="number">0xff</span>);</div><div class="line">        <span class="keyword">short</span> s1_type = (<span class="keyword">short</span>) (high_type &amp; <span class="number">0xff</span>);</div><div class="line">        s1_type &lt;&lt;= <span class="number">8</span>;</div><div class="line">        <span class="keyword">short</span> dataTypeId = (<span class="keyword">short</span>) (s0_type | s1_type);</div><div class="line"></div><div class="line">        <span class="comment">// 如果可读长度小于body长度，恢复读指针，退出。</span></div><div class="line">        <span class="keyword">if</span> (in.readableBytes() &lt; length) &#123;</div><div class="line">            in.resetReaderIndex();</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//开始读取核心protobuf数据</span></div><div class="line">        ByteBuf bodyByteBuf = in.readBytes(length);</div><div class="line">        <span class="keyword">byte</span>[] array;</div><div class="line">        <span class="comment">//反序列化数据的起始点</span></div><div class="line">        <span class="keyword">int</span> offset;</div><div class="line">        <span class="comment">//可读的数据字节长度</span></div><div class="line">        <span class="keyword">int</span> readableLen= bodyByteBuf.readableBytes();</div><div class="line">        <span class="comment">//分为包含数组数据和不包含数组数据两种形式</span></div><div class="line">        <span class="keyword">if</span> (bodyByteBuf.hasArray()) &#123;</div><div class="line">            array = bodyByteBuf.array();</div><div class="line">            offset = bodyByteBuf.arrayOffset() + bodyByteBuf.readerIndex();</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            array = <span class="keyword">new</span> <span class="keyword">byte</span>[readableLen];</div><div class="line">            bodyByteBuf.getBytes(bodyByteBuf.readerIndex(), array, <span class="number">0</span>, readableLen);</div><div class="line">            offset = <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//反序列化</span></div><div class="line">        MessageLite result = decodeBody(dataTypeId, array, offset, readableLen);</div><div class="line">        out.add(result);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 根据协议号用响应的protobuf类型来解析协议数据</div><div class="line">     * <span class="doctag">@param</span> _typeId</div><div class="line">     * <span class="doctag">@param</span> array</div><div class="line">     * <span class="doctag">@param</span> offset</div><div class="line">     * <span class="doctag">@param</span> length</div><div class="line">     * <span class="doctag">@return</span></div><div class="line">     * <span class="doctag">@throws</span> Exception</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> MessageLite <span class="title">decodeBody</span><span class="params">(<span class="keyword">int</span> _typeId,<span class="keyword">byte</span>[] array,<span class="keyword">int</span> offset,<span class="keyword">int</span> length)</span> <span class="keyword">throws</span> Exception</span>&#123;</div><div class="line">        <span class="keyword">if</span>(_typeId == EnmCmdID.CS_LOGIN_REQ_VALUE)&#123;</div><div class="line">            <span class="keyword">return</span> CSLoginReq.getDefaultInstance().getParserForType().parseFrom(array,offset,length);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(_typeId == EnmCmdID.CS_LOGIN_RES_VALUE)&#123;</div><div class="line">            <span class="keyword">return</span> CSLoginRes.getDefaultInstance().getParserForType().parseFrom(array,offset,length);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="修改Socket管道绑定的编解码器："><a href="#修改Socket管道绑定的编解码器：" class="headerlink" title="修改Socket管道绑定的编解码器："></a>修改Socket管道绑定的编解码器：</h4><p>在创建Socket管道的时候，将编解码器替换为自定义的编解码器，而具体数据发送和接受过程无需做任何修改：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ChannelPipeline pipeline = ch.pipeline();</div><div class="line"><span class="comment">// 协议数据的编解码器</span></div><div class="line">pipeline.addLast(<span class="string">"frameDecoder"</span>,<span class="keyword">new</span> ProtobufVarint32FrameDecoder());</div><div class="line">pipeline.addLast(<span class="string">"protobufDecoder"</span>,<span class="keyword">new</span> PackDecoder());</div><div class="line">pipeline.addLast(<span class="string">"frameEncoder"</span>,<span class="keyword">new</span> ProtobufVarint32LengthFieldPrepender());</div><div class="line">pipeline.addLast(<span class="string">"protobufEncoder"</span>, <span class="keyword">new</span> PackEncoder());</div><div class="line">pipeline.addLast(<span class="string">"handler"</span>,<span class="keyword">new</span> SocketServerHandler());</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;h3 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h3&gt;&lt;p&gt;通过上篇 &lt;a href=&quot;http://blog.csdn.net/linshuhe1/article/details/56280797&quot;&gt;《从零开始搭建游戏服务器》使用Protobuf定义网络协议&lt;/a&gt; 的实践之后，我们知道在设置ChannelPiple的handler时，只能设置一个解码器，即protobufDecoder，但是在实际的网络通信过程中，我们需要传输的数据类型必然有很多种，这就需要通过某个标识来帮助我们在进行数据解析时进行数据类型的判断。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="服务器开发" scheme="http://yoursite.com/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="Java,Protobuf" scheme="http://yoursite.com/tags/Java-Protobuf/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>《从零开始搭建游戏服务器》使用Protobuf定义网络协议</title>
+    <link href="http://yoursite.com/2017/03/03/%E3%80%8A%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E5%99%A8%E3%80%8B%E4%BD%BF%E7%94%A8Protobuf%E5%AE%9A%E4%B9%89%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/"/>
+    <id>http://yoursite.com/2017/03/03/《从零开始搭建游戏服务器》使用Protobuf定义网络协议/</id>
+    <published>2017-03-03T02:28:37.000Z</published>
+    <updated>2017-03-03T03:08:30.562Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>引言：<br>之前我们说过使用Protobuff编解码方式来对网络通信数据进行编码，也就是可以用这种方式来定义通信协议，那么具体要怎么做呢？关于此工具的详细资料和使用操作可以参考我之前写过的博客：<a href="http://blog.csdn.net/linshuhe1/article/details/51781749" target="_blank" rel="external">Unity3D —— protobuf网络框架</a></p>
+</blockquote>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><h3 id="准备工具："><a href="#准备工具：" class="headerlink" title="准备工具："></a>准备工具：</h3><p>这里我就直接用之前编写的登录案例中的登录协议文件来进行本次案例的测试，工具下载地址如下：<a href="http://download.csdn.net/detail/yangheng362/8516923" target="_blank" rel="external">protobuf-java-2.5.0.zip</a>，主要使用到的文件有：</p>
+<ul>
+<li><strong>protoc.exe</strong>工具：通过此工具将从自定义的协议文件（.proto）得到相应（.java）的Java类文件；</li>
+<li>对应proto.exe版本的<strong>protobuf-java.jar</strong>包，用于解析上面得到的.java类，这里我使用的是2.5.0版本的protobuf；</li>
+<li><p>cs_login.proto协议文件，关于proto协议文件的书写语法详细的可以查看：<a href="http://www.cnblogs.com/dkblog/archive/2012/03/27/2419010.html" target="_blank" rel="external">Protobuf语言指南</a>，cs_login.proto内容如下（包名package可以根据当前服务器应用的包名进行修改）：</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.tw.login.proto;</div><div class="line"></div><div class="line">message CSLoginInfo</div><div class="line">&#123;</div><div class="line">    required string UserName = <span class="number">1</span>;<span class="comment">//账号</span></div><div class="line">    required string Password = <span class="number">2</span>;<span class="comment">//密码</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//发送登录请求</span></div><div class="line">message CSLoginReq</div><div class="line">&#123;</div><div class="line">    required CSLoginInfo LoginInfo = <span class="number">1</span>; </div><div class="line">&#125;</div><div class="line"><span class="comment">//登录请求回包数据</span></div><div class="line">message CSLoginRes</div><div class="line">&#123;</div><div class="line">    required uint32 result_code = <span class="number">1</span>; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>  cs_enum.proto协议类型枚举文件，用于列举所有协议数据结构的编号：</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.tw.login.proto;</div><div class="line"></div><div class="line"><span class="keyword">enum</span> EnmCmdID</div><div class="line">&#123;</div><div class="line">    CS_LOGIN_REQ = <span class="number">10001</span>;<span class="comment">//登录请求协议号</span></div><div class="line">    CS_LOGIN_RES = <span class="number">10002</span>;<span class="comment">//登录请求回包协议号</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>将.proto转化为Java类文件的处理脚本，这里其实只是一句命令行指令：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">protoc --java_out=(.java输出目录) (.proto文件存放目录)\cs_login.proto</div></pre></td></tr></table></figure>
+<p>  这里我根据实际项目目录结构定义了一个转文件的.bat批处理文件：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">echo on</div><div class="line">call protoc --version</div><div class="line"></div><div class="line">call protoc --java_out=..\src\ cs_login.proto</div><div class="line">call protoc --java_out=..\src\ cs_enum.proto</div><div class="line"></div><div class="line">PAUSE</div></pre></td></tr></table></figure>
+<p>  tool文件夹在当前java工程的根目录下，其下有三种文件：.proto的协议文件、转化文件用的protoc.exe工具和批处理文件general_java.bat：<br>  <img src="http://img.blog.csdn.net/20161220205058824" alt=""></p>
+</li>
+</ul>
+<hr>
+<h3 id="在Netty服务器验证："><a href="#在Netty服务器验证：" class="headerlink" title="在Netty服务器验证："></a>在Netty服务器验证：</h3><p>####1. 转化协议：<br>双击打开general_java.bat，转.proto协议得到.java脚本，转化成功现象如下，并且在package指定的目录下生产对应的.java类：<br>    <img src="http://img.blog.csdn.net/20161220205533580" alt=""><br>    <img src="http://img.blog.csdn.net/20161220205648112" alt=""></p>
+<p>####2.修改对通道<strong>ChannelPipeline</strong>中编解码格式的设置：<br> 有一定网络通信协议基础的应该知道（不知道的赶紧补一下）：应用层位于传输层之上，当应用层要从传输层的Socket读取数据时，是从下向上层的传输，也就是<code>Upstream</code>；而反过来，从应用层向传输层的Socket写入并发数据时，则为<code>Downstream</code>。<br> Upstream 和 Downstream 都是在 Pipeline 中“流动”的，所以影响 Upstream 和 Downstream 行为的 UpstreamHandler 和 DownstreamHandler，也要被放到 Pipeline 里。了解了上述这两个概念之后，我们就可以开始修改管道ChannelPipeline的参数，包括：</p>
+<pre><code>- ``frameDecoder``和``protobufDecoder``对应的handler用于解码Protobuf package数据包，他们都是Upstream Handles；
+- ``frameEncoder``和``protobufEncoder``对应的handler用于编码Protobuf package数据包，他们都是Downstream Handles；
+- 此外还有一个handler，是一个自定义的Upstream Handles，**用于开发者从网络数据中解析得到自己所需的数据**。
+</code></pre><p> 添加到Pipeline中的handler其实有特定的执行顺序，例如：<br>    <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">pipeline.addLast(<span class="string">"frameDecoder"</span>,</div><div class="line">					<span class="keyword">new</span> ProtobufVarint32FrameDecoder());</div><div class="line">pipeline.addLast(<span class="string">"protobufDecoder"</span>, <span class="keyword">new</span> ProtobufDecoder(CsLogin.CSLoginReq.getDefaultInstance()));</div><div class="line">pipeline.addLast(<span class="string">"frameEncoder"</span>,<span class="keyword">new</span> ProtobufVarint32LengthFieldPrepender());</div><div class="line">pipeline.addLast(<span class="string">"protobufEncoder"</span>, <span class="keyword">new</span> ProtobufEncoder());</div><div class="line">pipeline.addLast(<span class="string">"handler"</span>,<span class="keyword">new</span> SocketServerHandler());</div></pre></td></tr></table></figure></p>
+<p> 上例的执行顺序为：<br>    <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">upstream:frameDecoder,protobufDecoder,handler 	<span class="comment">//解码从Socket收到的数据</span></div><div class="line">downstream:frameEncoder,protobufEncoder			<span class="comment">//编码要通过Socket发送出去的数据</span></div></pre></td></tr></table></figure></p>
+<p> 这里我们假设协议数据的格式为纯protobuf数据格式，不进行如何加密操作，需要注意的一点：<strong>protobufDecoder仅仅负责编码，并不支持读半包</strong>，所以在之前一定要有<strong>读半包的处理器</strong>，即这里用到的frameDecoder，通常用此处理器读取包的数据长度，有三种方式可以选择：</p>
+<pre><code>- 使用netty提供的 ``ProtobufVarint32FrameDecoder``；
+- 继承netty提供的通用半包处理器 ``LengthFieldBasedFrameDecoder``；
+- 继承netty提供的通用半包处理器 ``LengthFieldBasedFrameDecoder``。
+</code></pre><hr>
+<h3 id="protobuf数据通信过程："><a href="#protobuf数据通信过程：" class="headerlink" title="protobuf数据通信过程："></a>protobuf数据通信过程：</h3><p>####1.客户端创建数据：<br>要构建一个protobuf数据，需要通过对应协议文件的数据结构，先通过每个数据类型的newBuilder()方法来创建对应的Builder对象，再对Builder中的属性进行赋值，最后才能使用Builder来build()数据对象，在客户端的自定义handler控制器<code>SocketClientHandler</code>中的<strong>channelActive</strong>方法中发送数据（注：当客户端和服务端建立tcp成功之后，Netty的NIO线程会调用channelActive）：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">channelActive</span><span class="params">(ChannelHandlerContext ctx)</span> </span>&#123;</div><div class="line">	CSLoginReq.Builder req_builder = CSLoginReq.newBuilder();</div><div class="line">    CSLoginInfo.Builder info_builder = CSLoginInfo.newBuilder();</div><div class="line">    info_builder.setUserName(<span class="string">"linshuhe"</span>);</div><div class="line">    info_builder.setPassword(<span class="string">"123456"</span>);</div><div class="line">    CSLoginInfo info = info_builder.build();</div><div class="line">    req_builder.setLoginInfo(info);</div><div class="line">    CSLoginReq req = req_builder.build();</div><div class="line">    ctx.writeAndFlush(req);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>最后，需要将数据对象通过writeAndFlush()发送出去用Socket传输。</p>
+<p>####2.服务器解析数据：<br>在服务器自定义的handler控制器<code>SocketServerHandler</code>的<strong>ChannelRead</strong>方法中进行数据解析：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">channelRead</span><span class="params">(ChannelHandlerContext arg0, Object msg)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">	<span class="comment">// TODO Auto-generated method stub</span></div><div class="line">	CSLoginReq clientReq = (CSLoginReq)msg;</div><div class="line">    String user_name = clientReq.getLoginInfo().getUserName();</div><div class="line">    String pass_word = clientReq.getLoginInfo().getPassword();</div><div class="line">    logger.info(<span class="string">"数据内容：UserName="</span>+user_name+<span class="string">",Password="</span>+pass_word);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>####3.执行结果：<br>服务器打印输出结果如下：<br><img src="http://img.blog.csdn.net/20170221133626442" alt=""></p>
+<hr>
+<p>####备注：<br>假如自定义的handler出现接受数据时只执行<code>channelReadComplete</code>方法而不执行<code>ChannelRead</code>方法，则说明数据发送的格式不对，因为只执行channelReadComplete说明收到消息没有能够被frameDecoder识别的指定的结束标志，例如：frameDecoder设置为lineBasedFrameDecoder时，结束标志为换行符。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;引言：&lt;br&gt;之前我们说过使用Protobuff编解码方式来对网络通信数据进行编码，也就是可以用这种方式来定义通信协议，那么具体要怎么做呢？关于此工具的详细资料和使用操作可以参考我之前写过的博客：&lt;a href=&quot;http://blog.csdn.net/linshuhe1/article/details/51781749&quot;&gt;Unity3D —— protobuf网络框架&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&quot;&gt;&lt;/a&gt;
+    
+    </summary>
+    
+      <category term="服务器开发" scheme="http://yoursite.com/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="Java,Protobuf" scheme="http://yoursite.com/tags/Java-Protobuf/"/>
+    
+  </entry>
   
   <entry>
     <title>Unity——NGUI染色遮罩Sharer</title>
@@ -1114,255 +1271,6 @@ attrib \\%1\admin$\system32⏺.bat -r -h -s
     
     
       <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Github Pages + Hexo创建个人博客</title>
-    <link href="http://yoursite.com/2016/09/02/Github-Pages+Hexo%E5%88%9B%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
-    <id>http://yoursite.com/2016/09/02/Github-Pages+Hexo创建个人博客/</id>
-    <published>2016-09-02T09:17:52.000Z</published>
-    <updated>2016-09-06T08:20:15.727Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>之前使用过jekyll+github做过一版自己的博客网站，有兴趣的可以看一下我之前的文章：<a href="http://blog.csdn.net/linshuhe1/article/details/51143026" title="Github+Jekyll —— 创建个人免费博客（一）从零开始" target="_blank" rel="external">http://blog.csdn.net/linshuhe1/article/details/51143026</a>，其实也很简单，但是存在一些问题：目录、Rss、sitemap无法自动生成。</p>
-</blockquote>
-<hr>
-<blockquote>
-<p>最近看到了别人使用hexo+github实现的博客，有更多的灵活性和简约的风格，所以也试着改一下自己原本的设计。</p>
-</blockquote>
-<a id="more"></a>
-<h2 id="什么是hexo："><a href="#什么是hexo：" class="headerlink" title="什么是hexo："></a>什么是hexo：</h2><p><code>hexo</code>是一个基于Node.js的静态博客程序，可以方便的生成静态网页托管到github或者Heroku上，类似于jekyll、Octopress、Wordpress等，使用markdown来写文章。hexo的作者是<a href="https://github.com/tommy351/hexo" title="@tommy351" target="_blank" rel="external">https://github.com/tommy351/hexo</a>。具有以下几点优点：</p>
-<ul>
-<li>易用性，部署很简单，常用指令有：<code>hexo new</code>、<code>hexo generate</code>、<code>hexo server</code>、<code>hexo deploy</code>；</li>
-<li>轻量级，文件少而小，自定义方便</li>
-</ul>
-<h2 id="相关知识："><a href="#相关知识：" class="headerlink" title="相关知识："></a>相关知识：</h2><p>hexo配置过程中使用到了<code>Github</code>，<code>Git</code>，<code>Markdown</code>，<code>Node.js</code>等相关操作，所以需要很多插件、widget需要自己安装配置。</p>
-<h2 id="安装准备："><a href="#安装准备：" class="headerlink" title="安装准备："></a>安装准备：</h2><ol>
-<li>Node.js:<a href="https://nodejs.org/en/" title="https://nodejs.org/en/" target="_blank" rel="external">https://nodejs.org/en/</a> ；</li>
-<li>Github桌面版（Windows）：<a href="https://desktop.github.com/" title="https://desktop.github.com/" target="_blank" rel="external">https://desktop.github.com/</a>；</li>
-</ol>
-<h2 id="安装Github桌面版和配置"><a href="#安装Github桌面版和配置" class="headerlink" title="安装Github桌面版和配置"></a>安装Github桌面版和配置</h2><ol>
-<li>双击下载好的<code>GitHubSetup.exe</code>文件，按照默认设置完成安装；</li>
-<li>登录自己的github账号；</li>
-</ol>
-<p><img src="http://i.imgur.com/97nOEVO.png" alt=""></p>
-<ol>
-<li>在github网页上创建一个以<code>username.github.io</code>命名的repositories,此时username为自己github的账号名称；</li>
-</ol>
-<p><img src="http://i.imgur.com/A9cQrk6.png" alt=""></p>
-<ol>
-<li>打开Git Shell，使用配置SSH Key使本地git项目与远程Github建立联系：<code>ssh -T git@github.com</code>；</li>
-</ol>
-<p><img src="http://i.imgur.com/t33BM1G.png" alt=""></p>
-<h2 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h2><p>直接双击下载好的<code>node-v4.5.0-x64.msi</code>选择指定的安装路径，按照默认设置完成安装操作，安装完成后不需要对Node.js进行任何配置。为了检验是否完成安装，可以打开命令行，输入指令：<code>npm --version</code>进行版本号查询。<br><img src="http://i.imgur.com/H21hK8M.png" alt=""></p>
-<h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo:"></a>安装Hexo:</h2><h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装:"></a>1.安装:</h3><pre><code>mkdir hexo #创建一个项目文件
-cd hexo    #进入项目文件目录
-npm install -g hexo-cli
-npm install hexo --save
-</code></pre><p>npm是Node.js中的一个工具，所以在安装Hexo之前应该先安装Node.js</p>
-<h3 id="2-部署Hexo："><a href="#2-部署Hexo：" class="headerlink" title="2.部署Hexo："></a>2.部署Hexo：</h3><p>在Git shell中输入：</p>
-<pre><code>hexo init
-</code></pre><p>记得输入之前需要确保当前命令行所处目录为所要创建工程的根目录下，因为此操作的结果就是将hexo的一些必要文件复制到当前目录下面。<br><img src="http://i.imgur.com/8bOaggs.png" alt=""><br>看到上图结果之后，可以通过以下指令运行博客：</p>
-<pre><code>hexo server
-</code></pre><p><img src="http://i.imgur.com/OyexMqN.png" alt=""><br>运行正常的话可以通过访问：<a href="http://localhost:4000/" title="http://localhost:4000/" target="_blank" rel="external">http://localhost:4000/</a>查看运行结果：</p>
-<p><img src="http://i.imgur.com/Xy731Ig.png" alt=""></p>
-<p>假如出现了hexo服务启动成功，但是浏览器访问localhost:4000一直不响应，那就有可能是因为你的设备上装了其他软件占用了4000端口，一般有两种办法可以解决：</p>
-<ul>
-<li>在服务管理中将占用该端口的服务停止掉，通常安装了福昕阅读器的就会占用4000，把其对应的后台服务关掉即可；</li>
-<li><p>切换hexo启动的默认端口，使用以下指令：</p>
-<p>  hexo s -p 5000</p>
-</li>
-</ul>
-<p>此时启动端口就变成了5000，访问地址变成了localhost:5000。</p>
-<h3 id="3-安装Hexo插件："><a href="#3-安装Hexo插件：" class="headerlink" title="3.安装Hexo插件："></a>3.安装Hexo插件：</h3><p>主要目的是为了让其自动生成sitemap，Rss，部署到git等，这些是额外的插件，假如不需要使用到这些功能可以不添加：</p>
-<pre><code>npm install hexo-generator-index --save
-npm install hexo-generator-archive --save
-npm install hexo-generator-category --save
-npm install hexo-generator-tag --save
-npm install hexo-server --save
-npm install hexo-deployer-git --save
-npm install hexo-deployer-heroku --save
-npm install hexo-deployer-rsync --save
-npm install hexo-deployer-openshift --save
-npm install hexo-renderer-marked@0.2 --save
-npm install hexo-renderer-stylus@0.2 --save
-npm install hexo-generator-feed@1 --save
-npm install hexo-generator-sitemap@1 --save
-</code></pre><h2 id="将当前工程上传到github"><a href="#将当前工程上传到github" class="headerlink" title="将当前工程上传到github"></a>将当前工程上传到github</h2><h3 id="1-修改配置文件："><a href="#1-修改配置文件：" class="headerlink" title="1.修改配置文件："></a>1.修改配置文件：</h3><p>在当前项目的根目录下找到<code>_config.yml</code>配置文件，用编辑器打开，并找到Deployment标签处deploy节点，填写以下配置信息，<code>type</code>是指定拖过平台类型，<code>repository</code>指定了github上创建的repository仓库地址，<code>branch</code>指定了版本类型。（注：冒号后面需要加一个空格，否则会出现报错）</p>
-<pre><code># Deployment
-## Docs: https://hexo.io/docs/deployment.html
-deploy:
-  type: github
-  repository: https://github.com/linshuhe1/linshuhe1.github.io.git
-  branch: master
-</code></pre><h3 id="2-将项目deploy到github仓库："><a href="#2-将项目deploy到github仓库：" class="headerlink" title="2.将项目deploy到github仓库："></a>2.将项目deploy到github仓库：</h3><p>打开Git shell进入当前项目的根目录，依次执行指令：</p>
-<pre><code>hexo clean
-hexo generate
-hexo deploy
-</code></pre><p>一般执行最后一步的时候会出现错误如下：<br><img src="http://i.imgur.com/68SebBI.png" alt=""><br>解决错误的方法是：将deploy的type改成git，然后在Git shell中执行：</p>
-<pre><code>npm install hexo-deployer-git --save
-</code></pre><p>执行结束后再次执行上述三个指令，正确结果应该如下：<br><img src="http://i.imgur.com/G0wPCXU.png" alt=""><br>如此我们便完成了将本地的hexo工程deploy到github上的操作，访问地址：<a href="https://username.github.io/可以看到页面效果,这里以我的github为例：[https://linshuhe1.github.io/](https://linshuhe1.github.io/" target="_blank" rel="external">https://username.github.io/可以看到页面效果,这里以我的github为例：[https://linshuhe1.github.io/](https://linshuhe1.github.io/</a> “<a href="https://linshuhe1.github.io/&quot;)。" target="_blank" rel="external">https://linshuhe1.github.io/&quot;)。</a></p>
-<h2 id="Hexo常用指令使用："><a href="#Hexo常用指令使用：" class="headerlink" title="Hexo常用指令使用："></a>Hexo常用指令使用：</h2><h3 id="创建新博文："><a href="#创建新博文：" class="headerlink" title="创建新博文："></a>创建新博文：</h3><p>在Git shell中使用以下指令：</p>
-<pre><code>hexo new &quot;postName&quot;
-</code></pre><p>生成指定名称postName的文章到hexo\source_posts\postName.md，当然也可以直接到hexo\source_posts目录下，手动创建一个文件，命名时注意后缀名必须是“.md”即可。<br><img src="http://i.imgur.com/qjVQtnG.png" alt=""><br>可以打开查看新建出来的.md文件的内容：</p>
-<pre><code>---
-title: github pages + Hexo
-date: 2016-09-02 17:17:52
-tags:
----
-</code></pre><p><code>title</code>是博文的标题，<code>date</code>是博文的日期，<code>tags</code>是分类标签。</p>
-<p>更详细的内容可以参考：<a href="https://hexo.io/docs/writing.html" title="Writing" target="_blank" rel="external">https://hexo.io/docs/writing.html</a></p>
-<h3 id="新建页面："><a href="#新建页面：" class="headerlink" title="新建页面："></a>新建页面：</h3><p>上面的步骤其实就是新建一篇博文的步骤，他们最后都是通过一个文章页面来显示的单个子页，但是我们的博客页面出来需要有博文显示页面之后，还需要有其他的页面，每个页面相当于一个分类对应顶栏菜单中的一个页签，如下图首页、下载等都是一个页面，所以可以理解为页面就相当于子页的父节点：<br><img src="http://i.imgur.com/V33kn9P.png" alt=""><br>创建一个页签的操作是在Git shell中输入指令：</p>
-<pre><code>hexo new page &quot;页签名称&quot;
-</code></pre><p>上述步骤操作结果是在hexo\source目录下多出一个文件夹，而且里面还有一个index.md，这就表明了我们新建了一个页签。</p>
-<h3 id="运行博客："><a href="#运行博客：" class="headerlink" title="运行博客："></a>运行博客：</h3><p>使用Git shell在当前项目的根目录下执行以下指令：</p>
-<pre><code>hexo server
-</code></pre><p>更详细的内容可以参考：<a href="http://hexo.io/docs/server.html" title="Server" target="_blank" rel="external">http://hexo.io/docs/server.html</a></p>
-<h3 id="生成静态站点文件："><a href="#生成静态站点文件：" class="headerlink" title="生成静态站点文件："></a>生成静态站点文件：</h3><pre><code>hexo generate
-</code></pre><p>更详细的内容可以参考：<a href="http://hexo.io/docs/generating.html" title="Generating" target="_blank" rel="external">http://hexo.io/docs/generating.html</a></p>
-<h2 id="发表一篇新博文"><a href="#发表一篇新博文" class="headerlink" title="发表一篇新博文"></a>发表一篇新博文</h2><h3 id="1-新建博文："><a href="#1-新建博文：" class="headerlink" title="1.新建博文："></a>1.新建博文：</h3><p>使用新建博文的指令：</p>
-<pre><code>hexo new &quot;github pages + Hexo&quot;
-</code></pre><h3 id="2-编辑博文内容："><a href="#2-编辑博文内容：" class="headerlink" title="2.编辑博文内容："></a>2.编辑博文内容：</h3><p>打开步骤1创建得到的.md文件，使用的语法是markdown，假设内容如下：</p>
-<pre><code>---
-title: github pages + Hexo
-date: 2016-09-02 17:17:52
-tags: 测试
----
-
-&gt;测试博客
-</code></pre><h3 id="3-发表博文："><a href="#3-发表博文：" class="headerlink" title="3.发表博文："></a>3.发表博文：</h3><p>之前的内容中已经提到了将本地内容更新到github需要三个步骤：</p>
-<pre><code>hexo clean
-hexo generate
-hexo deploy
-</code></pre><p>其实还有快捷的指令输入方式，如下：</p>
-<pre><code>hexo g == hexo generate
-hexo d == hexo deploy
-hexo s == hexo server
-hexo n == hexo new
-# 还能组合使用，如：
-hexo d -g
-</code></pre><p>完成上述三个步骤，一篇新的博文就发表到github上面了。</p>
-<h2 id="使用Next主题美化界面："><a href="#使用Next主题美化界面：" class="headerlink" title="使用Next主题美化界面："></a>使用Next主题美化界面：</h2><p>安装好hexo之后，主题使用的是hexo默认自带的<code>landscape</code>主题，Next主题是iissnan设计的，使用指南其实可以直接参考Next官方网：<a href="http://theme-next.iissnan.com/" title="Next" target="_blank" rel="external">http://theme-next.iissnan.com/</a></p>
-<h3 id="1-Next主题下载："><a href="#1-Next主题下载：" class="headerlink" title="1.Next主题下载："></a>1.Next主题下载：</h3><p>打开Git shell，在当前项目根目下使用git从github上checkout主题的代码，输入指令：</p>
-<pre><code>git clone https://github.com/iissnan/hexo-theme-next themes/next
-</code></pre><p><img src="http://i.imgur.com/bGoWtvn.png" alt=""><br>下载完成后，在hexo\theme目录下回多出一个next文件夹，里面就是next主题所需的文件,当然我们也可以看到在theme文件目录还有一个landscape文件夹，这也就是hexo默认的主题。<br><img src="http://i.imgur.com/rqq71ts.png" alt=""></p>
-<h3 id="2-配置主题："><a href="#2-配置主题：" class="headerlink" title="2.配置主题："></a>2.配置主题：</h3><p>之前我们配置hexo的时候，有用到<code>_config.yml</code>文件，称其为<strong>站点配置文件</strong>，而我们打开next主题文件夹，发现里面也有一个<code>_config.yml</code>文件，我们称这个为<strong>主题配置文件</strong>。在hexo中启用next主题的方式：就是打开站点配置文件，找到<code>theme</code>字段，将其值改为“next”，如下：</p>
-<pre><code># Extensions
-## Plugins: https://hexo.io/plugins/
-## Themes: https://hexo.io/themes/
-theme: next
-</code></pre><p>配置完成后，在Git shell中使用<code>hexo server</code>指令启动本地博客，在浏览器中访问<a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a>可以看到如下结果：<br><img src="http://i.imgur.com/ZKzamkL.png" alt=""></p>
-<h3 id="3-next的样式选择："><a href="#3-next的样式选择：" class="headerlink" title="3.next的样式选择："></a>3.next的样式选择：</h3><p>next的样式其实有三种：Muse、Mist和Pisces，步骤2中看到的其实是next默认的模式Muse，根据官方说明三个样式的特点如下：</p>
-<ul>
-<li><strong>Muse：</strong> 默认 Scheme，这是 NexT 最初的版本，黑白主调，大量留白</li>
-<li><strong>Mist：</strong> Muse 的紧凑版本，整洁有序的单栏外观</li>
-<li><strong>Pisces：</strong> 双栏 Scheme，小家碧玉似的清新</li>
-</ul>
-<p>切换的控制其实很简单，使用next主题配置文件中的<code>scheme</code>字段来控制，假设我们选择Mist样式（个人认为最好看的样式），操作步骤是：打开next文件夹中的<code>_config.yml</code>文件，找到<code>scheme</code>字段，将其设置为“Mist”，如下所示：</p>
-<pre><code># ------------------------------------------------------
-# Scheme Settings
-# ------------------------------------------------------
-
-# Schemes
-#scheme: Muse
-scheme: Mist
-#scheme: Pisces
-</code></pre><p>重新启动博客，刷新浏览器可以看到：<br><img src="http://i.imgur.com/6YFzhyz.png" alt=""></p>
-<h2 id="额外的优化："><a href="#额外的优化：" class="headerlink" title="额外的优化："></a>额外的优化：</h2><h3 id="1-设置favicon："><a href="#1-设置favicon：" class="headerlink" title="1.设置favicon："></a>1.设置favicon：</h3><p>favicon的全称Favorites Icon，即地址栏左侧的图标：</p>
-<p><img src="http://i.imgur.com/ZNLKFAE.png" alt=""></p>
-<p>有个在线工具可以上传自己的图片去生成指定规格的favicon.ico文件：<a href="http://www.atool.org/ico.php" target="_blank" rel="external">http://www.atool.org/ico.php</a>。打开主题配置文件<code>_config.yml</code>可以看到favicon的配置信息：</p>
-<pre><code># Put your favicon.ico into `hexo-site/source/` directory.
-favicon: /favicon.ico
-</code></pre><p>根据说明，我们将图标取名为<code>favicon.ico</code>然后放到当前工程的hexo\source目录下，重启博客即可生效。</p>
-<h3 id="2-菜单栏控制："><a href="#2-菜单栏控制：" class="headerlink" title="2.菜单栏控制："></a>2.菜单栏控制：</h3><p>我们看到页面顶部的菜单栏，其实是由主题配置文件中的<code>menu</code>字段控制的，例如原本的样子是这样：<br><img src="http://i.imgur.com/iyg45Yj.png" alt=""></p>
-<p>我们修改一下主题配置文件，如下把about页面前面的注释去掉，即让此页签处于显示状态：</p>
-<pre><code># ------------------------------------------------------
-# Menu Settings
-# ------------------------------------------------------
-
-# When running the site in a subdirectory (e.g. domain.tld/blog), remove the leading slash (/archives -&gt; archives)
-menu:
-  home: /
-  #categories: /categories
-  about: /about
-  archives: /archives
-  tags: /tags
-  #commonweal: /404.html
-</code></pre><p>重启博客可以看到效果如下：<br><img src="http://i.imgur.com/O6Z9NvT.png" alt=""></p>
-<p>然而，点击打开About却出现了“Cannot GET /about/”的页面错误，这是因为我们还没有about这个页面，需要使用<code>hexo new page &quot;页面名称&quot;</code>进行创建：</p>
-<pre><code>hexo new page about
-</code></pre><p>执行结果就是在hexo\source目录下面多出了一个about文件夹，里面有index.md，这就是点击About会展示的内容页面。同理，也可以创建tags页面。</p>
-<h3 id="3-语言设置："><a href="#3-语言设置：" class="headerlink" title="3.语言设置："></a>3.语言设置：</h3><p>在站点配置文件中假如如下内容，明确指定使用的语言，例如中文：</p>
-<pre><code>language: zh-Hans
-</code></pre><p>设置完毕后，发现菜单栏也发生了变化：<br><img src="http://i.imgur.com/Ekxi8Tv.png" alt=""></p>
-<h3 id="4-侧栏设置："><a href="#4-侧栏设置：" class="headerlink" title="4.侧栏设置："></a>4.侧栏设置：</h3><p>在主题配置文件的<code>sidebar</code>字段，此处我直接设置为侧栏一直显示，而且显示在右边：</p>
-<pre><code>sidebar:
-  # Sidebar Position, available value: left | right
-  position: left
-  #position: right
-
-  # Sidebar Display, available value:
-  #  - post    expand on posts automatically. Default.
-  #  - always  expand for all pages automatically
-  #  - hide    expand only when click on the sidebar toggle icon.
-  #  - remove  Totally remove sidebar including sidebar toggler.
-  #display: post
-  display: always
-  #display: hide
-  #display: remove
-</code></pre><h3 id="5-设置头像和作者名称："><a href="#5-设置头像和作者名称：" class="headerlink" title="5.设置头像和作者名称："></a>5.设置头像和作者名称：</h3><p>在站点配置文件中，新加一个字段<code>avatar</code>，值就是头像的连接地址，这里我使用站内地址，将avatar.png放到本地目录hexo\source\images中；作者名称直接设置站点配置文件中<code>author</code>字段的值：</p>
-<pre><code># Site
-title: Linsh-何乐不为~
-subtitle:
-description:
-author: Linshuhe
-avatar: /images/avatar.png
-language: zh-Hans
-timezone:
-</code></pre><h2 id="第三方服务："><a href="#第三方服务：" class="headerlink" title="第三方服务："></a>第三方服务：</h2><h3 id="1-多说评论："><a href="#1-多说评论：" class="headerlink" title="1.多说评论："></a>1.多说评论：</h3><p>进入多说官网，登录后点击“我要登录”，填写相关信息，注意要记住<code>多说域名</code>这个字段填写的内容，<code>http://(duoshuo_shortname).duoshuo.com</code>，这个duoshuo_shortname将用于我们站点配置文件中的配置。步骤：在站点配置文件中新建一个<code>duoshuo_shortname</code>的字段，填写注册使用的duoshuo_shortname，例如：</p>
-<pre><code>duoshuo_shortname: linshuhe1
-</code></pre><h3 id="2-百度统计："><a href="#2-百度统计：" class="headerlink" title="2.百度统计："></a>2.百度统计：</h3><p>用于统计阅读的次数，步骤如下：</p>
-<ul>
-<li>登录百度统计官网：<a href="http://tongji.baidu.com/web/welcome/login" title="百度统计" target="_blank" rel="external">http://tongji.baidu.com/web/welcome/login</a>定位到站点的代码获取页面；</li>
-<li>复制<code>hm.js?</code>后面的那串id；</li>
-<li>在站点配置文件中，新增一个字段<code>baidu_analytics</code>，设置其值为上面复制的百度统计的id</li>
-<li>阅读次数统计，使用LeanCloud来实现，详情查看：<a href="https://notes.wanghao.work/2015-10-21-%E4%B8%BANexT%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0%E9%98%85%E8%AF%BB%E9%87%8F%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD.html#%E9%85%8D%E7%BD%AELeanCloud" target="_blank" rel="external">https://notes.wanghao.work/2015-10-21-%E4%B8%BANexT%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0%E9%98%85%E8%AF%BB%E9%87%8F%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD.html#%E9%85%8D%E7%BD%AELeanCloud</a></li>
-</ul>
-<h3 id="3-Swiftype搜索"><a href="#3-Swiftype搜索" class="headerlink" title="3.Swiftype搜索"></a>3.Swiftype搜索</h3><p>使用 Swiftype 之前需要前往 Swiftype 配置一个搜索引擎。 而后编辑 站点配置文件， 新增 swiftype_key 字段，值为你的 swiftype 搜索引擎的 key。 详细的配置请参考： <a href="http://theme-next.iissnan.com/third-party-services.html#swfitype" title="Swiftype" target="_blank" rel="external">http://theme-next.iissnan.com/third-party-services.html#swfitype</a></p>
-<p><strong>Local Search:</strong>添加百度/谷歌/本地 自定义站点内容搜索：</p>
-<ul>
-<li>安装hexo-generator-search:</li>
-<li>  npm install hexo-generator-search –save</li>
-<li>在站点配置文件中加入：</li>
-<li>  search:<pre><code>path: search.xml
-field: post
-</code></pre></li>
-</ul>
-<blockquote>
-<p>最终结果可以查看我的博客：<a href="https://linshuhe1.github.io/" target="_blank" rel="external">https://linshuhe1.github.io/</a></p>
-</blockquote>
-<h3 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h3><p>可能有人跟我一样遇到了带你麻烦，那就是主页面的文章列表中，博客内容全部显示出来而不是只显示文章一部分和 <code>阅读全文》</code> 按钮，这样显得首页的列表很杂乱和冗长，其实要解决这个问题很简单，只需要在我们编写markdown内容的时候，在适当的位置假如如下标签：</p>
-<pre><code>&lt;!--more--&gt;
-</code></pre><p>那么在首页显示的部分就是此标签前面的文章内容，而非全文显示：<br><img src="http://i.imgur.com/PIN0F0K.png" alt=""></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;之前使用过jekyll+github做过一版自己的博客网站，有兴趣的可以看一下我之前的文章：&lt;a href=&quot;http://blog.csdn.net/linshuhe1/article/details/51143026&quot; title=&quot;Github+Jekyll —— 创建个人免费博客（一）从零开始&quot;&gt;http://blog.csdn.net/linshuhe1/article/details/51143026&lt;/a&gt;，其实也很简单，但是存在一些问题：目录、Rss、sitemap无法自动生成。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;hr&gt;
-&lt;blockquote&gt;
-&lt;p&gt;最近看到了别人使用hexo+github实现的博客，有更多的灵活性和简约的风格，所以也试着改一下自己原本的设计。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Hexo" scheme="http://yoursite.com/categories/Hexo/"/>
-    
-    
-      <category term="Hexo" scheme="http://yoursite.com/tags/Hexo/"/>
     
   </entry>
   
