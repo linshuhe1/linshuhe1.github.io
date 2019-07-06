@@ -4,6 +4,93 @@
   
     
     <entry>
+      <title><![CDATA[博客园和Hexo 加入 Live2D]]></title>
+      <url>http://linshuhe.tech/2019/07/06/Hexo%20%E5%8A%A0%E5%85%A5%20Live2D/</url>
+      <content type="html"><![CDATA[<p>今天在查资料时，在这篇博客 <a href="https://www.cnblogs.com/Firepad-magic/p/6185201.html" target="_blank" rel="external">Unity FSM 有限状态机</a> 看到了一个有趣的东西 ，屏幕右下角有一个二次元的模型，而且鼠标移到不同位置，模型会跟着动，点击还会播放音频。通过截图使用 google 的图片搜索，原来这个叫做 <a href="https://www.live2d.com/en/" target="_blank" rel="external">Live 2D</a> ，最终找到了添加方式，可以在博客园添加，后来发现原来 hexo 也可以添加。</p>
+<h3 id="Live2D简介"><a href="#Live2D简介" class="headerlink" title="Live2D简介"></a>Live2D简介</h3><p>Live2D 是一种应用于电子游戏的绘图渲染技术，由日本 Cybernoids 公司开发。</p>
+<p>Live2D共有两个分支：<strong>Cubism</strong>（主要）和<strong>Euclid</strong>（已停止开发）。若无特殊说明，Live2D均指Cubism分支。</p>
+<p><strong>工作原理</strong></p>
+<p><code>Live2D Cubism</code> 的工作原理是通过将一系列的 2D 图像进行平移、旋转和变形等操作，生成一个具有自然动画效果的可动人物模型。</p>
+<a id="more"></a>
+<p><strong><img src="https://img.moegirl.org/common/2/2b/Live2d02.gif" alt="img"></strong></p>
+<h3 id="博客园添加-Live2D"><a href="#博客园添加-Live2D" class="headerlink" title="博客园添加 Live2D"></a>博客园添加 Live2D</h3><p><strong>起源</strong></p>
+<p>这个做法的发源地是在 <a href="https://www.cnblogs.com/yjlaugus/p/8724881.html" target="_blank" rel="external">博客美化—给你博客添加一个萌萌的看板娘吧</a> 这里</p>
+<p>似乎需要上传多个文件内容： <code>waifu.css</code> 、<code>waifu-tips.js</code> 、<code>live2d.js</code> 和 <code>flat-ui.min.css</code> （若不加菜单可不引入此文件）。</p>
+<p><strong>配置</strong></p>
+<p>后来被简化了许多，下面是精简版的配置方法：</p>
+<p>首先，需要申请博客园的 <code>js 权限</code> ，步骤是：管理–》设置》–》js权限申请</p>
+<p>然后，在 【页面html代码】编辑器中插入如下内容：</p>
+<ul>
+<li><p>引入 live2d 的 js：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>初始化 js ，加载模型：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></div><div class="line">    L2Dwidget.init(&#123;</div><div class="line">        "model": &#123;</div><div class="line">　　　　　　　//jsonpath控制显示那个小萝莉模型，下面这个就是我觉得最可爱的小萝莉模型</div><div class="line">            jsonPath: "https://unpkg.com/live2d-widget-model-chitose@1.0.5/assets/chitose.model.json",</div><div class="line">            "scale": 1</div><div class="line">        &#125;,</div><div class="line">        "display": &#123;</div><div class="line">            "position": "right", //看板娘的表现位置</div><div class="line">            "width": 150,  //小萝莉的宽度</div><div class="line">            "height": 300, //小萝莉的高度</div><div class="line">            "hOffset": 0,</div><div class="line">            "vOffset": -20</div><div class="line">        &#125;,</div><div class="line">        "mobile": &#123;</div><div class="line">            "show": true,</div><div class="line">            "scale": 0.5</div><div class="line">        &#125;,</div><div class="line">        "react": &#123;</div><div class="line">            "opacityDefault": 0.7,</div><div class="line">            "opacityOnHover": 0.2</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>最后，保存上面修改然后刷新页面就能看到可爱的模型了。</p>
+<p><strong>换模型</strong></p>
+<p>假如希望换成其他的模型，可以修改 <code>jsonPath</code> 的路径，格式为：<code>https://unpkg.com/2D模型全名称@1.0.5/assets/模型.model.json</code> ，可选的模型名称有：</p>
+<ul>
+<li>live2d-widget-model-chitose</li>
+<li>live2d-widget-model-epsilon2_1</li>
+<li>live2d-widget-model-gf</li>
+<li>live2d-widget-model-haru/01 (use npm install –save live2d-widget-model-haru)</li>
+<li>live2d-widget-model-haru/02 (use npm install –save live2d-widget-model-haru)</li>
+<li>live2d-widget-model-haruto</li>
+<li>live2d-widget-model-hibiki</li>
+<li>live2d-widget-model-hijiki</li>
+<li>live2d-widget-model-izumi</li>
+<li>live2d-widget-model-koharu</li>
+<li>live2d-widget-model-miku</li>
+<li>live2d-widget-model-ni-j</li>
+<li>live2d-widget-model-nico</li>
+<li>live2d-widget-model-nietzsche</li>
+<li>live2d-widget-model-nipsilon</li>
+<li>live2d-widget-model-nito</li>
+<li>live2d-widget-model-shizuku</li>
+<li>live2d-widget-model-tororo</li>
+<li>live2d-widget-model-tsumiki</li>
+<li>live2d-widget-model-unitychan</li>
+<li>live2d-widget-model-wanko</li>
+<li>live2d-widget-model-z16</li>
+</ul>
+<p>在这里可以预览各个模型的样子：<a href="https://huaji8.top/post/live2d-plugin-2.0/" target="_blank" rel="external">截图预览</a></p>
+<h3 id="hexo-添加-Live2D"><a href="#hexo-添加-Live2D" class="headerlink" title="hexo 添加 Live2D"></a>hexo 添加 Live2D</h3><p>参考 hexo 官方文档 <a href="https://github.com/EYHN/hexo-helper-live2d/blob/master/README.zh-CN.md" target="_blank" rel="external">hexo-helper-live2d/README/中文</a> 中的操作，大致步骤如下：</p>
+<ul>
+<li><p>安装模块：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install --save hexo-helper-live2d</div></pre></td></tr></table></figure>
+</li>
+<li><p>配置：</p>
+<p>向Hexo的 <code>_config.yml</code> 文件或主题的 <code>_config.yml</code> 文件中添加配置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="attr">live2d:</span></div><div class="line"><span class="attr">  enable:</span> <span class="literal">true</span></div><div class="line"><span class="attr">  scriptFrom:</span> local</div><div class="line"><span class="attr">  pluginRootPath:</span> live2dw/</div><div class="line"><span class="attr">  pluginJsPath:</span> lib/</div><div class="line"><span class="attr">  pluginModelPath:</span> assets/</div><div class="line"><span class="attr">  tagMode:</span> <span class="literal">false</span></div><div class="line"><span class="attr">  debug:</span> <span class="literal">false</span></div><div class="line"><span class="attr">  model:</span></div><div class="line"><span class="attr">    use:</span> live2d-widget-model-wanko</div><div class="line"><span class="attr">  display:</span></div><div class="line"><span class="attr">    position:</span> right</div><div class="line"><span class="attr">    width:</span> <span class="number">150</span></div><div class="line"><span class="attr">    height:</span> <span class="number">300</span></div><div class="line"><span class="attr">  mobile:</span></div><div class="line"><span class="attr">    show:</span> <span class="literal">true</span></div><div class="line"><span class="attr">  react:</span></div><div class="line"><span class="attr">    opacity:</span> <span class="number">0.7</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>模型</p>
+<p>按照官方的说明，可以将模型放在博客工程根目录中，也可以通过 npm install 已经发布到 npm 上的模型。使用第二种方式的话，假如需要添加自定义模型，需要自己先制作发布到 npm ，在 npm install 。因此我还是选择使用第一种方式，步骤如下：</p>
+<ul>
+<li><p>下载模型资源：</p>
+<p>可以在这里 <a href="https://github.com/summerscar/live2dDemo" target="_blank" rel="external">live2dDemo</a> 的 assets 目录下获取自己喜欢的模型，可以在这个 <a href="https://summerscar.me/live2dDemo/" target="_blank" rel="external">页面</a> 通过修改 <code>modelName</code> 然后点击 <code>GO!</code> 按钮预览模型。</p>
+</li>
+<li><p>在博客根目录下创建目录 <code>live2d_models</code> ；</p>
+</li>
+<li>进入该目录，新建一个子目录（名称可自定义），并将模型复制到子目录下；</li>
+<li>将子目录的名称配置到上面的 <code>_config.yml</code> 的 <code>module.use</code> 中。</li>
+</ul>
+</li>
+</ul>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>由于我本身就是做游戏客户端开发的，看到 Live 2D 就想到了 Spine 技术，都是使用少量资源的 2D 动画技术，不难看出 Spine 的表现力没有 Live 2D 强，但 Live 2D 似乎是比较耗 CPU 的方式。Live 2D 在很多日系游戏中有被使用到，因为 Live2D 适用于与玩家有交互性的游戏，点击某个区域有特定的反馈。当然，用于制作卡牌游戏的 2D 动画其实也是可行的方案。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><p><a href="https://www.cnblogs.com/yjlaugus/p/8724881.html" target="_blank" rel="external">博客美化—给你博客添加一个萌萌的看板娘吧</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/dxdblog/p/10255503.html" target="_blank" rel="external">博客园主页上添加Live 2D模型</a></p>
+</li>
+<li><a href="http://www.gamelook.com.cn/2015/04/212359" target="_blank" rel="external">五种技术选择：2D手游美术实现方案分析</a></li>
+<li><a href="https://blog.csdn.net/dataiyangu/article/details/83021854" target="_blank" rel="external">hexo中next主题添加里lived看板娘（会说话，会换装）</a></li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Java中内嵌Lua脚本]]></title>
       <url>http://linshuhe.tech/2017/04/30/Java%E4%B8%AD%E5%86%85%E5%B5%8Clua/</url>
       <content type="html"><![CDATA[<p><code>Lua</code>是一种小巧的脚本语言，如今常用于游戏开发，特别是客户端开发，基本上都是基于Lua来实现热更新，在Unity开发中更有<code>uLua</code>（最新版改名为<code>toLua</code>）这样成熟的热更框架。这里我设想用<code>Lua</code>+<code>Java</code>来实现服务器的热更，不成熟的想法，这里想尝试一下<code>Lua</code>和<code>Java</code>如何互相调用。</p>

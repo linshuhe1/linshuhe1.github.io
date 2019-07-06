@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://linshuhe.tech/"/>
-  <updated>2019-07-06T09:02:31.182Z</updated>
+  <updated>2019-07-06T10:44:54.713Z</updated>
   <id>http://linshuhe.tech/</id>
   
   <author>
@@ -14,6 +14,115 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>博客园和Hexo 加入 Live2D</title>
+    <link href="http://linshuhe.tech/2019/07/06/Hexo%20%E5%8A%A0%E5%85%A5%20Live2D/"/>
+    <id>http://linshuhe.tech/2019/07/06/Hexo 加入 Live2D/</id>
+    <published>2019-07-06T08:49:00.000Z</published>
+    <updated>2019-07-06T10:44:54.713Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天在查资料时，在这篇博客 <a href="https://www.cnblogs.com/Firepad-magic/p/6185201.html" target="_blank" rel="external">Unity FSM 有限状态机</a> 看到了一个有趣的东西 ，屏幕右下角有一个二次元的模型，而且鼠标移到不同位置，模型会跟着动，点击还会播放音频。通过截图使用 google 的图片搜索，原来这个叫做 <a href="https://www.live2d.com/en/" target="_blank" rel="external">Live 2D</a> ，最终找到了添加方式，可以在博客园添加，后来发现原来 hexo 也可以添加。</p>
+<h3 id="Live2D简介"><a href="#Live2D简介" class="headerlink" title="Live2D简介"></a>Live2D简介</h3><p>Live2D 是一种应用于电子游戏的绘图渲染技术，由日本 Cybernoids 公司开发。</p>
+<p>Live2D共有两个分支：<strong>Cubism</strong>（主要）和<strong>Euclid</strong>（已停止开发）。若无特殊说明，Live2D均指Cubism分支。</p>
+<p><strong>工作原理</strong></p>
+<p><code>Live2D Cubism</code> 的工作原理是通过将一系列的 2D 图像进行平移、旋转和变形等操作，生成一个具有自然动画效果的可动人物模型。</p>
+<a id="more"></a>
+<p><strong><img src="https://img.moegirl.org/common/2/2b/Live2d02.gif" alt="img"></strong></p>
+<h3 id="博客园添加-Live2D"><a href="#博客园添加-Live2D" class="headerlink" title="博客园添加 Live2D"></a>博客园添加 Live2D</h3><p><strong>起源</strong></p>
+<p>这个做法的发源地是在 <a href="https://www.cnblogs.com/yjlaugus/p/8724881.html" target="_blank" rel="external">博客美化—给你博客添加一个萌萌的看板娘吧</a> 这里</p>
+<p>似乎需要上传多个文件内容： <code>waifu.css</code> 、<code>waifu-tips.js</code> 、<code>live2d.js</code> 和 <code>flat-ui.min.css</code> （若不加菜单可不引入此文件）。</p>
+<p><strong>配置</strong></p>
+<p>后来被简化了许多，下面是精简版的配置方法：</p>
+<p>首先，需要申请博客园的 <code>js 权限</code> ，步骤是：管理–》设置》–》js权限申请</p>
+<p>然后，在 【页面html代码】编辑器中插入如下内容：</p>
+<ul>
+<li><p>引入 live2d 的 js：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>初始化 js ，加载模型：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></div><div class="line">    L2Dwidget.init(&#123;</div><div class="line">        "model": &#123;</div><div class="line">　　　　　　　//jsonpath控制显示那个小萝莉模型，下面这个就是我觉得最可爱的小萝莉模型</div><div class="line">            jsonPath: "https://unpkg.com/live2d-widget-model-chitose@1.0.5/assets/chitose.model.json",</div><div class="line">            "scale": 1</div><div class="line">        &#125;,</div><div class="line">        "display": &#123;</div><div class="line">            "position": "right", //看板娘的表现位置</div><div class="line">            "width": 150,  //小萝莉的宽度</div><div class="line">            "height": 300, //小萝莉的高度</div><div class="line">            "hOffset": 0,</div><div class="line">            "vOffset": -20</div><div class="line">        &#125;,</div><div class="line">        "mobile": &#123;</div><div class="line">            "show": true,</div><div class="line">            "scale": 0.5</div><div class="line">        &#125;,</div><div class="line">        "react": &#123;</div><div class="line">            "opacityDefault": 0.7,</div><div class="line">            "opacityOnHover": 0.2</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>最后，保存上面修改然后刷新页面就能看到可爱的模型了。</p>
+<p><strong>换模型</strong></p>
+<p>假如希望换成其他的模型，可以修改 <code>jsonPath</code> 的路径，格式为：<code>https://unpkg.com/2D模型全名称@1.0.5/assets/模型.model.json</code> ，可选的模型名称有：</p>
+<ul>
+<li>live2d-widget-model-chitose</li>
+<li>live2d-widget-model-epsilon2_1</li>
+<li>live2d-widget-model-gf</li>
+<li>live2d-widget-model-haru/01 (use npm install –save live2d-widget-model-haru)</li>
+<li>live2d-widget-model-haru/02 (use npm install –save live2d-widget-model-haru)</li>
+<li>live2d-widget-model-haruto</li>
+<li>live2d-widget-model-hibiki</li>
+<li>live2d-widget-model-hijiki</li>
+<li>live2d-widget-model-izumi</li>
+<li>live2d-widget-model-koharu</li>
+<li>live2d-widget-model-miku</li>
+<li>live2d-widget-model-ni-j</li>
+<li>live2d-widget-model-nico</li>
+<li>live2d-widget-model-nietzsche</li>
+<li>live2d-widget-model-nipsilon</li>
+<li>live2d-widget-model-nito</li>
+<li>live2d-widget-model-shizuku</li>
+<li>live2d-widget-model-tororo</li>
+<li>live2d-widget-model-tsumiki</li>
+<li>live2d-widget-model-unitychan</li>
+<li>live2d-widget-model-wanko</li>
+<li>live2d-widget-model-z16</li>
+</ul>
+<p>在这里可以预览各个模型的样子：<a href="https://huaji8.top/post/live2d-plugin-2.0/" target="_blank" rel="external">截图预览</a></p>
+<h3 id="hexo-添加-Live2D"><a href="#hexo-添加-Live2D" class="headerlink" title="hexo 添加 Live2D"></a>hexo 添加 Live2D</h3><p>参考 hexo 官方文档 <a href="https://github.com/EYHN/hexo-helper-live2d/blob/master/README.zh-CN.md" target="_blank" rel="external">hexo-helper-live2d/README/中文</a> 中的操作，大致步骤如下：</p>
+<ul>
+<li><p>安装模块：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install --save hexo-helper-live2d</div></pre></td></tr></table></figure>
+</li>
+<li><p>配置：</p>
+<p>向Hexo的 <code>_config.yml</code> 文件或主题的 <code>_config.yml</code> 文件中添加配置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="attr">live2d:</span></div><div class="line"><span class="attr">  enable:</span> <span class="literal">true</span></div><div class="line"><span class="attr">  scriptFrom:</span> local</div><div class="line"><span class="attr">  pluginRootPath:</span> live2dw/</div><div class="line"><span class="attr">  pluginJsPath:</span> lib/</div><div class="line"><span class="attr">  pluginModelPath:</span> assets/</div><div class="line"><span class="attr">  tagMode:</span> <span class="literal">false</span></div><div class="line"><span class="attr">  debug:</span> <span class="literal">false</span></div><div class="line"><span class="attr">  model:</span></div><div class="line"><span class="attr">    use:</span> live2d-widget-model-wanko</div><div class="line"><span class="attr">  display:</span></div><div class="line"><span class="attr">    position:</span> right</div><div class="line"><span class="attr">    width:</span> <span class="number">150</span></div><div class="line"><span class="attr">    height:</span> <span class="number">300</span></div><div class="line"><span class="attr">  mobile:</span></div><div class="line"><span class="attr">    show:</span> <span class="literal">true</span></div><div class="line"><span class="attr">  react:</span></div><div class="line"><span class="attr">    opacity:</span> <span class="number">0.7</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>模型</p>
+<p>按照官方的说明，可以将模型放在博客工程根目录中，也可以通过 npm install 已经发布到 npm 上的模型。使用第二种方式的话，假如需要添加自定义模型，需要自己先制作发布到 npm ，在 npm install 。因此我还是选择使用第一种方式，步骤如下：</p>
+<ul>
+<li><p>下载模型资源：</p>
+<p>可以在这里 <a href="https://github.com/summerscar/live2dDemo" target="_blank" rel="external">live2dDemo</a> 的 assets 目录下获取自己喜欢的模型，可以在这个 <a href="https://summerscar.me/live2dDemo/" target="_blank" rel="external">页面</a> 通过修改 <code>modelName</code> 然后点击 <code>GO!</code> 按钮预览模型。</p>
+</li>
+<li><p>在博客根目录下创建目录 <code>live2d_models</code> ；</p>
+</li>
+<li>进入该目录，新建一个子目录（名称可自定义），并将模型复制到子目录下；</li>
+<li>将子目录的名称配置到上面的 <code>_config.yml</code> 的 <code>module.use</code> 中。</li>
+</ul>
+</li>
+</ul>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>由于我本身就是做游戏客户端开发的，看到 Live 2D 就想到了 Spine 技术，都是使用少量资源的 2D 动画技术，不难看出 Spine 的表现力没有 Live 2D 强，但 Live 2D 似乎是比较耗 CPU 的方式。Live 2D 在很多日系游戏中有被使用到，因为 Live2D 适用于与玩家有交互性的游戏，点击某个区域有特定的反馈。当然，用于制作卡牌游戏的 2D 动画其实也是可行的方案。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><p><a href="https://www.cnblogs.com/yjlaugus/p/8724881.html" target="_blank" rel="external">博客美化—给你博客添加一个萌萌的看板娘吧</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/dxdblog/p/10255503.html" target="_blank" rel="external">博客园主页上添加Live 2D模型</a></p>
+</li>
+<li><a href="http://www.gamelook.com.cn/2015/04/212359" target="_blank" rel="external">五种技术选择：2D手游美术实现方案分析</a></li>
+<li><a href="https://blog.csdn.net/dataiyangu/article/details/83021854" target="_blank" rel="external">hexo中next主题添加里lived看板娘（会说话，会换装）</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今天在查资料时，在这篇博客 &lt;a href=&quot;https://www.cnblogs.com/Firepad-magic/p/6185201.html&quot;&gt;Unity FSM 有限状态机&lt;/a&gt; 看到了一个有趣的东西 ，屏幕右下角有一个二次元的模型，而且鼠标移到不同位置，模型会跟着动，点击还会播放音频。通过截图使用 google 的图片搜索，原来这个叫做 &lt;a href=&quot;https://www.live2d.com/en/&quot;&gt;Live 2D&lt;/a&gt; ，最终找到了添加方式，可以在博客园添加，后来发现原来 hexo 也可以添加。&lt;/p&gt;
+&lt;h3 id=&quot;Live2D简介&quot;&gt;&lt;a href=&quot;#Live2D简介&quot; class=&quot;headerlink&quot; title=&quot;Live2D简介&quot;&gt;&lt;/a&gt;Live2D简介&lt;/h3&gt;&lt;p&gt;Live2D 是一种应用于电子游戏的绘图渲染技术，由日本 Cybernoids 公司开发。&lt;/p&gt;
+&lt;p&gt;Live2D共有两个分支：&lt;strong&gt;Cubism&lt;/strong&gt;（主要）和&lt;strong&gt;Euclid&lt;/strong&gt;（已停止开发）。若无特殊说明，Live2D均指Cubism分支。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;工作原理&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Live2D Cubism&lt;/code&gt; 的工作原理是通过将一系列的 2D 图像进行平移、旋转和变形等操作，生成一个具有自然动画效果的可动人物模型。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Hexo" scheme="http://linshuhe.tech/categories/Hexo/"/>
+    
+    
+      <category term="live2d" scheme="http://linshuhe.tech/tags/live2d/"/>
+    
+      <category term="hexo" scheme="http://linshuhe.tech/tags/hexo/"/>
+    
+  </entry>
   
   <entry>
     <title>Java中内嵌Lua脚本</title>
@@ -1324,75 +1433,6 @@ photos:
       <category term="Hexo" scheme="http://linshuhe.tech/tags/Hexo/"/>
     
       <category term="Next" scheme="http://linshuhe.tech/tags/Next/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>BATCH批处理简记</title>
-    <link href="http://linshuhe.tech/2016/09/03/BATCH%E6%89%B9%E5%A4%84%E7%90%86%E7%AE%80%E8%AE%B0/"/>
-    <id>http://linshuhe.tech/2016/09/03/BATCH批处理简记/</id>
-    <published>2016-09-03T09:10:59.000Z</published>
-    <updated>2019-07-06T08:37:40.717Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>本文转载自原文<a href="http://www.jb51.net/article/7131_3.htm" target="_blank" rel="external">批处理经典入门教程！(从不懂到高手)</a>，只是原文作者太罗嗦了，我做了稍微的简化。</p>
-</blockquote>
-<ol>
-<li>批处理定义</li>
-<li>基本语法和常用命令</li>
-<li>例子</li>
-</ol>
-<a id="more"></a>
-<hr>
-<h3 id="一-批处理定义"><a href="#一-批处理定义" class="headerlink" title="一.批处理定义"></a>一.批处理定义</h3><p>批处理的本质，其实是一堆DOS命令，他们按一定顺序排列而形成的集合就是批处理。批处理，也称为批处理脚本，英文译为BATCH，批处理文件后缀BAT就取的前三个字母。<br><strong>注意：</strong>批处理的每一行可视为一个命令，每个命令里可以含多条子命令，从第一行开始执行，直到最后一行结束，它运行的平台是DOS。</p>
-<hr>
-<h3 id="二-基本语法和常用命令"><a href="#二-基本语法和常用命令" class="headerlink" title="二.基本语法和常用命令"></a>二.基本语法和常用命令</h3><p>1.注释方式：<br>使用“::”双冒号的方式进行注释，注释符号之后的同一行中的内容在脚本执行时不显示，也不起任何作用，只是增加了脚本的可读性，在批处理脚本中和rem命令等效。例如：</p>
-<pre><code>@echo off 
-::close echo 
-cls 
-::clean screen 
-</code></pre><p>2.@符号：<br>让脚本执行窗口不显示此符号之后指令内容的命令本身，而只显示执行结果，就像上例中的“@echo off”，@可以使得doc中不显示echo off，而直接显示其执行的结果。</p>
-<p>3.echo:<br>可以看做是回写或者是反馈，但实际上它是一个开关，而控制它的指令就是echo on和echo off了，而直接执行echo指令则会显示当前echo所处的状态（on或off）。执行echo off将关闭回显，它后面的所有命令都不显示命令本身，只显示执行后的结果，除非执行echo on命令。<br>echo命令的另一种用法一：可以用它来显示信息，如：```echo hello world<code>,会在doc中打印“hello world”;
-echo命令的另一种用法二：可以直接编辑文本文件,如：在doc窗口直接输入</code>echo nbtstat -A 192.168.0.1 &gt; a.bat ````，执行结果会在当前目录下创建一个a.bat文件。</p>
-<p>4.pause:<br>直接可以看出它是“暂停”的意思，即让当前程序进程暂停一下，并显示一行信息：请按任意键继续. . .。</p>
-<p>5.”goto”和”:”:<br>这两个指令是以一个组合形式出现的，goto是一个跳转指令，一般脚本执行到goto指令时，会跳转到：:标签定义的部分区执行。例如：</p>
-<pre><code>goto usage
-...
-:usage
-...
-</code></pre><p>不难看出，goto命令就是根据这个冒号和标签名称来寻找它该跳转的地方，它们是一一对应的关系，goto命令也经常和if命令结合使用。<br>goto命令的另一种用法一：提前结束程序。在程序中间使用goto命令跳转到某一标签，而这一标签的内容却定义为退出。<br>如： </p>
-<pre><code>…… 
-goto end 
-…… 
-:end 
-</code></pre><p>这里:end在脚本最后一行！</p>
-<p>6.%:<br>单个%不算是命令，而相当于参数，例如：</p>
-<pre><code>net use \\%1\ipc$ %3 /u:&quot;%2&quot; 
-copy 11.BAT \\%1\admin$\system32 /y 
-copy 13.BAT \\%1\admin$\system32 /y 
-copy ipc2.BAT \\%1\admin$\system32 /y 
-copy NWZI.EXE \\%1\admin$\system32 /y 
-attrib \\%1\admin$\system32⏺.bat -r -h -s 
-</code></pre><p>以上代码是Bat.Worm.Muma病毒中的一部分，%1代表的IP，2%代表的username，3%代表password。执行形式为：脚本文件名 参数一 参数二 ……。假设这个脚本被保存为a.bat，则执行形式如下：a IP username password。这里IP、username、password是三个参数，缺一不可（因为程序不能正确运行，并不是因为少了参数语法就不对）这样在脚本执行过程中，脚本就自动用用你的三个参数依次（记住，是依次！也是一一对应的关系。）代换1%、2%和3%，这样就达到了灵活运用的目的。 </p>
-<hr>
-<h3 id="三、例子"><a href="#三、例子" class="headerlink" title="三、例子"></a>三、例子</h3><p>将所需的命令都写在一个文件中，并且修改文件的后缀名为.bat，双击执行即会弹出doc窗口执行文件中的脚本命令。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;本文转载自原文&lt;a href=&quot;http://www.jb51.net/article/7131_3.htm&quot;&gt;批处理经典入门教程！(从不懂到高手)&lt;/a&gt;，只是原文作者太罗嗦了，我做了稍微的简化。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;ol&gt;
-&lt;li&gt;批处理定义&lt;/li&gt;
-&lt;li&gt;基本语法和常用命令&lt;/li&gt;
-&lt;li&gt;例子&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-    
-      <category term="批处理" scheme="http://linshuhe.tech/tags/%E6%89%B9%E5%A4%84%E7%90%86/"/>
     
   </entry>
   
