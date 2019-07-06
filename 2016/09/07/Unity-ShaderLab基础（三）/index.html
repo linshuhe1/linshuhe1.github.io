@@ -1,0 +1,1113 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Unity,ShaderLab," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Lin-何乐不为~" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Unity引擎是一个非常强大的支持跨平台开发的游戏引擎，基于Mono这个开源.Net的框架设计而成，在Unity中定义了ShaderLab来组织Shader的内容，针对不同平台进行编译。了解了Shader和Cg的一些基础知识之后，接下来我们要做的就是：学会如何在Unity中使用Cg编写Shader并实现一些简单的Shader效果。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity ShaderLab基础（三）Unity创建一个Shader">
+<meta property="og:url" content="http://linshuhe.tech/2016/09/07/Unity-ShaderLab基础（三）/index.html">
+<meta property="og:site_name" content="Lin-何乐不为~">
+<meta property="og:description" content="Unity引擎是一个非常强大的支持跨平台开发的游戏引擎，基于Mono这个开源.Net的框架设计而成，在Unity中定义了ShaderLab来组织Shader的内容，针对不同平台进行编译。了解了Shader和Cg的一些基础知识之后，接下来我们要做的就是：学会如何在Unity中使用Cg编写Shader并实现一些简单的Shader效果。">
+<meta property="og:image" content="http://i.imgur.com/a6T9fF8.png">
+<meta property="og:updated_time" content="2019-07-06T09:03:42.704Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Unity ShaderLab基础（三）Unity创建一个Shader">
+<meta name="twitter:description" content="Unity引擎是一个非常强大的支持跨平台开发的游戏引擎，基于Mono这个开源.Net的框架设计而成，在Unity中定义了ShaderLab来组织Shader的内容，针对不同平台进行编译。了解了Shader和Cg的一些基础知识之后，接下来我们要做的就是：学会如何在Unity中使用Cg编写Shader并实现一些简单的Shader效果。">
+<meta name="twitter:image" content="http://i.imgur.com/a6T9fF8.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://linshuhe.tech/2016/09/07/Unity-ShaderLab基础（三）/"/>
+
+  <title> Unity ShaderLab基础（三）Unity创建一个Shader | Lin-何乐不为~ </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?a7e9f954a9bcb2e360fd3b32824c29ce";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Lin-何乐不为~</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Unity ShaderLab基础（三）Unity创建一个Shader
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-07T15:32:31+08:00" content="2016-09-07">
+              2016-09-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/07/Unity-ShaderLab基础（三）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/07/Unity-ShaderLab基础（三）/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/09/07/Unity-ShaderLab基础（三）/" class="leancloud_visitors" data-flag-title="Unity ShaderLab基础（三）Unity创建一个Shader">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Unity引擎是一个非常强大的支持跨平台开发的游戏引擎，基于Mono这个开源.Net的框架设计而成，在Unity中定义了<strong>ShaderLab</strong>来组织Shader的内容，针对不同平台进行编译。了解了Shader和Cg的一些基础知识之后，接下来我们要做的就是：学会如何在Unity中使用Cg编写Shader并实现一些简单的Shader效果。</p>
+<a id="more"></a>
+<h2 id="Unity-Shader："><a href="#Unity-Shader：" class="headerlink" title="Unity Shader："></a>Unity Shader：</h2><p>说到底，Shader其实只是一段规定好输入（颜色，贴图等）和输出（渲染器能读懂的点和颜色的对应关系）的程序。那么，<strong>设计一个Shader的过程其实就是根据输入，进行计算变换从而产生输出而已</strong>。</p>
+<h3 id="1-分类："><a href="#1-分类：" class="headerlink" title="1.分类："></a>1.分类：</h3><p>在Unity中的Shader分为两类：</p>
+<ul>
+<li><strong>表面着色器</strong>（Surface Shader）:已经为我们完成了大部分的工作，只需要简单的操作即可得到不错的效果；</li>
+<li><strong>片段着色器</strong>（Fragment Shader）:可以自己设计出很多东西，因为可自行设置的内容更多，但也更加难写。使用片段着色器的目的是可以在更加底层进行更复杂（或者针对目标设备更高效）的开发。</li>
+</ul>
+<h3 id="2-Shader程序基本结构："><a href="#2-Shader程序基本结构：" class="headerlink" title="2.Shader程序基本结构："></a>2.Shader程序基本结构：</h3><p>使用Unity中的框架来编写Shader程序，其实相对于其他游戏引擎要简单一些，在Cocos2d中还得从OpenGL层面开始编写逻辑，但是在Unity只需要往框架中填入需要控制的内容即可，一个Shader程序的基本结构如下图所示：</p>
+<p><img src="http://i.imgur.com/a6T9fF8.png" alt=""></p>
+<ul>
+<li>首先，定义一些属性，用来指定代码将有哪些输入；</li>
+<li>其次，会有一个或者多个子着色器，但是在实际运行中哪一个子着色器被使用是由运行的平台所决定的；</li>
+<li>子着色器是代码的主体，每个子着色器包含一个或多个Pass；</li>
+<li>最后指定一个回滚，用来处理所有Subshader都不能运行的情况（比如设备太老）。</li>
+</ul>
+<p>执行着色时，平台选择最优先可以使用的子着色器，然后依次执行该子着色器中的Pass，然后输出结果。</p>
+<h3 id="3-Unity创建第一个Shader："><a href="#3-Unity创建第一个Shader：" class="headerlink" title="3.Unity创建第一个Shader："></a>3.Unity创建第一个Shader：</h3><p>在Unity的Project面板中，<code>右键</code>-<code>Create</code>-<code>Shader</code>，取名为<code>Diffuse_Texture</code>，使用VS打开可以查看新建的Shader的内容如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">Shader &quot;Custom/Diffuse_Texture&quot; &#123;</div><div class="line">	Properties &#123;</div><div class="line">		_MainTex (&quot;Base (RGB)&quot;, 2D) = &quot;white&quot; &#123;&#125;</div><div class="line">	&#125;</div><div class="line">	SubShader &#123;</div><div class="line">		Tags &#123; &quot;RenderType&quot;=&quot;Opaque&quot; &#125;</div><div class="line">		LOD 200</div><div class="line">		</div><div class="line">		CGPROGRAM</div><div class="line">		#pragma surface surf Lambert</div><div class="line"></div><div class="line">		sampler2D _MainTex;</div><div class="line"></div><div class="line">		struct Input &#123;</div><div class="line">			float2 uv_MainTex;</div><div class="line">		&#125;;</div><div class="line"></div><div class="line">		void surf (Input IN, inout SurfaceOutput o) &#123;</div><div class="line">			half4 c = tex2D (_MainTex, IN.uv_MainTex);</div><div class="line">			o.Albedo = c.rgb;</div><div class="line">			o.Alpha = c.a;</div><div class="line">		&#125;</div><div class="line">		ENDCG</div><div class="line">	&#125; </div><div class="line">	FallBack &quot;Diffuse&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>接下来我们要做的，就是解析这个Shader中每一行的含义和作用，包括了属性、Tags、LOD、光照模型等。</p>
+<h4 id="解析："><a href="#解析：" class="headerlink" title="解析："></a><strong>解析：</strong></h4><p>第一行指定了此Shader的名字，严格来说是指定了它的路径，在材质面板中选择Shader时，我们可以根据这个路径找到此Shader。</p>
+<h4 id="属性"><a href="#属性" class="headerlink" title="属性"></a><strong>属性</strong></h4><p>在<code>Properties{}</code>块中定义的内容就是着色器的属性，【可以理解为一些CPU语言例如java类在开始处定义的一些属性（全局变量或常量）】，<strong>这些属性将作为输入提供给所有的子着色器</strong>。每个属性定义的语法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">_Name(&quot;Display_Name&quot;,type) = defaultValue[&#123;options&#125;]</div></pre></td></tr></table></figure></p>
+<ul>
+<li><code>_Name</code>：属性的名称，或者理解为变量名，在之后整个    Shader代码中通过此名称获取属性内容；</li>
+</ul>
+<ul>
+<li><code>Display_Name</code>：此字符串是Shader在Unity的材质编辑器中作为Shader可视化信息；</li>
+</ul>
+<ul>
+<li><code>type</code>：此属性的类型，Unity中支持的类型有：<ul>
+<li>Color：颜色，由RGBA(红绿蓝和透明度)四个量定义；</li>
+<li>2D：一张2的阶数大小（256，512等）的贴图，此贴图将在采样后被转为对应基于模型UV的每个像素的颜色，最终显示出来；</li>
+<li>Rect：一个非2阶数大小的贴图；</li>
+<li>Cube：即Cub map texture(立方体纹理)，即6张有联系的2D贴图的组合，主要用来做<strong>反射效果</strong>（比如：天空盒和动态反射），也会被转换为对应点的采样；</li>
+<li>Range(min,max)：一个介于最大值max和最小值min之间的浮点数，一般用作调整Shader某些特性的参数（例如：透明度从0到1）；</li>
+<li>Float：一个浮点数；</li>
+<li>Vector：一个四维数；</li>
+</ul>
+</li>
+<li><code>defaultValue</code>：定义的这个属性的默认值或者初始值，但不同属性类型的默认值格式不同，例如：<ul>
+<li>Color：咦0~1定义的rgba颜色，可以赋值(1,1,1,1);</li>
+<li>2D/Rect/Cube：贴图默认值需要是一个代表tini颜色的字符串，可以是空字符串或者”white”,”black”,”gray”,”bump”中的一个；</li>
+<li>Float、Range：任意浮点数即可；</li>
+<li>Vector：四维数，格式(x,y,z,w)；</li>
+</ul>
+</li>
+<li><code>{option}</code>：只对2D、Rect和Cube贴图有关，初始值至少要在贴图后面写一对空白的<code>{}</code>，当需要打开特定选项时可以吧其写入到此花括号中，多个选项以空白分隔。可能的选项：ObjectLinear, EyeLinear, SphereMap, CubeReflect, CubeNormal，这些都是OpenGL中TexGen的模式。</li>
+</ul>
+<p><strong>例子：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//颜色输入</div><div class="line">_MainColor (&quot;Main Color&quot;, Color) = (0,0.5,1,0.5)</div><div class="line">//2的阶数大小的贴图输入</div><div class="line">_Texture (&quot;Texture&quot;, 2D) = &quot;white&quot; &#123;&#125;</div></pre></td></tr></table></figure>
+<h4 id="Subshader"><a href="#Subshader" class="headerlink" title="Subshader"></a><strong>Subshader</strong></h4><p>上面已经解析了Shader代码的第一部分，接下来我们要将的就是Shader的代码主体，即SubShader的内容，在<code>SubShader{}</code>中的内容就是一个SubShader。</p>
+<h5 id="1-Tags"><a href="#1-Tags" class="headerlink" title="(1) Tags"></a><strong>(1) Tags</strong></h5><p>SubShader中的第一句就是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Tags &#123; &quot;RenderType&quot;=&quot;Opaque&quot; &#125;</div></pre></td></tr></table></figure></p>
+<p>这是SubShader的标签，因为表面着色器可以被若干个标签（tags）所修饰，而<strong>硬件正是通过判定这些标签（Tags）来决定什么时候调用该着色器</strong>。所以，我们例子中的这一句<code>&quot;RenderType&quot;=&quot;Opaque&quot;</code>的意思：告诉系统应该在渲染非透明物体时调用此SubShader，这与RenderType是Opaque是相对应的。</p>
+<p>此外，<strong>Tags其实也暗示了此Shader的输出情况</strong>，例如：输出中都是半透明的物体，那就写在Opaque里；如果想渲染透明或者半透明的像素，那就应该写在Transparent里。</p>
+<p>另外比较有用的标签还有：</p>
+<ul>
+<li><code>&quot;IgnoreProjector&quot;=&quot;True&quot;</code>：不被Projects影响；</li>
+<li><code>&quot;ForceNoShadowCasting&quot;=&quot;True&quot;</code>：从不产生阴影；</li>
+<li><code>&quot;Queue&quot;=&quot;xxx&quot;</code>：<strong>指定渲染顺序队列</strong>。在Unity中，如果需要进行透明和不透明物体混合时，可能会遇到不透明物体无法呈现在透明物体之后的情况，这是由于Shader的渲染顺序不正确导致的。Queue指定物体渲染顺序，预定义的Queue有：<ul>
+<li>Background：最早被调用的渲染，用于渲染天空盒或者背景；</li>
+<li>Geometry：默认值，用来渲染非透明的物体；</li>
+<li>AlphaTest：用来渲染经过Alpha Test的像素，单独为AlphaTest设定一个Queue是出于对效率的考虑；</li>
+<li>Transparent：以后从后往前的顺序渲染透明物体；</li>
+<li>Overlay：用来渲染叠加的效果，是渲染的最后阶段（比如镜头光晕等特效）；</li>
+</ul>
+</li>
+</ul>
+<p>以上这些预定义的值，本质上是一组定义<strong>整数</strong>，Background = 1000， Geometry = 2000, AlphaTest = 2450， Transparent = 3000，最后Overlay = 4000。当然，在实际设置Queue值时，不仅可以使用上述的预定义值，还可以指定自己的Queue值，例如：<code>&quot;Queue&quot;=&quot;Transparent+100&quot;</code>，表示一个在Transparent之后100的Queue上进行调用。</p>
+<p><strong>通过调整Queue值，我们可以确保某些物体一定在另一个物体之前或之后被渲染</strong>。</p>
+<h5 id="2-LOD"><a href="#2-LOD" class="headerlink" title="(2) LOD"></a><strong>(2) LOD</strong></h5><p>第二行中的内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">LOD 200</div></pre></td></tr></table></figure>
+<p>LOD，即Level of Detail，这其实是<strong>Unity的内建Diffuse着色器的设定值，决定了我们能够用什么样的Shader</strong>。在Unity的Quality Settings中，我们可以设置允许的最大LOD，当设定的LOD小于SubShader的LOD时，这个SubShader将不可用。</p>
+<p>Unity内建Shader定义了一组LOD的数值，我们在实现自己的Shader的时候可以将其作为参考来设定自己的LOD数值，这样在之后调整根据设备图形性能来调整画质时可以进行比较精确的控制。</p>
+<ul>
+<li>VertexLit及其系列 = 100</li>
+<li>Decal, Reflective VertexLit = 150</li>
+<li>Diffuse = 200</li>
+<li>Diffuse Detail, Reflective Bumped Unlit, Reflective Bumped VertexLit = 250</li>
+<li>Bumped, Specular = 300</li>
+<li>Bumped Specular = 400</li>
+<li>Parallax = 500</li>
+<li>Parallax Specular = 600</li>
+</ul>
+<h5 id="2-CGPROGRAM…ENDCG"><a href="#2-CGPROGRAM…ENDCG" class="headerlink" title="(2) CGPROGRAM…ENDCG"></a><strong>(2) CGPROGRAM…ENDCG</strong></h5><p>用<code>CGPROGRAM</code>开始和<code>ENDCG</code>结束，表明这部分是Cg代码。这是SubShader的主体部分，我们前面已经提到了属性中定义了此Shader的输入，那么此处代码的作用，便是对输入进行处理，并输出。接下来我们逐句进行解析：</p>
+<ul>
+<li><code>#pragma surface surf Lambert</code>：这是一个编译指令，声明此Shader是一个表面着色器，并指定了着色器的自动调用的函数名称为surf,而且指定光照模型为Lambert(普通的diffuse)，它的一般语法如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#pragma surface surfaceFunction lightModel [optionalparams]</div></pre></td></tr></table></figure>
+<ul>
+<li>surface：声明的是一个表面着色器</li>
+<li>surfaceFunction：着色器代码的方法名称，着色器其作用时被调用</li>
+<li>lightModel：使用的光照模型</li>
+</ul>
+<hr>
+<ul>
+<li><code>sampler2D _MainTex;</code>：其中<code>sampler2D</code>是GLSL中2D贴图的类型，类似的还有sampler1D、sampler3D、samplerCube等格式，主要用于存储texture数据。<code>_MainTex</code>是与之前在Proterties属性模块中声明的图贴所对应的，因为这个Shader是由两个独立的程序块组成的：外部的属性声明和回滚等Unity可以直接使用和编译的ShaderLab；而在<code>CGPROGRAM...ENDCG</code>中的代码块，是一段CG程序。<strong>假如要在CG程序中访问Proterties中所定义的变量，必须使用和之前的变量相同的名字进行声明</strong>。所以此句Cg代码的作用就是<strong>再次声明并链接_MainTex，使接下来的Cg程序能够使用此变量</strong>。</li>
+</ul>
+<hr>
+<ul>
+<li>Input结构体：这其实是用来把需要参与计算的数据封装起来，然后作为输入参数传入到下面surf函数中使用的，而且必须以<code>Input</code>命名。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">struct Input &#123;</div><div class="line">	float2 uv_MainTex;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>这里我们的Input结构体很简单，只是定义了一个float2类型的变量，这是Cg的数据类型，表示2个float类型的数据打包在一起，所以此处<code>uv_MainTex</code>表示的就是包含两个浮点数的变量，类似的还有float3和float4。</p>
+<p>这里以uv作为前缀，其实UV mapping的作用是将一个2D贴图上的点按照一定规律映射到3D模型上，是3D渲染中最常见的一种顶点处理手段。所以在Cg中，在一个贴图变量（例如这里的_MainTex）前面加上uv，表示提取它的uv值（其实就是两个代表贴图上点的二维坐标）。后面的<strong>surf函数中直接通过访问uv_MainTex来去的这张贴图当前需要计算的点的坐标值</strong>。</p>
+<hr>
+<ul>
+<li>surf函数：这是在之前<code>#progma</code>中指定的着色器的调用方法，这也是着色器最核心的部分，这个方法的定义需要按照规定：<strong>第一个参数是一个Input结构，第二个参数是一个inout的SurfaceOutput结构</strong>。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">void surf (Input IN, inout SurfaceOutput o) &#123;</div><div class="line">	half4 c = tex2D (_MainTex, IN.uv_MainTex);</div><div class="line">	o.Albedo = c.rgb;</div><div class="line">	o.Alpha = c.a;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>上面已经说过了Input结构体的定义和使用，<strong>在计算输出时，Shader会多次调用surf函数，每次给入一个贴图上的点坐标，用来计算输出</strong>。</p>
+<p>surf的第二个参数是一个可写的<code>SurfaceOutput</code>，SurfaceOutput是一个预定义的输出结构，我们的surf函数的目标就是根据输入把这个输出结构填上。SurfaceOutput结构体的定义如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">struct SurfaceOutput &#123;</div><div class="line">    half3 Albedo;     //像素的颜色</div><div class="line">    half3 Normal;     //像素的法向值</div><div class="line">    half3 Emission;   //像素的发散颜色</div><div class="line">    half Specular;    //像素的镜面高光</div><div class="line">    half Gloss;       //像素的发光强度</div><div class="line">    half Alpha;       //像素的透明度</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>half其实跟float与double类似，都是浮点数，只是精度不同，half称为半精度浮点数。</p>
+<p>这个例子中，surf的代码如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">half4 c = tex2D (_MainTex, IN.uv_MainTex);</div><div class="line">o.Albedo = c.rgb;</div><div class="line">o.Alpha = c.a;</div></pre></td></tr></table></figure></p>
+<p>这里的<code>tex2D</code>函数是Cg中用来在一张贴图中对点进行采样的方法，返回一个float4。这里，我们队_MainTex在输入点上进行采样，并将其颜色的rgb值<code>c.rgb</code>赋给输出的像素颜色<code>o.Albedo</code>，将透明度<code>c.a</code>赋值给输出像素透明度<code>o.Alpha</code>。</p>
+<h4 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h4><ul>
+<li>了解Shader的基础知识：<a href="https://onevcat.com/2013/07/shader-tutorial-1/" target="_blank" rel="external">猫都能学会的Unity3D Shader入门指南（一）</a></li>
+<li>Unity官方关于Shader的一些资料：<a href="https://docs.unity3d.com/Manual/Shaders.html" target="_blank" rel="external">Materials, Shaders &amp; Textures</a></li>
+<li>了解Shader的机制：<a href="http://blog.csdn.net/candycat1992/article/details/39994049" target="_blank" rel="external">【Unity Shaders】初探Surface Shader背后的机制</a></li>
+</ul>
+<h4 id="推荐书籍："><a href="#推荐书籍：" class="headerlink" title="推荐书籍："></a>推荐书籍：</h4><ul>
+<li>《Unity Shader and Effect Cookbook》，中文版：《Unity着色器和屏幕特效开发秘笈》</li>
+<li>《GPU 编程与CG 语言之阳春白雪下里巴人》</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Unity/" rel="tag">#Unity</a>
+          
+            <a href="/tags/ShaderLab/" rel="tag">#ShaderLab</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/06/Unity-ShaderLab基础（二）/" rel="next" title="Unity ShaderLab基础（二）Cg语言">
+                <i class="fa fa-chevron-left"></i> Unity ShaderLab基础（二）Cg语言
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/08/Redis简介/" rel="prev" title="Redis数据库">
+                Redis数据库 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/07/Unity-ShaderLab基础（三）/"
+           data-title="Unity ShaderLab基础（三）Unity创建一个Shader" data-url="http://linshuhe.tech/2016/09/07/Unity-ShaderLab基础（三）/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="何乐不为~" />
+          <p class="site-author-name" itemprop="name">何乐不为~</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/linshuhe1" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2306456162" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/linshuhe1" title="linshuhe1的专栏" target="_blank">linshuhe1的专栏</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Unity-Shader："><span class="nav-number">1.</span> <span class="nav-text">Unity Shader：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-分类："><span class="nav-number">1.1.</span> <span class="nav-text">1.分类：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Shader程序基本结构："><span class="nav-number">1.2.</span> <span class="nav-text">2.Shader程序基本结构：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Unity创建第一个Shader："><span class="nav-number">1.3.</span> <span class="nav-text">3.Unity创建第一个Shader：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解析："><span class="nav-number">1.3.1.</span> <span class="nav-text">解析：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#属性"><span class="nav-number">1.3.2.</span> <span class="nav-text">属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Subshader"><span class="nav-number">1.3.3.</span> <span class="nav-text">Subshader</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-Tags"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">(1) Tags</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-LOD"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">(2) LOD</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-CGPROGRAM…ENDCG"><span class="nav-number">1.3.3.3.</span> <span class="nav-text">(2) CGPROGRAM…ENDCG</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考链接："><span class="nav-number">1.3.4.</span> <span class="nav-text">参考链接：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#推荐书籍："><span class="nav-number">1.3.5.</span> <span class="nav-text">推荐书籍：</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">何乐不为~</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+<!--
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+  -->
+  托管到github地址：
+  <a class="theme-link" href="https://github.com/linshuhe1/linshuhe1.github.io">
+    linshuhe1.github.io
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"linshuhe1"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("p8D24auErpenaU9vMwRsXfPT-gzGzoHsz", "jmp40VrLFSqPY5RoWMVBy7gw");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>

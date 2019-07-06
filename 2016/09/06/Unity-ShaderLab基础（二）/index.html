@@ -1,0 +1,1112 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Unity,ShaderLab,Cg," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Lin-何乐不为~" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="学习一门新的语言，有几个基本需要掌握的：数据类型（基本数据类型和结构类型），基本语法（表达式和控制语句等），编译和运行方式，这一点在CPU编程语言和GPU编程语言中是相似的，Cg作为一门GPU图形学语言也是如此。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity ShaderLab基础（二）Cg语言">
+<meta property="og:url" content="http://linshuhe.tech/2016/09/06/Unity-ShaderLab基础（二）/index.html">
+<meta property="og:site_name" content="Lin-何乐不为~">
+<meta property="og:description" content="学习一门新的语言，有几个基本需要掌握的：数据类型（基本数据类型和结构类型），基本语法（表达式和控制语句等），编译和运行方式，这一点在CPU编程语言和GPU编程语言中是相似的，Cg作为一门GPU图形学语言也是如此。">
+<meta property="og:updated_time" content="2019-07-06T09:03:58.404Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Unity ShaderLab基础（二）Cg语言">
+<meta name="twitter:description" content="学习一门新的语言，有几个基本需要掌握的：数据类型（基本数据类型和结构类型），基本语法（表达式和控制语句等），编译和运行方式，这一点在CPU编程语言和GPU编程语言中是相似的，Cg作为一门GPU图形学语言也是如此。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://linshuhe.tech/2016/09/06/Unity-ShaderLab基础（二）/"/>
+
+  <title> Unity ShaderLab基础（二）Cg语言 | Lin-何乐不为~ </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?a7e9f954a9bcb2e360fd3b32824c29ce";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Lin-何乐不为~</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Unity ShaderLab基础（二）Cg语言
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-06T11:55:59+08:00" content="2016-09-06">
+              2016-09-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/06/Unity-ShaderLab基础（二）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/06/Unity-ShaderLab基础（二）/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/09/06/Unity-ShaderLab基础（二）/" class="leancloud_visitors" data-flag-title="Unity ShaderLab基础（二）Cg语言">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>学习一门新的语言，有几个基本需要掌握的：数据类型（基本数据类型和结构类型），基本语法（表达式和控制语句等），编译和运行方式，这一点在CPU编程语言和GPU编程语言中是相似的，Cg作为一门GPU图形学语言也是如此。<br><a id="more"></a></p>
+<h2 id="Cg的数据类型："><a href="#Cg的数据类型：" class="headerlink" title="Cg的数据类型："></a>Cg的数据类型：</h2><h3 id="1-基本数据类型"><a href="#1-基本数据类型" class="headerlink" title="1.基本数据类型"></a>1.基本数据类型</h3><p>Cg支持7种基本的数据类型，分别是：</p>
+<ul>
+<li><strong>float</strong>， 32 位浮点数据，一个符号位。浮点数据类型被所有的 profile 支持</li>
+<li><strong>half</strong>，16 为浮点数据</li>
+<li><strong>int</strong>，32 位整形数据，有些 profile 会将 int 类型作为 float 类型使用</li>
+<li><strong>fixed</strong>，12 位定点数，被所有的 fragment profiles 所支持</li>
+<li><strong>bool</strong>，布尔数据，通常用于 if 和条件操作符（ ?: ） ，布尔数据类型被所有的profiles 支持</li>
+<li><strong>simpler*</strong>， 纹理对象的句柄（ the handle to a texture object ） ，分为 6 类：<br>sampler, sampler1D, sampler2D, sampler3D, samplerCUBE, 和 samplerRECT 。DirectX profiles 不支持 samplerRECT 类型， 除此之外这些类型被所有的 pixelprofiles 和 NV40 vertex program profile 所支持（ CgUsersManual 30 页） 。由此可见，在不远的未来，顶点程序也将广泛支持纹理操作</li>
+<li><strong>string</strong>，字符类型，该类型不被当前存在的 profile 所支持，实际上也没有必要在 Cg 程序中用到字符类型，但是你可以通过 Cg runtime API 声明该类型变量，并赋值；因此，该类型变量可以保存 Cg 文件的信息。</li>
+</ul>
+<blockquote>
+<p>前6种类型为常用类型，<strong>string</strong>类型几乎不使用。</p>
+</blockquote>
+<h3 id="2-其他内置数据类型："><a href="#2-其他内置数据类型：" class="headerlink" title="2.其他内置数据类型："></a>2.其他内置数据类型：</h3><ul>
+<li><strong>向量</strong></li>
+</ul>
+<p>Cg还提供了内置的向量数据类型 (built-in vector data types) ，内置的向量数据类型基于基础数据类型。 例如： float4， 表示 float 类型的 4 元向量； bool4， 表示 bool类型 4 元向量。<br>（注意： <strong>向量最长不能超过 4 元</strong>， 即在 Cg 程序中可以声明 float1 、 float2 、 float3 、float4 类型的数组变量，但是不能声明超过 4 元的向量。）<br>向量初始化方式一般为：</p>
+<pre><code>float4 array = float4(1.0, 2.0, 3.0, 4.0);
+</code></pre><p>较长的向量还可以通过较短的向量进行构建：</p>
+<pre><code>float2 a = float2(1.0, 1.0);  
+float4 b = float4(a, 0.0, 0.0);  
+</code></pre><ul>
+<li><strong>矩阵</strong></li>
+</ul>
+<p>Cg还提供矩阵数据类型，不过<strong>最大的维数不能超过4X4阶</strong>，例如：</p>
+<pre><code>float1x1 matrix1;//等价于float matirx1; x是字符，并不是乘号！  
+float2x3 matrix2;//表示 2*3 阶矩阵，包含6个float类型数据  
+float4x2 matrix3;//表示 4*2 阶矩阵，包含8个float类型数据  
+float4x4 matrix4;//表示 4*4 阶矩阵，这是最大的维数  
+</code></pre><p>矩阵初始化：</p>
+<pre><code>float2x3 matrix5 = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0};  
+</code></pre><ul>
+<li><strong>数组</strong></li>
+</ul>
+<p><strong>数组数据类型在Cg中的作用：作为函数的形参，用于大量数据的传递</strong>，例如：顶点参数数组、光照参数数据等。</p>
+<p>一维数组：</p>
+<pre><code>float a[10];//声明了一个数组，包含 10 个 float 类型数据  
+float a[4] = {1.0, 2.0, 3.0, 4.0}; //初始化一个数组  
+int length = a.length;//获取数组长度  
+</code></pre><p>多维数组：</p>
+<pre><code>float b[2][3] = {{0.0, 0.0, 0.0},{1.0, 1.0, 1.0}};  
+int length1 = b.length; // length1 值为 2  
+int length2 = b[0].length; // length2 值为 3  
+</code></pre><p>注：在Cg中，向量、矩阵与数组是完全不同的，向量和矩阵是内置的数据类型，而数组则是一种数据结构。</p>
+<ul>
+<li><strong>类型转换</strong></li>
+</ul>
+<p>Cg 中的类型转换和 C 语言中的类型转换很类似。 C 语言中类型转换可以是<strong>强制类型转换</strong>，也可以是<strong>隐式转换</strong>，如果是后者，则数据类型从低精度向高精度转换。在 Cg 语言中也是如此：</p>
+<pre><code>float a = 1.0;  
+half b = 2.0;  
+float c = a+b; //等价于 float c = a + (float)b;  
+</code></pre><p>当有类型变量和无类型常量数据进行运算时，该常量数据不做类型转换，例如：</p>
+<pre><code>float a = 1.0;  
+float b = a + 2.0;//2.0为无类型常量数据，编译时作为float 类型
+</code></pre><p>Cg 语言中对于常量数据可以加上类型后缀，表示该数据的类型，例如：</p>
+<pre><code>float a = 1.0;  
+float b = a + 2.0h;//2.0h为half类型常量数据，运算是需要做类型转换
+</code></pre><p>常量的类型后缀有3种：</p>
+<ul>
+<li>f：表示float</li>
+<li>h：表示half</li>
+<li>x：表示fixed</li>
+</ul>
+<hr>
+<h2 id="Cg的语法："><a href="#Cg的语法：" class="headerlink" title="Cg的语法："></a>Cg的语法：</h2><p>Cg的关系操作符、逻辑操作符、位移操作符都与C语言有相似之处，需要特别注意的是<strong>Swizzle操作符</strong>，例如：</p>
+<pre><code>float4(a, b, c, d).xyz     //等价于 float3(a, b, c)
+float4(a, b, c, d).xyy     //等价于 float3(a, b, b)
+float4(a, b, c, d).wzyx //等价于 float4(d, c, b, a)
+float4(a, b, c, d).w     //等价于 float d
+</code></pre><hr>
+<h2 id="Cg的编译："><a href="#Cg的编译：" class="headerlink" title="Cg的编译："></a>Cg的编译：</h2><h3 id="1-编译方式："><a href="#1-编译方式：" class="headerlink" title="1.编译方式："></a>1.编译方式：</h3><ul>
+<li><strong>编译程序</strong>：</li>
+</ul>
+<p>计算机只能理解和执行由 0 、 1 序列（电压序列）构成的机器语言，所以汇编语言和高级语言程序都需要进行翻译才能被计算机所理解， 担负这一任务的程序称为语言处理程序，通常也被称为编译程序。</p>
+<ul>
+<li><strong>静态编译</strong>：</li>
+</ul>
+<p>一旦编译后，除非改变程序代码，否则不需要重新编译，这种方式称为静态编译（ static compilation ） 。静态编译最重要的特征是：<strong>一旦编译为可执行文件，在可执行文件运行期间不再需要源码信息</strong>。</p>
+<ul>
+<li><strong>动态编译</strong>：</li>
+</ul>
+<p>编译程序和源码都要参与到程序的运行过程中，就像脚本语言（Lua、JavaScrpit等），源码嵌套到调用的宿主语言程序中，运行时进行编译。</p>
+<p><strong>Cg通常采用动态编译的方式（Cg也支持静态编译方式），即在宿主程序运行时，利用Cg运行库（Cg Runtimer Library）动态编译Cg代码。使用动态编译的方式，可以将Cg程序当做一个脚本，随时修改随时运行，节省时间，在OGRE图形引擎中就采用了这种方式。</strong></p>
+<h3 id="2-编译器："><a href="#2-编译器：" class="headerlink" title="2.编译器："></a>2.编译器：</h3><p>Cg 编译器首先将 Cg 程序翻译成可被图形 API （ OpenGL 和 Direct3D ）所接受的形式， 然后应用程序使用适当的 OpenGL 和 Direct3D 命令将翻译后的 Cg 程序传递给图形处理器， OpenGL 和 Direct3D 驱动程序最后把它翻译成图形处理器所需要的硬件可执行格式。<strong>NVIDIA 提供的 Cg 编译器为 cgc.exe</strong>。</p>
+<ul>
+<li>下载<a href="https://developer.nvidia.com/cg-toolkit-download" target="_blank" rel="external">Cg Toolkit</a>；</li>
+<li>安装之后，在安装目录的Cg\bin中就有cgc.exe；</li>
+<li>打开命令行窗口，输入 <code>cgc -h</code> ，假如不报错则说明安装成功。</li>
+</ul>
+<h3 id="3-Cg指令："><a href="#3-Cg指令：" class="headerlink" title="3.Cg指令："></a>3.Cg指令：</h3><p><strong>编译指令</strong></p>
+<pre><code>cgc [options] file
+</code></pre><ul>
+<li><code>[options]</code> 表示可选配置项;</li>
+<li><code>file</code> 表示 Cg 程序文件名。</li>
+</ul>
+<p>例如，比较典型的编译方式：</p>
+<pre><code>cgc -profile glslv -entry main_v test.cg
+</code></pre><ul>
+<li><code>-profile</code> 是profile配置项名；</li>
+<li><code>glslv</code> 是当前所使用的profile名称；</li>
+<li><code>-entry</code> 着色程序的入口函数名称配置项；</li>
+<li><code>main_v</code> 是顶点着色程序的入口函数名；</li>
+<li><code>test.cg</code> 是当前的着色程序文件名（必须带后缀名）,Cg源码文件需以<strong>.cg</strong>为后缀名；</li>
+</ul>
+<p>将Cg语言所写的着色程序转换为使用<strong>GLSL</strong>或<strong>HLSL</strong>所编写的程序：</p>
+<pre><code>cgc –profile glslv –o direct.glsl –entry main_v test.cg
+</code></pre><p>表示编译文件 test.cg 中的顶点着色程序， 入口函数名为 main_v ， 并将顶点着色程序转换为 glsl 程序，然后保存成文件 direct.glsl 。</p>
+<p><strong>备注</strong>：GPU编程，是无法跟踪调试着色程序的，一个着色程序，语法错误可以通过编译器发现，但是代码的逻辑错误只能认真查找。</p>
+<blockquote>
+<p>关于Cg的更详细的介绍可以参考这篇博客，利用OpenGL、C++和Cg进行Cg的测试：<a href="http://blog.csdn.net/xiajun07061225/article/details/6937272" target="_blank" rel="external">【GPU编程】开始Cg之旅，编译自己的第一个Cg程序</a></p>
+</blockquote>
+<h3 id="4-Cg-Profiles"><a href="#4-Cg-Profiles" class="headerlink" title="4.Cg Profiles:"></a>4.<strong>Cg Profiles:</strong></h3><p>Cg 程序的编译不但依赖于宿主程序所使用的三维编程接口，而且依赖于图形硬件环境，因为图形硬件自身的限制，不一定支持某种 Cg 语句。<br><strong>被特定的图形硬件环境或 AIP 所支持的 Cg 语言子集，被称为Cg Profiles</strong> 。</p>
+<p>profile分为：<strong>顶点程序的profile</strong>和<strong>片段程序的profile</strong>，所以编译顶点着色程序时必须选用当前图形硬件支持的顶点profile ，同理，编译片段着色程序时必须选用当前图形硬件支持的片段profile 。</p>
+<p>顶点 profile 和片段 profile 又基于 OpenGL 和 DirectX 的不同版本或扩展，划分为各种版本，当前 Cg compiler 所支持的 profiles 有：</p>
+<pre><code>OpenGL ARB vertex programs
+        Runtime profile: CG_PROFILE_ARBVP1
+        Compiler option: _profile arbvp1
+OpenGL ARB fragment programs
+        Runtime profile: CG_PROFILE_ARBFP1
+        Compiler option: _profile arbfp1
+......
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Unity/" rel="tag">#Unity</a>
+          
+            <a href="/tags/ShaderLab/" rel="tag">#ShaderLab</a>
+          
+            <a href="/tags/Cg/" rel="tag">#Cg</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/05/Unity-ShaderLab基础（一）/" rel="next" title="Unity ShaderLab基础（一）概述">
+                <i class="fa fa-chevron-left"></i> Unity ShaderLab基础（一）概述
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/07/Unity-ShaderLab基础（三）/" rel="prev" title="Unity ShaderLab基础（三）Unity创建一个Shader">
+                Unity ShaderLab基础（三）Unity创建一个Shader <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/06/Unity-ShaderLab基础（二）/"
+           data-title="Unity ShaderLab基础（二）Cg语言" data-url="http://linshuhe.tech/2016/09/06/Unity-ShaderLab基础（二）/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="何乐不为~" />
+          <p class="site-author-name" itemprop="name">何乐不为~</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/linshuhe1" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2306456162" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/linshuhe1" title="linshuhe1的专栏" target="_blank">linshuhe1的专栏</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cg的数据类型："><span class="nav-number">1.</span> <span class="nav-text">Cg的数据类型：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-基本数据类型"><span class="nav-number">1.1.</span> <span class="nav-text">1.基本数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-其他内置数据类型："><span class="nav-number">1.2.</span> <span class="nav-text">2.其他内置数据类型：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cg的语法："><span class="nav-number">2.</span> <span class="nav-text">Cg的语法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cg的编译："><span class="nav-number">3.</span> <span class="nav-text">Cg的编译：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-编译方式："><span class="nav-number">3.1.</span> <span class="nav-text">1.编译方式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-编译器："><span class="nav-number">3.2.</span> <span class="nav-text">2.编译器：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Cg指令："><span class="nav-number">3.3.</span> <span class="nav-text">3.Cg指令：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Cg-Profiles"><span class="nav-number">3.4.</span> <span class="nav-text">4.Cg Profiles:</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">何乐不为~</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+<!--
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+  -->
+  托管到github地址：
+  <a class="theme-link" href="https://github.com/linshuhe1/linshuhe1.github.io">
+    linshuhe1.github.io
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"linshuhe1"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("p8D24auErpenaU9vMwRsXfPT-gzGzoHsz", "jmp40VrLFSqPY5RoWMVBy7gw");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
