@@ -1,7 +1,9 @@
 ---
 title: 《从零开始搭建游戏服务器》redis操作指令和Jedis工具
 date: 2017-03-03 10:48:37
-tags: Java,Protobuf
+tags: 
+  - Java
+  - Redis
 categories: 服务器开发
 ---
 
@@ -71,7 +73,6 @@ quit #退出客户端
 下载安装包：[Redis Desktop](https://redisdesktop.com/)
 
 #### 3.连接查看：
-
 
 ---
 ### Jedis工具：

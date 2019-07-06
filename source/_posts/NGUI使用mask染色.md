@@ -1,7 +1,9 @@
 ---
 title: Unity——NGUI染色遮罩Sharer
 date: 2017-02-14 10:57:00
-tags: Unity
+tags: 
+  - Unity
+  - NGUI
 categories: 游戏前端
 photos:
 - http://img.blog.csdn.net/20170214103154480

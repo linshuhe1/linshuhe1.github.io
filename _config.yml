@@ -91,3 +91,21 @@ deploy:
 #  repository: https://github.com/linshuhe1/linshuhe1.github.io.git
 #  branch: master
   
+live2d:
+  enable: true
+  scriptFrom: local
+  pluginRootPath: live2dw/
+  pluginJsPath: lib/
+  pluginModelPath: assets/
+  tagMode: false
+  debug: false
+  model:
+    use: kesyoban
+  display:
+    position: left
+    width: 150
+    height: 300
+  mobile:
+    show: true
+  react:
+    opacity: 0.7

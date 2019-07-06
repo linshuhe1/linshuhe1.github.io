@@ -1,7 +1,10 @@
 ---
 title: Unity3D —— protobuf导excel表格数据
 date: 2016-09-18 20:21:47
-tags: protobuf,Unity
+tags: 
+  - protobuf
+  - Unity
+  - excel
 categories: Unity
 ---
 
@@ -45,7 +48,7 @@ python setup.py install；
 ```bash 
 python setup.py install；
 ```
-        
+
 - **xlrd(xls reader)**：这其实是读取xls表格数据的一个工具插件，到[xlrd官网](https://pypi.python.org/pypi/xlrd)下载xrld的安装包，解压安装包然后使用命令行进入安装包目录，执行指令：
 ```bash 
 python setup.py install。

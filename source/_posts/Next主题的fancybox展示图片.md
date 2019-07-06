@@ -1,7 +1,9 @@
 ---
 title: Next主题的fancybox展示图片
 date: 2016-09-03 17:15:22
-tags: Hexo,Next
+tags: 
+  - Hexo
+  - Next
 categories: Web
 photos:
 - http://bruce.u.qiniudn.com/2013/11/27/reading/photos-0.jpg

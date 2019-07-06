@@ -1,7 +1,10 @@
 ---
 title: Unity ShaderLab基础（二）Cg语言
 date: 2016-09-06 11:55:59
-tags: Unity,ShaderLab,Cg
+tags: 
+  - Unity
+  - ShaderLab
+  - Cg
 categories: Unity
 ---
 学习一门新的语言，有几个基本需要掌握的：数据类型（基本数据类型和结构类型），基本语法（表达式和控制语句等），编译和运行方式，这一点在CPU编程语言和GPU编程语言中是相似的，Cg作为一门GPU图形学语言也是如此。
@@ -134,7 +137,7 @@ Cg 编译器首先将 Cg 程序翻译成可被图形 API （ OpenGL 和 Direct3D
 例如，比较典型的编译方式：
 
 	cgc -profile glslv -entry main_v test.cg
- 
+
 * ```-profile``` 是profile配置项名；
 * ```glslv``` 是当前所使用的profile名称；
 * ```-entry``` 着色程序的入口函数名称配置项；

@@ -1,7 +1,9 @@
 ---
 title: Unity3D —— 小地图制作插件NJG MiniMap
 date: 2016-10-11 10:22:53
-tags: NJG,Unity
+tags: 
+  - NJG
+  - Unity
 categories: Unity
 ---
 

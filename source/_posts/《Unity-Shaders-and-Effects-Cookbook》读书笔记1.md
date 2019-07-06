@@ -1,7 +1,9 @@
 ---
 title: 《Unity Shaders and Effects Cookbook》读书笔记1
 date: 2016-09-19 20:13:44
-tags: Unity,ShaderLab
+tags: 
+  - Unity
+  - ShaderLab
 categories: Unity
 ---
 

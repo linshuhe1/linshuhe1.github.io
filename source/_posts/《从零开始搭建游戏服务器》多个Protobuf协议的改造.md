@@ -1,7 +1,9 @@
 ---
 title: 《从零开始搭建游戏服务器》多个Protobuf协议的改造
 date: 2017-03-03 10:38:37
-tags: Java,Protobuf
+tags: 
+  - Java
+  - Protobuf
 categories: 服务器开发
 ---
 
@@ -189,8 +191,8 @@ message SelfDescribingMessage {
             return null;
         }
     }
-    ```
-    
+   ```
+   
 #### 修改Socket管道绑定的编解码器：
 在创建Socket管道的时候，将编解码器替换为自定义的编解码器，而具体数据发送和接受过程无需做任何修改：
 ```java

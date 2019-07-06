@@ -1,7 +1,9 @@
 ---
 title: 《从零开始搭建游戏服务器》使用Protobuf定义网络协议
 date: 2017-03-03 10:28:37
-tags: Java,Protobuf
+tags: 
+  - Java
+  - Protobuf
 categories: 服务器开发
 ---
 

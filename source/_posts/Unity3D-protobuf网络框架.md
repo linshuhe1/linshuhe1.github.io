@@ -1,7 +1,9 @@
 ---
 title: Unity3D —— protobuf网络框架
 date: 2016-09-19 09:56:03
-tags: protobuf,Unity
+tags: 
+  - protobuf
+  - Unity
 categories: Unity
 ---
 ### 前言：
@@ -223,7 +225,7 @@ public class TestProtoNet : MonoBehaviour {
       
     }  
 } 
-``` 
+```
 将此脚本绑到场景中的相机上，运行得到以下结果，则说明打包和解包完全匹配：
 ![](http://img.blog.csdn.net/20160825100033496)    
 
@@ -337,7 +339,7 @@ public class TestProtoNet : MonoBehaviour {
       
     }  
 } 
-``` 
+```
 
 服务器接受数据解包过程参考打包数据的格式，在RecieveMessage(object clientSocket)中，解析数据的核心代码如下：
 

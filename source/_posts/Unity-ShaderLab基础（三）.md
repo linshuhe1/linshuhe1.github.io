@@ -1,7 +1,9 @@
 ---
 title: Unity ShaderLab基础（三）Unity创建一个Shader
 date: 2016-09-07 15:32:31
-tags: Unity,ShaderLab
+tags: 
+  - Unity
+  - ShaderLab
 categories: Unity
 ---
 Unity引擎是一个非常强大的支持跨平台开发的游戏引擎，基于Mono这个开源.Net的框架设计而成，在Unity中定义了**ShaderLab**来组织Shader的内容，针对不同平台进行编译。了解了Shader和Cg的一些基础知识之后，接下来我们要做的就是：学会如何在Unity中使用Cg编写Shader并实现一些简单的Shader效果。

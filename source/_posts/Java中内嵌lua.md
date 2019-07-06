@@ -1,7 +1,9 @@
 ---
 title: Java中内嵌Lua脚本
 date: 2017-04-30 21:10:37
-tags: Java,Lua
+tags: 
+  - Java
+  - Lua
 categories: 服务器开发
 ---
 
@@ -75,7 +77,7 @@ chunk.call();
        print('data from java is:'..str)
        return 'haha'
     end
-     ```
+    ```
  - Java先载入``login.lua``脚本并编译，然后再获取指定名称的函数，无参的直接使用``call()``方法调用，带参的需要通过``invoke(LuaValue[])``传入参数表：
     ``` java
     String luaPath = "res/lua/login.lua";	//lua脚本文件所在路径
